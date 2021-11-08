@@ -5,23 +5,35 @@ import {
     Route,
     Routes
 } from "react-router-dom";
-import {Navbar, Container, Nav } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Home, About, Contact } from '../components/Pages';
+import { Logo } from '../global/Files';
 
 export class Navigator extends Component {
     render() {
         return (
             <Router>
-                <div>
-                <Navbar bg="light" variant="light" expand="lg" fixed="top">
+                <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top">
                     <Container>
-                        <Link className="navbar-brand" to="/">Open source</Link>
-                        <Nav className="me-auto">
-                            <Link className="nav-link" to="/">Home</Link>
-                            <Link className="nav-link" to="/about">About</Link>
-                            <Link className="nav-link" to="/users">Contact</Link>
-                        </Nav>
+                        <Link className="navbar-brand" to="/"><Logo style={{ display: 'inline-block' }} /></Link>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="me-auto"> </Nav>
+                            <Nav>
+                                <NavDropdown title="Sections" >
+                                    <NavDropdown.Item >
+                                        Menu
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href="#">Another action</NavDropdown.Item>
+                                </NavDropdown>
+                                <Link className="nav-link" to="/">Home</Link>
+                                <Link className="nav-link" to="/about">About</Link>
+                                <Link className="nav-link" to="/users" >Contact</Link>
+                            </Nav>
+                        </Navbar.Collapse>
                     </Container>
                 </Navbar>
+                <div>
                     <nav>
                         <ul>
                             <li>
@@ -36,42 +48,12 @@ export class Navigator extends Component {
                         </ul>
                     </nav>
                     <Routes>
-                        <Route path="/" element={<Home/>} />
-                        <Route path="/about" element={<About/>} />
-                        <Route path="/users" element={<Contact/>} />
+                        <Route path="/" element={<Home />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/users" element={<Contact />} />
                     </Routes>
                 </div>
             </Router>
         );
-    }
-}
-
-export class Home extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>Home...</h1>
-            </div>
-        )
-    }
-}
-
-export class About extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>About...</h1>
-            </div>
-        )
-    }
-}
-
-export class Contact extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>Contact...</h1>
-            </div>
-        )
     }
 }
