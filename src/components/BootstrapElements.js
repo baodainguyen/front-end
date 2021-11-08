@@ -12,9 +12,9 @@ export class Navigator extends Component {
         return (
             <Router>
                 <div>
-                <Navbar bg="light" expand="lg">
+                <Navbar bg="light" variant="light" expand="lg" fixed="top">
                     <Container>
-                    <Link className="navbar-brand" to="/">Open source</Link>
+                        <Link className="navbar-brand" to="/">Open source</Link>
                         <Nav className="me-auto">
                             <Link className="nav-link" to="/">Home</Link>
                             <Link className="nav-link" to="/about">About</Link>
