@@ -22,7 +22,7 @@ export class Navigator extends Component {
                             <Nav>
                                 <NavDropdown title="Sections" >
                                     <NavDropdown.Item >
-                                        Menu
+                                        Demo01
                                     </NavDropdown.Item>
                                     <NavDropdown.Item href="#">Another action</NavDropdown.Item>
                                 </NavDropdown>

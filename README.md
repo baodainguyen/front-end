@@ -13,7 +13,7 @@
     ```
     npm install -g firebase-tools
     ```
-7. Settings Firebase_ [Terminal's Log](https://github.com/baodainguyen/front-end/blob/main/dev-log.txt)
+7. Settings Firebase_ [Terminal's Log](https://github.com/baodainguyen/front-end/blob/main/log.txt)
     1. ``` firebase login ```
         - Allow Firebase to collect CLI usage and error reporting information? Yes
     2. ``` firebase init ```

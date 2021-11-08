@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class DropdownBox extends Component {
+export class DainbDemo extends Component {
     render() {
         return (
             <div>
