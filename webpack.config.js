@@ -22,7 +22,23 @@ module.exports = {
                 options: {
                     presets: ['@babel/preset-react']
                 }
-            }
+            },
+            {
+                test: /\.(sass|css|scss)$/,
+                use: [
+                  'style-loader',
+                  'css-loader',
+                  {
+                    loader: "postcss-loader",
+                    options: {
+                      plugins: () => [
+                        require("autoprefixer")()
+                      ],
+                    },
+                  },
+                  'sass-loader',
+                ]
+              }
         ]
     },
     plugins: [

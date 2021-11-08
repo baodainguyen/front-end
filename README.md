@@ -8,7 +8,7 @@
     path: path.join(__dirname, '/public'),
     ```
 4. Deploy app doc ref from [react app deployment](https://create-react-app.dev/docs/deployment/#firebase)
-**5. Signup Firebase_account**
+5. **Signup Firebase_account**
 6. Install Firebase_cli
     ```
     npm install -g firebase-tools
