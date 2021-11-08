@@ -1,15 +1,15 @@
 PS D:\Github\front-end> firebase login
-i  Firebase optionally collects CLI usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you.
-
+i  Firebase optionally collects CLI usage and error reporting information to help improve our products. 
+Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you.
 ? Allow Firebase to collect CLI usage and error reporting information? Yes
 i  To change your data collection preference at any time, run `firebase logout` and log in again.
 
 Visit this URL on this device to log in:
-https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=867227450&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+https://accounts.google.com/o/oauth2/auth?client_id=***-xxx.apps.googleusercontent.com&scope=emailxxx
 
 Waiting for authentication...
 
-+  Success! Logged in as dainb8x@gmail.com
++  Success! Logged in as ***@gmail.com
 
 PS D:\Github\front-end> firebase init
 
@@ -24,8 +24,8 @@ You're about to initialize a Firebase project in this directory:
   D:\Github\front-end
 
 ? Are you ready to proceed? Yes
-? Which Firebase features do you want to set up for this directory? Press Space to select features, then Enter to confirm your choices. Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
-
+? Which Firebase features do you want to set up for this directory? Press Space to select features, then Enter to confirm your choices. 
+Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
 === Project Setup
 
 First, let's associate this project directory with a Firebase project.
@@ -33,8 +33,8 @@ You can create multiple project aliases by running firebase use --add,
 but for now we'll just set up a default project.
 
 ? Please select an option: Use an existing project
-? Select a default Firebase project for this directory: front-end-2021 (front-end)
-i  Using project front-end-2021 (front-end)
+? Select a default Firebase project for this directory: front-end-xxx (front-end)
+i  Using project front-end-xxx (front-end)
 
 === Hosting Setup
 
@@ -51,7 +51,7 @@ i  Detected a .git folder at D:\Github\front-end
 i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store.
 
 Visit this URL on this device to log in:
-https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=247242855&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+https://github.com/login/oauth/authorize?client_id=xxx&state=***&redirect_uri=httpxxx
 
 Waiting for authentication...
 
@@ -61,7 +61,7 @@ Waiting for authentication...
 
 +  Created service account github-action-425565218 with Firebase Hosting admin permissions.
 +  Uploaded service account JSON to GitHub as secret FIREBASE_SERVICE_ACCOUNT_FRONT_END_2021.
-i  You can manage your secrets at https://github.com/baodainguyen/front-end/settings/secrets.
+i  You can manage your secrets at https://github.com/baodainguyen/front-end/***/xxx.
 
 ? Set up the workflow to run a build script before every deploy? Yes
 ? What script should be run before every deploy? (npm ci && npm run build)
@@ -74,7 +74,7 @@ i  You can manage your secrets at https://github.com/baodainguyen/front-end/sett
 +  Created workflow file D:\Github\front-end\.github/workflows/firebase-hosting-merge.yml
 
 i  Action required: Visit this URL to revoke authorization for the Firebase CLI GitHub OAuth App:
-https://github.com/settings/connections/applications/89cf50f02ac6aaed3484
+https://github.com/settings/connections/xxx/***
 i  Action required: Push any new workflow file(s) to your repo
 
 i  Writing configuration info to firebase.json...
@@ -103,17 +103,17 @@ modules by path ./node_modules/ 133 KiB
 webpack 5.62.1 compiled successfully in 3664 ms
 PS D:\Github\front-end> firebase deploy
 
-=== Deploying to 'front-end-2021'...
+=== Deploying to 'front-end-xxx'...
 
 i  deploying hosting
-i  hosting[front-end-2021]: beginning deploy...
-i  hosting[front-end-2021]: found 3 files in public
-+  hosting[front-end-2021]: file upload complete
-i  hosting[front-end-2021]: finalizing version...
-+  hosting[front-end-2021]: version finalized
-i  hosting[front-end-2021]: releasing new version...
-+  hosting[front-end-2021]: release complete
+i  hosting[front-end-xxx]: beginning deploy...
+i  hosting[front-end-xxx]: found 3 files in public
++  hosting[front-end-xxx]: file upload complete
+i  hosting[front-end-xxx]: finalizing version...
++  hosting[front-end-xxx]: version finalized
+i  hosting[front-end-xxx]: releasing new version...
++  hosting[front-end-xxx]: release complete
 
 
-Project Console: https://console.firebase.google.com/project/front-end-2021/overview
+Project Console: https://console.firebase.google.com/project/front-end-***/xxx
 Hosting URL: https://front-end-2021.web.app
