@@ -5,8 +5,8 @@ import {
     Route,
     Routes
 } from "react-router-dom";
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { Home, About, Contact } from '../components/Pages';
+import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Home, Preview, Preview01, Preview02, Tutorials, Article01, Article02, About, Contact } from '../components/Pages';
 import { Logo } from '../global/Files';
 
 export class Navigator extends Component {
@@ -20,39 +20,34 @@ export class Navigator extends Component {
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto"> </Nav>
                             <Nav>
-                                <NavDropdown title="Sections" >
-                                    <NavDropdown.Item >
-                                        Demo01
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="#">Another action</NavDropdown.Item>
-                                </NavDropdown>
                                 <Link className="nav-link" to="/">Home</Link>
-                                <Link className="nav-link" to="/about">About</Link>
-                                <Link className="nav-link" to="/users" >Contact</Link>
+                                <div className="dnb-link-group">
+                                    <Link className="nav-link" to="/preview">Preview</Link>
+                                    <Link className="nav-link" to="/preview01">Demo 01</Link>
+                                    <Link className="nav-link" to="/preview02">Demo 02</Link>
+                                </div>
+                                <div className="dnb-link-group">
+                                    <Link className="nav-link" to="/tutorials">Tutorials</Link>
+                                    <Link className="nav-link" to="/article01">Article 01</Link>
+                                    <Link className="nav-link" to="/article02">Article 02</Link>
+                                </div>
+                                <Link className="nav-link" to="/about" >Abouts</Link>
+                                <Link className="nav-link" to="/contact" >Contact</Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
-                <div>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/about">About</Link>
-                            </li>
-                            <li>
-                                <Link to="/users">Contact</Link>
-                            </li>
-                        </ul>
-                    </nav>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/about" element={<About />} />
-                        <Route path="/users" element={<Contact />} />
-                    </Routes>
-                </div>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/preview" element={<Preview />} />
+                    <Route path="/preview01" element={<Preview01 />} />
+                    <Route path="/preview02" element={<Preview02 />} />
+                    <Route path="/tutorials" element={<Tutorials />} />
+                    <Route path="/article01" element={<Article01 />} />
+                    <Route path="/article02" element={<Article02 />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                </Routes>
             </Router>
         );
     }

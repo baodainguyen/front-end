@@ -3,14 +3,12 @@ $myColor: red;
 h1 {
   color: $myColor;
 }
-
-.dnb-hover-fade {
+.navbar-collapse {
     position: relative;
     
-    .dnb-item-fade {
-        position: absolute;
-        opacity: 0;
-        transform: translateX(0) translateY(-3px) scale(0.97);
+    .nav-link {
+        font-size: 16px;
+        font-weight: 500;;
     }
 
     &:hover {
@@ -20,5 +18,22 @@ h1 {
             transform: translateX(0) translateY(-3px) scale(1);
         }
         
+    }
+}
+.dnb-link-group {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 12px;
+    margin-left: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.21);
+    .nav-link {
+        font-size: 12px;
+    }
+    a.nav-link:first-child {
+        font-size: 16px;
+        padding-left: 0;
+    }
+    a.nav-link:last-child {
+        padding-right: 0;
     }
 }
