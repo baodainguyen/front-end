@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
+import { PreviewGrid } from './Elements';
 import '../scss/style.scss'
 
 
 export class Home extends Component {
     render() {
         return (
-            <Container>
-                <h1>Home...</h1>
-            </Container>
+            <>
+                <Container style={{ height: '30px' }}>
+                </Container>
+                <PreviewGrid />
+            </>
         )
     }
 }
