@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import LogoReact from '../assets/logo-react.svg';
+import LogoBootstrap from '../assets/logo-bootstrap.svg';
+import LogoTailwind from '../assets/logo-tailwind.svg';
+import LogoSass from '../assets/logo-sass.svg';
+import LogoWebpack from '../assets/logo-webpack.svg';
+import LogoBabel from '../assets/logo-babel.svg';
 
 export class Logo extends Component {
     render() {
@@ -12,3 +18,15 @@ export class Logo extends Component {
         )
     }
 }
+
+export const Logos = [
+    { src: LogoReact, name: 'React' },
+    { src: LogoBootstrap, name: 'Bootstrap' },
+    { src: LogoTailwind, name: 'Tailwind' },
+    { src: LogoSass, name: 'Sass' }
+];
+
+export const GroupLogos = [
+    { src: LogoWebpack, name: 'Webpack' },
+    { src: LogoBabel, name: 'Babel' }
+];

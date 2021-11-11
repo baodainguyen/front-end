@@ -98,3 +98,30 @@ $height9 : 165px;
 .dnb-card-group {
     height: $height1 + $height3 + $height6 + $height9 + 99px;
 }
+.dnb-tech- {
+
+    &item {
+        width: 177px; height: 243px;
+        background-color: #2c303a;
+        padding-top: 33px;
+        margin-right: 26px;
+
+        div {            
+            width: 133px;
+            height: 131px;
+            margin: auto;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            img {
+                width: 133px;
+                display: block;
+            }
+        }
+        h3 {
+            text-align: center;
+            transform: translateY(18px);
+            color: white;
+        }
+    }
+}

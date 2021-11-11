@@ -1,23 +1,55 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Logos, GroupLogos } from '../global/Files';
 import '../scss/style.scss'
 
 export class Footer extends Component {
     render() {
         return (
             <Container>
-                <Content />
+                <ListTechnology />
+                <h2>Footer's Content</h2>
             </Container>
         )
     }
 }
 
-class Content extends Component {
+class ListTechnology extends Component {
     render() {
         return (
-            <div>
-                <h2>Footer's Content</h2>
-                <p>The content text!!!</p>
+            <div style={{marginTop: '69px'}}>
+                <div className="d-flex">
+                    {Logos.map((logoItem, i) => (
+                        <TechnologyItem logo={logoItem} key={i} />
+                    ))}
+                    <TechnologyGroupLogo />
+                </div>
+            </div>
+        );
+    }
+}
+class TechnologyItem extends Component {
+    render() {
+        const { src, name } = this.props.logo;
+        return (
+            <div className="dnb-tech-item rounded">
+                <div><img src={src} alt={`${name} Logo`} /></div>
+                <h3>{name}</h3>
+            </div>
+        );
+    }
+}
+class TechnologyGroupLogo extends Component {
+    render() {
+        const name = `+ ${GroupLogos.length}`;
+        return (
+            <div className="dnb-tech-item rounded">
+                <div className="d-flex flex-column" style={{maxHeight: '131px'}}>
+                    {GroupLogos.map((logoItem, i) => (
+                        <img src={logoItem.src} alt={`${logoItem.name} Logo`} key={i}/>
+                    ))}
+                </div>
+                <h3>{name}</h3>
             </div>
         );
     }
