@@ -102,11 +102,11 @@ $height9 : 165px;
         $left1 : 90px;
         $left3 : 30px;
         &1{ left: $left1; }
-        &2{ left: $left1 + $width1 + 15px; }
+        &2{ left: calc(100% - 300px); }
         &3{ left: $left3; }
         &4 {
-             top: $height2 + 39px; 
-             left: $left1 + $width1 - 30px;
+             top: $height2 + 39px;
+             left: calc(100% - 210px);
         }
         &5 {
             top: $height2 + $height3 + 18px; 
@@ -118,12 +118,15 @@ $height9 : 165px;
         }
         &8 { 
             top: $height1 + $height2 + $height3 + 138px;
-            left: 21px + $width8;
+            left: calc(100% - 240px);
         };
         &9 { 
             top: $height1 + $height2 + $height3 + $height6 + 120px;
-            left: 0px
+            left: calc(100% - 500px);
         };
+    }
+    @media (max-width: 751px) {
+        &2{ left: calc(100% - 200px); }
     }
     @media (max-width: 546px) {
         position: initial;
