@@ -1,3 +1,18 @@
+@import "../../node_modules/bootstrap/scss/functions";
+
+$primary: #c700d9;
+$dark: #2c303a;
+
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+$theme-colors: (
+  "primary": $primary,
+  "dark": $dark
+);
+
+@import "../../node_modules/bootstrap";
+
 $myColor: red;
 
 h1 {
