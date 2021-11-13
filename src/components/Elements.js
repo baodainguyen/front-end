@@ -73,7 +73,7 @@ export class PreviewGrid extends Component {
                     <Col lg={4} md={12} className="d-flex align-items-center mb-5">
                         <div>
                             <h5>- Super Easy way to build perfect website</h5>
-                            <h3>Meet Wizixo - Creative Agency Multi-Purpose Theme</h3>
+                            <h3>Open source - Creative Agency Multi-Purpose Theme</h3>
                             <p>Ultimate all-around theme specially designed for the agency, marketing firms, portfolio, creative, startup, landing page and corporate.</p>
                             <Button variant="dark">Purchase Now!</Button>{' '}
                         </div>

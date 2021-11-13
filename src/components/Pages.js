@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { PreviewGrid } from './Elements';
-import '../scss/style.scss'
 
 
 export class Home extends Component {
