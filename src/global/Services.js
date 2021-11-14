@@ -1,3 +1,12 @@
+import { doc, getDoc } from "firebase/firestore";
+import { initializeApp } from "firebase/app"
+import { getFirestore } from "firebase/firestore"
+const firebaseApp = initializeApp({
+  apiKey: 'AIzaSyBEt6yngDEuwTHLZmR0GECQfUD9xNFKEwo',
+  authDomain: 'front-end-2021.firebaseapp.com',
+  projectId: 'front-end-2021'
+});
+const db = getFirestore();
 
 export function RunServices (){
     
@@ -27,7 +36,20 @@ export function RunServices (){
     function getXHR (url){ 
         return postXHR ({url: url, type: 'GET'});
     };
-
+    async function getAbout() {
+        const ind = doc(db, "about", "individual");
+        const docSnap = await getDoc(ind);
+        return new Promise(resolve => {
+            if (docSnap.exists()) {
+                var indObj = docSnap.data();
+                console.log("Document data:", indObj['name']);
+                console.log("Document data:", indObj['address']);
+                console.log("Document data:", indObj['email']);
+                console.log("Document data:", indObj['address']);
+                resolve(indObj);
+              }
+        });
+    }
     
     async function ipLookup(){
         const xhrCall = await getXHR("https://freegeoip.app/json/",).then(response => {
@@ -47,6 +69,11 @@ export function RunServices (){
     };
 
     return {
+        getAbout: getAbout,
         ipLookup : ipLookup
     }
+}
+
+export const PageContent = {
+    About: undefined
 }

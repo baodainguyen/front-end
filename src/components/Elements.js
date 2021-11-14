@@ -4,11 +4,16 @@ import { Logos, GroupLogos } from '../global/Files';
 import '../scss/style.scss'
 
 export class Footer extends Component {
+    componentDidMount() {
+        
+    }
+    
     render() {
         return (
             <Container>
                 <ListTechnology />
                 <h2>Footer's Content</h2>
+
             </Container>
         )
     }
@@ -97,3 +102,4 @@ export class PreviewGrid extends Component {
         );
     }
 }
+

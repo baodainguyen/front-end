@@ -1,7 +1,10 @@
 @import "../../node_modules/bootstrap/scss/functions";
 
-$primary: #c700d9;
+$primary: #97c74e;
 $dark: #2c303a;
+$border-radius: .36rem;
+$border-radius-sm: .27rem;
+$border-radius-lg: .42rem;
 
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
@@ -31,7 +34,7 @@ h1 {
     align-items: center;
     margin-right: 12px;
     margin-left: 12px;
-    border-bottom: 1px solid rgba(0,0,0,0.21);
+    border-bottom: 1px solid rgba(0,0,0,0.069);
     .nav-link {
         font-size: 12px;
     }

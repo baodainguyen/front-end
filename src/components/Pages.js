@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { PreviewGrid } from './Elements';
+import { RunServices, PageContent } from '../global/Services';
 
 
 export class Home extends Component {
@@ -76,10 +77,38 @@ export class Article02 extends Component {
 }
 
 export class About extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name : !PageContent.About ? 'Dainb' : PageContent.About['name'],
+            address : !PageContent.About ? '...' : PageContent.About['address'],
+            phone : !PageContent.About ? '...' : PageContent.About['phone'],
+            email : !PageContent.About ? '...' : PageContent.About['email']
+        };
+      }
+    componentDidMount() {
+        if(!PageContent.About) {
+            RunServices().getAbout().then(data => {
+                PageContent.About = data;
+                this.setState({
+                    name: data['name'],
+                    address: data['address'],
+                    phone: data['phone'],
+                    email: data['email'],
+                  });
+            });
+        }
+    }
+
     render() {
+        const {name, address, phone, email} = this.state;
         return (
             <Container>
                 <h1>About...</h1>
+                <h3>Name: {name}</h3>
+                <p>Address: {address}</p>
+                <p>Phone: {phone}</p>
+                <p>Email: {email}</p>
             </Container>
         )
     }

@@ -5,13 +5,13 @@ import {
     Route,
     Routes
 } from "react-router-dom";
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Navbar, Container, Nav, Form, Button } from 'react-bootstrap';
 import { Home, Preview, Preview01, Preview02, Tutorials, Article01, Article02, About, Contact } from '../components/Pages';
 import { Logo } from '../global/Files';
 import { RunServices } from '../global/Services'
 
 export class Navigator extends Component {
-    componentDidMount() {        
+    componentDidMount() {
         console.log('start call');
         // RunServices().ipLookup().then((data) => {
         //     console.log('finish', data)
@@ -24,7 +24,7 @@ export class Navigator extends Component {
                 <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top">
                     <Container>
                         <Navbar.Brand as={Link} to="/" href="#home">
-                            <img style={{ display: 'inline-block', width: '54px' }} src={Logo}/></Navbar.Brand>
+                            <img style={{ display: 'inline-block', width: '54px' }} src={Logo} /></Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto"> </Nav>
@@ -58,6 +58,29 @@ export class Navigator extends Component {
                     <Route exact path="/contact" element={<Contact />} />
                 </Routes>
             </Router>
+        );
+    }
+}
+
+export class Subcribe extends Component {
+
+    render() {
+        return (
+            <Form >
+                <Form.Group className="row g-3" controlId="formBasicEmail">
+                    <div className="col-auto">
+                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Text className="text-muted">
+                            We'll never share your email with anyone else.
+                        </Form.Text>
+                    </div>
+                    <div className="col-auto">
+                        <Button variant="primary" type="submit">
+                            <strong>Subcribe</strong>
+                        </Button>
+                    </div>
+                </Form.Group>
+            </Form>
         );
     }
 }
