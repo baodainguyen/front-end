@@ -6,7 +6,8 @@ import {
     Routes
 } from "react-router-dom";
 import { Navbar, Container, Nav, Form, Button } from 'react-bootstrap';
-import { Home, Preview, Preview01, Preview02, Tutorials, Article01, Article02, About, Contact } from '../components/Pages';
+import { Home, Preview, Preview01, Preview02, Tutorials, Article01, Article02, Contact } from '../components/Pages';
+import { Resume } from './Resume';
 import { Logo } from '../global/Files';
 import { RunServices } from '../global/Services'
 
@@ -54,7 +55,7 @@ export class Navigator extends Component {
                     <Route exact path="/tutorials" element={<Tutorials />} />
                     <Route exact path="/article01" element={<Article01 />} />
                     <Route exact path="/article02" element={<Article02 />} />
-                    <Route exact path="/about" element={<About />} />
+                    <Route exact path="/about" element={<Resume />} />
                     <Route exact path="/contact" element={<Contact />} />
                 </Routes>
             </Router>

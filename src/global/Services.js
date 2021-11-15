@@ -38,15 +38,19 @@ export function RunServices (){
     };
     async function getAbout() {
         const ind = doc(db, "about", "individual");
-        const docSnap = await getDoc(ind);
+        const docInd = await getDoc(ind);
         return new Promise(resolve => {
-            if (docSnap.exists()) {
-                var indObj = docSnap.data();
-                console.log("Document data:", indObj['name']);
-                console.log("Document data:", indObj['address']);
-                console.log("Document data:", indObj['email']);
-                console.log("Document data:", indObj['address']);
-                resolve(indObj);
+            if (docInd.exists()) {
+                resolve(docInd.data());
+              }
+        });
+    }
+    async function getEducation() {
+        const univers = doc(db, "about", "experience", 'education', 'university');
+        const docUnivers = await getDoc(univers);
+        return new Promise(resolve => {
+            if (docUnivers.exists()) {
+                resolve(docUnivers.data());
               }
         });
     }
@@ -69,11 +73,13 @@ export function RunServices (){
     };
 
     return {
+        getEducation: getEducation,
         getAbout: getAbout,
         ipLookup : ipLookup
     }
 }
 
 export const PageContent = {
-    About: undefined
+    About: undefined,
+    Education: undefined
 }
