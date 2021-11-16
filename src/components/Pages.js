@@ -54,16 +54,6 @@ export class Tutorials extends Component {
     }
 }
 
-export class Article01 extends Component {
-    render() {
-        return (
-            <Container>
-                <h1>Article 01...</h1>
-            </Container>
-        )
-    }
-}
-
 export class Article02 extends Component {
     render() {
         return (

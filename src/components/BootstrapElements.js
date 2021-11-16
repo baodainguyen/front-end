@@ -6,7 +6,8 @@ import {
     Routes
 } from "react-router-dom";
 import { Navbar, Container, Nav, Form, Button } from 'react-bootstrap';
-import { Home, Preview, Preview01, Preview02, Tutorials, Article01, Article02, Contact } from '../components/Pages';
+import { Home, Preview, Preview01, Preview02, Tutorials, Article02, Contact } from '../components/Pages';
+import { TutorialCheatSheet } from './Tutorials';
 import { Resume } from './Resume';
 import { Logo } from '../global/Files';
 import { RunServices } from '../global/Services'
@@ -38,7 +39,7 @@ export class Navigator extends Component {
                                 </div>
                                 <div className="dnb-link-group">
                                     <Nav.Link as={Link} to="/tutorials" href="#tutorials">Tutorials</Nav.Link>
-                                    <Nav.Link as={Link} to="/article1" href="#article1">Article 01</Nav.Link>
+                                    <Nav.Link as={Link} to="/TutorialCheatSheet" href="#TutorialCheatSheet">Cheat Sheet</Nav.Link>
                                     <Nav.Link as={Link} to="/article2" href="#article2">Article 02</Nav.Link>
                                 </div>
                                 <Nav.Link as={Link} to="/about" href="#about">Abouts</Nav.Link>
@@ -53,7 +54,7 @@ export class Navigator extends Component {
                     <Route exact path="/preview01" element={<Preview01 />} />
                     <Route exact path="/preview02" element={<Preview02 />} />
                     <Route exact path="/tutorials" element={<Tutorials />} />
-                    <Route exact path="/article01" element={<Article01 />} />
+                    <Route path="/TutorialCheatSheet" element={<TutorialCheatSheet />} />
                     <Route exact path="/article02" element={<Article02 />} />
                     <Route exact path="/about" element={<Resume />} />
                     <Route exact path="/contact" element={<Contact />} />

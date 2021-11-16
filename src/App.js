@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Navigator, Subcribe} from '../src/components/BootstrapElements';
 import {Footer} from '../src/components/Elements';
-import './scss/style.scss'
+import './scss/style.scss';
 
 class App extends Component {
     render() {
