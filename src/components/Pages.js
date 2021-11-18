@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Form, Button } from 'react-bootstrap';
 import { PreviewGrid } from './Elements';
 
 export class Home extends Component {
@@ -14,51 +14,21 @@ export class Home extends Component {
     }
 }
 
-export class Preview extends Component {
+export class MainMenu extends Component {
     render() {
         return (
             <Container>
-                <h1>Preview...</h1>
+                <h1>Main Menu Page ...</h1>
             </Container>
         )
     }
 }
 
-export class Preview01 extends Component {
+export class SubMenu extends Component {
     render() {
         return (
             <Container>
-                <h1>Preview 01...</h1>
-            </Container>
-        )
-    }
-}
-
-export class Preview02 extends Component {
-    render() {
-        return (
-            <Container>
-                <h1>Preview 02...</h1>
-            </Container>
-        )
-    }
-}
-
-export class Tutorials extends Component {
-    render() {
-        return (
-            <Container>
-                <h1>Tutorials...</h1>
-            </Container>
-        )
-    }
-}
-
-export class Article02 extends Component {
-    render() {
-        return (
-            <Container>
-                <h1>Article 02...</h1>
+                <h1>Sub Page ...</h1>
             </Container>
         )
     }
@@ -69,7 +39,31 @@ export class Contact extends Component {
         return (
             <Container>
                 <h1>Contact...</h1>
+                <Subcribe />
             </Container>
         )
+    }
+}
+
+class Subcribe extends Component {
+
+    render() {
+        return (
+            <Form >
+                <Form.Group className="row g-3" controlId="formBasicEmail">
+                    <div className="col-auto">
+                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Text className="text-muted">
+                            We'll never share your email with anyone else.
+                        </Form.Text>
+                    </div>
+                    <div className="col-auto">
+                        <Button variant="primary" type="submit">
+                            <strong>Subcribe</strong>
+                        </Button>
+                    </div>
+                </Form.Group>
+            </Form>
+        );
     }
 }

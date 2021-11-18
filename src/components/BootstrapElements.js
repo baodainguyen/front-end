@@ -2,25 +2,33 @@ import React, { Component } from 'react';
 import {
     BrowserRouter as Router,
     Link,
-    Route,
-    Routes
+    Route, Routes
 } from "react-router-dom";
-import { Navbar, Container, Nav, Form, Button } from 'react-bootstrap';
-import { Home, Preview, Preview01, Preview02, Tutorials, Article02, Contact } from '../components/Pages';
+import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Home, SubMenu, MainMenu, Contact } from '../components/Pages';
 import { TutorialCheatSheet } from './Tutorials';
 import { Resume } from './Resume';
 import { Logo } from '../global/Files';
-import { RunServices } from '../global/Services'
+import { RunServices, PageContent } from '../global/Services'
+import { removeSpace, isEqualLowCase } from '../global/Globals'
 
 export class Navigator extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            navs: PageContent.Navigator
+        };
+    }
     componentDidMount() {
-        console.log('start call');
-        // RunServices().ipLookup().then((data) => {
-        //     console.log('finish', data)
-        // });
+        RunServices().getNavigator().then(_navs => {
+            PageContent.Navigator = _navs;
+            this.setState({ navs: _navs });
+        });
     }
 
     render() {
+        const _navs = this.state.navs;
+
         return (
             <Router>
                 <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top">
@@ -32,57 +40,55 @@ export class Navigator extends Component {
                             <Nav className="me-auto"> </Nav>
                             <Nav>
                                 <Nav.Link as={Link} to="/" href="#home">Home</Nav.Link>
-                                <div className="dnb-link-group">
-                                    <Nav.Link as={Link} to="/preview" href="#preview">Preview</Nav.Link>
-                                    <Nav.Link as={Link} to="/preview1" href="#preview1">Demo 01</Nav.Link>
-                                    <Nav.Link as={Link} to="/preview2" href="#preview2">Demo 02</Nav.Link>
-                                </div>
-                                <div className="dnb-link-group">
-                                    <Nav.Link as={Link} to="/tutorials" href="#tutorials">Tutorials</Nav.Link>
-                                    <Nav.Link as={Link} to="/TutorialCheatSheet" href="#TutorialCheatSheet">Cheat Sheet</Nav.Link>
-                                    <Nav.Link as={Link} to="/article2" href="#article2">Article 02</Nav.Link>
-                                </div>
-                                <Nav.Link as={Link} to="/about" href="#about">Abouts</Nav.Link>
-                                <Nav.Link as={Link} to="/contact" href="#contact">Contact</Nav.Link>
+                                {_navs.map((item) => {
+                                    const hasSub = !!item.sub1 || !!item.sub2;
+                                    if (hasSub) {
+                                        return <div className="dnb-link-group" key={item.title}>
+                                            <Nav.Link as={Link} to={`/${item.title}`} href={`#${removeSpace(item.title)}`}>{item.title}</Nav.Link>
+                                            {!!item.sub1 ? <Nav.Link as={Link} to={`/${removeSpace(item.sub1)}`} href={`#${removeSpace(item.sub1)}`}>{item.sub1}</Nav.Link> : <></>}
+                                            {!!item.sub1 ? <Nav.Link as={Link} to={`/${removeSpace(item.sub2)}`} href={`#${removeSpace(item.sub2)}`}>{item.sub2}</Nav.Link> : <></>}
+                                        </div>
+                                    } else {
+                                        return <Nav.Link as={Link} key={item.title} to={`/${removeSpace(item.title)}`} href={`#${removeSpace(item.title)}`}>{item.title}</Nav.Link>;
+                                    }
+                                })}
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
                 <Routes>
                     <Route exact path="/" element={<Home />} />
-                    <Route exact path="/preview" element={<Preview />} />
-                    <Route exact path="/preview01" element={<Preview01 />} />
-                    <Route exact path="/preview02" element={<Preview02 />} />
-                    <Route exact path="/tutorials" element={<Tutorials />} />
+                    {_navs.map((item) => {
+                        return getPageFromNav(item);
+                        
+                    })}
+                    {/*<Route exact path="/tutorials" element={<Tutorials />} />
                     <Route path="/TutorialCheatSheet" element={<TutorialCheatSheet />} />
                     <Route exact path="/article02" element={<Article02 />} />
                     <Route exact path="/about" element={<Resume />} />
-                    <Route exact path="/contact" element={<Contact />} />
+                    <Route exact path="/contact" element={<Contact />} /> */}
                 </Routes>
             </Router>
         );
     }
 }
 
-export class Subcribe extends Component {
+function getPageFromNav(item) {
+    const sub1 = !!item.sub1 ? <Route exact path={`/${removeSpace(item.sub1)}`} element={getPageFromSubMenu(item.sub1)} /> : <></>;
+    const sub2 = !!item.sub2 ? <Route exact path={`/${removeSpace(item.sub2)}`} element={getPageFromSubMenu(item.sub2)} /> : <></>;
+    return <>
+        <Route exact path={`/${item.title}`} element={getPageFromMainMenu(item.title)} />
+        {sub1}
+        {sub2}
+    </>
+}
 
-    render() {
-        return (
-            <Form >
-                <Form.Group className="row g-3" controlId="formBasicEmail">
-                    <div className="col-auto">
-                        <Form.Control type="email" placeholder="Enter email" />
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                        </Form.Text>
-                    </div>
-                    <div className="col-auto">
-                        <Button variant="primary" type="submit">
-                            <strong>Subcribe</strong>
-                        </Button>
-                    </div>
-                </Form.Group>
-            </Form>
-        );
-    }
+function getPageFromMainMenu(title) {
+    if(isEqualLowCase(title, 'about')) return <Resume />;
+    if(isEqualLowCase(title, 'contact')) return <Contact />;
+    return <MainMenu />;
+}
+function getPageFromSubMenu(sub){
+    if(isEqualLowCase(sub, 'cheat sheet')) return <TutorialCheatSheet />;
+    return <SubMenu />;
 }
