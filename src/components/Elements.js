@@ -4,9 +4,6 @@ import { Logos, GroupLogos } from '../global/Files';
 import '../scss/style.scss'
 
 export class Footer extends Component {
-    componentDidMount() {
-        
-    }
     
     render() {
         return (
@@ -31,7 +28,7 @@ class ListTechnology extends Component {
                     <Col lg={2} md={4} sm={6}>
                         <h3>Get Started Quicker</h3>
                         <p>Get inspiration from Pens using frameworks, libraries, and design patterns. Then, start your own with premade templates.</p>
-                        <Button variant="dark">Explore Topics</Button>{' '}
+                        <Button className="rounded-1" variant="dark">Explore Topics</Button>{' '}
                     </Col>
                 </Row>
             </div>

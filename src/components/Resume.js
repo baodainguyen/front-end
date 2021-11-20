@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { RunServices, PageContent } from '../global/Services';
 import { Container } from 'react-bootstrap';
 
-
 class About extends Component {
     constructor(props) {
         super(props);
