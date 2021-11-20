@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 import { RunServices } from './global/Services';
 import { Navigator } from '../src/components/BootstrapElements';
-import { Home, SubMenu, MainMenu, Contact } from './components/Pages';
+import { SubMenu, MainMenu, Contact } from './components/Pages';
+import { Home } from './components/Home';
 import { TutorialCheatSheet } from './components/Tutorials';
 import { Resume } from './components/Resume';
 import { Footer } from '../src/components/Elements';

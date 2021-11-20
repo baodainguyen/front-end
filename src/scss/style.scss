@@ -69,52 +69,43 @@ $height9 : 165px;
     &1{
         width: $width1; height: $height1;
         top:0; left: $left1;
-        cursor: pointer;
     }
     &2 {
         width: $width2; height: $height2;
         top: 24px; left: $left1 + $width1 + 24px;
-        cursor: alias;
     }
     &3 {
         width: $width3; height: $height3;
         top: $height1 + 36px; left: $left3;
-        cursor: all-scroll;
     }
     &4 {
         width: 201px; height: 126px;
         top: $height2 + 9px; 
         left: $left1 + $width1 + $width2 + 39px;
-        cursor: cell;
     }
     &5 {
         width: $width5; height: 213px;
         top: $height2 + 24px + 42px;
         left: $left3 + $width3 + 24px;
-        cursor: col-resize;
     }
     &6 {
         width: 259px; height: $height6;
         top: $height1 + $height2 + 72px;
-        cursor: crosshair;
     }
     &7 {
         width: 216px; height: 165px;
         top: $height1 + $height2 + 108px;
         left: $left3 + $width3 + $width5 + 51px;
-        cursor: no-drop;
     }
     &8 {
         width: $width8; height: 225px;
         top: $height1 + $height3 + $height6 + 21px;
         left: $left8;
-        cursor: progress;
     }
     &9 {
         width: 246px; height: $height9;
         top: $height1 + $height3 + $height6 + 108px;
         left: $left8 + $width8 + 48px;
-        cursor: wait;
     }
     @media (max-width: 1270px) {
         $left1 : 90px;
@@ -152,6 +143,9 @@ $height9 : 165px;
         margin-right: auto;
         margin-top: 9px;
         margin-bottom: 9px;
+    }
+    @media (max-width: 414px) {
+        width: 100%; height: 237px;
     }
 }
 .dnb-card-group {

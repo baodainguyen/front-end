@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Logos, GroupLogos } from '../global/Files';
-import '../scss/style.scss'
 
 export class Footer extends Component {
-    
+
     render() {
         return (
             <Container>
@@ -62,40 +61,6 @@ class TechnologyGroupLogo extends Component {
                     <h3>{name}</h3>
                 </div>
             </Col>
-        );
-    }
-}
-
-export class PreviewGrid extends Component {
-
-    render() {
-        return (
-            <Container>
-                <Row>
-                    <Col lg={4} md={12} className="d-flex align-items-center mb-5">
-                        <div>
-                            <h5>- Super Easy way to build perfect website</h5>
-                            <h3>Open source - Creative Agency Multi-Purpose Theme</h3>
-                            <p>Ultimate all-around theme specially designed for the agency, marketing firms, portfolio, creative, startup, landing page and corporate.</p>
-                            <Button variant="dark">Purchase Now!</Button>{' '}
-                        </div>
-                    </Col>
-                    <Col lg={8} md={12}>
-                        <div className="position-relative w-100 dnb-card-group" style={{ backgroundColor: '#ffffff' }}>
-                            <div className="dnb-card rounded dnb-card1" style={{ backgroundColor: 'cyan' }}></div>
-                            <div className="dnb-card rounded dnb-card2" style={{ backgroundColor: 'pink' }}></div>
-                            <div className="dnb-card rounded dnb-card3" style={{ backgroundColor: 'blue' }}></div>
-                            <div className="dnb-card rounded dnb-card4" style={{ backgroundColor: 'green' }}></div>
-                            <div className="dnb-card rounded dnb-card5" style={{ backgroundColor: 'yellow' }}></div>
-                            <div className="dnb-card rounded dnb-card6" style={{ backgroundColor: 'cyan' }}></div>
-                            <div className="dnb-card rounded dnb-card7" style={{ backgroundColor: 'pink' }}></div>
-                            <div className="dnb-card rounded dnb-card8" style={{ backgroundColor: 'green' }}></div>
-                            <div className="dnb-card rounded dnb-card9" style={{ backgroundColor: 'blue' }}></div>
-                        </div>
-                    </Col>
-                </Row>
-
-            </Container>
         );
     }
 }

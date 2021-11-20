@@ -1,18 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import { PreviewGrid } from './Elements';
-
-export class Home extends Component {
-    render() {
-        return (
-            <>
-                <Container style={{ height: '30px' }}>
-                </Container>
-                <PreviewGrid />
-            </>
-        )
-    }
-}
 
 export class MainMenu extends Component {
     render() {

@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
 
+export function isEmpty(str) {
+    if(!str) return true;
+    return str.trim() === '';
+}
+
 export function removeSpace(txtSource, txtReplace) {
     txtSource = txtSource.toString();
     txtReplace = txtReplace ? txtReplace.toString() : '-';
