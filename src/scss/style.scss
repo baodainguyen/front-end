@@ -2,8 +2,8 @@
 
 $primary: #97c74e;
 $dark: #2c303a;
-$border-radius: .6rem;
-$border-radius-sm: .36rem;
+$border-radius-sm: .27rem;
+$border-radius: .33rem;
 $border-radius-lg: .69rem;
 
 @import "../../node_modules/bootstrap/scss/variables";
@@ -49,6 +49,7 @@ h1 {
         display: block;
     }
 }
+.form-control {min-width: 248px;}
 
 $height1 : 114px;
 $width1 : 210px;
@@ -174,6 +175,7 @@ $height9 : 165px;
             display: grid;
             justify-content: center;
             align-content: center;
+            align-items: center;
             img {
                 max-width: 135px;
                 width: 100%;
@@ -187,7 +189,7 @@ $height9 : 165px;
         }
         &-group.flex-column{
             @media (max-width: 576px){
-                flex-direction: row !important;
+                align-items: center;
             }
         }
     }

@@ -52,8 +52,7 @@ class BodyPage extends Component {
                     return getPageFromNav(item);
 
                 })}
-                {/*<Route exact path="/tutorials" element={<Tutorials />} />
-                    <Route path="/TutorialCheatSheet" element={<TutorialCheatSheet />} />
+                {/*<Route path="/TutorialCheatSheet" element={<TutorialCheatSheet />} />
                     <Route exact path="/article02" element={<Article02 />} />
                     <Route exact path="/about" element={<Resume />} />
                     <Route exact path="/contact" element={<Contact />} /> */}

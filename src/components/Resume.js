@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { RunServices, PageContent } from '../global/Services';
 import { Container } from 'react-bootstrap';
+import { getCookie, CookieKey } from '../global/Globals';
 
 class About extends Component {
     constructor(props) {
@@ -82,7 +83,7 @@ class Education extends Component {
 }
 
 export class Resume extends Component {
-
+    
     render() {
         return (
             <Container>

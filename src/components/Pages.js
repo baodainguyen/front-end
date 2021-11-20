@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import { Subcribe } from './Elements';
 
 export class MainMenu extends Component {
     render() {
@@ -29,28 +30,5 @@ export class Contact extends Component {
                 <Subcribe />
             </Container>
         )
-    }
-}
-
-class Subcribe extends Component {
-
-    render() {
-        return (
-            <Form >
-                <Form.Group className="row g-3" controlId="formBasicEmail">
-                    <div className="col-auto">
-                        <Form.Control type="email" placeholder="Enter email" />
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                        </Form.Text>
-                    </div>
-                    <div className="col-auto">
-                        <Button variant="primary" type="submit">
-                            <strong>Subcribe</strong>
-                        </Button>
-                    </div>
-                </Form.Group>
-            </Form>
-        );
     }
 }

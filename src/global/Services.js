@@ -1,15 +1,13 @@
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-const firebaseApp = initializeApp({
-    apiKey: 'AIzaSyBEt6yngDEuwTHLZmR0GECQfUD9xNFKEwo',
-    authDomain: 'front-end-2021.firebaseapp.com',
-    projectId: 'front-end-2021'
-});
+const firebaseApp = initializeApp({ apiKey: 'AIzaSyBEt6yngDEuwTHLZmR0GECQfUD9xNFKEwo', authDomain: 'front-end-2021.firebaseapp.com', projectId: 'front-end-2021' });
 const db = getFirestore();
 
 export function RunServices() {
-
+    async function setSubcribe(emailObj){
+        await setDoc(doc(db, "subcribes", "email"), emailObj);
+    }
     async function getAbout() {
         const ind = doc(db, "about", "individual");
         const docInd = await getDoc(ind);
@@ -45,8 +43,7 @@ export function RunServices() {
             var _imgs = [];
             queryImgs.forEach((doc) => {
                 _imgs.push(doc.data()); //{title, url}
-            });
-            console.log(_imgs)
+            }); //console.log(_imgs)
             resolve(_imgs);
         });
     }
@@ -55,12 +52,13 @@ export function RunServices() {
         const docS01 = await getDoc(s01);
         return new Promise(resolve => {
             if (docS01.exists()) {
-                resolve(docS01.data());
+                resolve(docS01.data());//{title, head, des, abutton}
             }
         });
     }
 
     return {
+        setSubcribe: setSubcribe,
         getSection01: getSection01,
         getPreviewImages: getPreviewImages,
         getNavigator: getNavigator,

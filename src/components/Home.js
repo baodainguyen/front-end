@@ -6,7 +6,7 @@ import { isEmpty } from '../global/Globals';
 export class Home extends Component {
     render() {
         return (
-            <Container>
+            <Container style={{marginTop: '30px'}}>
                 <Row>
                     <Section01 />
                     <PreviewGrid />
@@ -37,7 +37,7 @@ class Section01 extends Component {
         const actionBtn = isEmpty(_s01.abutton) ? <></> : <Button className="rounded-1" variant="dark">{_s01.abutton}</Button>
         return (
             <Col lg={4} md={12} className="d-flex align-items-center mb-5">
-                <div>
+                <div style={{marginTop: '-90px'}}>
                     <h5>{_s01.title}</h5>
                     <h3>{_s01.head}</h3>
                     <p>{_s01.des}</p>
@@ -75,7 +75,7 @@ class PreviewGrid extends Component {
                             backgroundImage: `url(${img.url})`,
                             backgroundSize: 'cover'
                         };
-                        let _class = `dnb-card rounded dnb-card${i + 1}`
+                        let _class = `dnb-card rounded-3 dnb-card${i + 1}`
                         return <div className={_class} key={img.title}
                             style={_style}></div>
                     })}
