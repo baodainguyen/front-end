@@ -195,3 +195,13 @@ $height9 : 165px;
     }
 }
 
+.dnb-img- {
+
+    &max-height300 {
+        max-height: 300px;
+    }
+    &cover {
+        object-fit: cover;
+    }
+}
+.h3.card-title.h5 {font-size: $h3-font-size;}

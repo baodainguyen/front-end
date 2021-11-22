@@ -70,7 +70,7 @@ export function RunServices() {
 export const PageContent = {
     Section01: undefined,
     PreviewImgs: [],
-    Navigator: [],
+    NavLink: [],
     About: undefined,
     Education: undefined
 }

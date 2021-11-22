@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { RunServices, PageContent } from '../global/Services';
+import { DnbCard } from './BootstrapElements';
 import { isEmpty } from '../global/Globals';
 
 export class Home extends Component {
@@ -11,8 +12,61 @@ export class Home extends Component {
                     <Section01 />
                     <PreviewGrid />
                 </Row>
+                <Section02 />
             </Container>
         )
+    }
+}
+
+class Section02 extends Component {
+
+    render() {
+        return (
+            <Row>
+                <Col xs={12} md={6} lg={4}>
+                    <DnbCard src="https://assets.materialup.com/uploads/9dca95e3-c93d-4bfe-a020-c0eaeda2d185/preview.jpg"
+                        cap="Card Title" 
+                        subCap="Card Subtitle" 
+                        text="Some quick example text to build on the card title and make up the bulk of the card's content." 
+                    />
+                </Col>
+                <Col xs={12} md={6} lg={4}>
+                <DnbCard src="https://assets.materialup.com/uploads/c0d7260d-a451-4fd6-b8d9-0ce73f4df484/attachment.png"
+                        cap="Card Title" 
+                        subCap="Card Subtitle" 
+                        text="Some quick example text to build on the card title and make up the bulk of the card's content." 
+                    />
+                </Col>
+                <Col xs={12} md={6} lg={4}>
+                <DnbCard src="https://assets.materialup.com/uploads/7e165411-6dfc-4141-a0f2-b4361e931256/attachment.png"
+                        cap="Card Title" 
+                        subCap="Card Subtitle" 
+                        text="Some quick example text to build on the card title and make up the bulk of the card's content." 
+                    />
+                </Col>
+                <Col xs={12} md={6} lg={4}>
+                    <DnbCard src="https://assets.materialup.com/uploads/9dca95e3-c93d-4bfe-a020-c0eaeda2d185/preview.jpg"
+                        cap="Card Title" 
+                        subCap="Card Subtitle" 
+                        text="Some quick example text to build on the card title and make up the bulk of the card's content." 
+                    />
+                </Col>
+                <Col xs={12} md={6} lg={4}>
+                <DnbCard src="https://assets.materialup.com/uploads/c0d7260d-a451-4fd6-b8d9-0ce73f4df484/attachment.png"
+                        cap="Card Title" 
+                        subCap="Card Subtitle" 
+                        text="Some quick example text to build on the card title and make up the bulk of the card's content." 
+                    />
+                </Col>
+                <Col xs={12} md={6} lg={4}>
+                <DnbCard src="https://assets.materialup.com/uploads/7e165411-6dfc-4141-a0f2-b4361e931256/attachment.png"
+                        cap="Card Title" 
+                        subCap="Card Subtitle" 
+                        text="Some quick example text to build on the card title and make up the bulk of the card's content." 
+                    />
+                </Col>
+            </Row>
+        );
     }
 }
 
