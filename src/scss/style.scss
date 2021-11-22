@@ -195,3 +195,12 @@ $height9 : 165px;
     }
 }
 
+.dnb-img- {
+
+    &max-height300 {
+        max-height: 300px;
+    }
+    &cover {
+        object-fit: cover;
+    }
+}
