@@ -1,17 +1,18 @@
 @import "../../node_modules/bootstrap/scss/functions";
 
-$primary: #97c74e;
+$primary: #4AB5F4;
+$light: #F3FAFF;
 $dark: #2c303a;
 $border-radius-sm: .27rem;
 $border-radius: .33rem;
 $border-radius-lg: .69rem;
+$navbar-light-active-color: $primary;
 
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
 
 $theme-colors: (
-  "primary": $primary,
-  "dark": $dark
+  "primary": $primary, "dark": $dark, "light": $light
 );
 
 @import "../../node_modules/bootstrap";
@@ -21,6 +22,8 @@ $myColor: red;
 h1 {
   color: $myColor;
 }
+
+#dnbApp .navbar.sticky-top {z-index: $zindex-sticky;}
 .navbar-collapse {
     position: relative;
     
@@ -150,7 +153,7 @@ $height9 : 165px;
     }
 }
 .dnb-card-group {
-    height: $height1 + $height3 + $height6 + $height9 + 210px;
+    height: $height1 + $height3 + $height6 + $height9 + 168px;
     @media (max-width: 1270px) {
         height: $height1 + $height3 + $height6 + $height9 + 300px;
      }
@@ -204,4 +207,8 @@ $height9 : 165px;
         object-fit: cover;
     }
 }
-.h3.card-title.h5 {font-size: $h3-font-size;}
+.h4.card-title.h5 {font-size: $h4-font-size;}
+.modal-title[id^="dnb-modal-component"] > .text-muted.card-subtitle{
+    margin-bottom: 0 !important;
+    margin-top: 3px;
+}

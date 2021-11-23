@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { Navbar, Container, Nav, Card } from 'react-bootstrap';
+import { Navbar, Container, Nav, Card, Modal, Button } from 'react-bootstrap';
+import { DnbButtonRoute } from './Elements';
 import { Logo } from '../global/Files';
 import { removeSpace } from '../global/Globals';
 
@@ -39,22 +40,25 @@ export class Navigator extends Component {
     }
 }
 
-class DnbButtonRoute extends Component {
-    render() {
-        const { linkTo, children } = this.props;
-        return (
-            <a href={linkTo} as={Link} to={`/${linkTo}`} className="btn btn-primary text-white">
-                {children}
-            </a>
-        );
-    }
-}
-
 export class DnbCard extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showModal: false
+        };
+        this.setShow = this.setShow.bind(this);
+        this.setHide = this.setHide.bind(this);
+    }
+    setShow() {
+        this.setState({ showModal: true });
+    }
+    setHide() {
+        this.setState({ showModal: false });
+    }
 
     render() {
         const { src, cap, subCap, text } = this.props;
-        const cardTitle = cap ? <Card.Title className="h3">{cap}</Card.Title> : <></>;
+        const cardTitle = cap ? <Card.Title className="h4">{cap}</Card.Title> : <></>;
         const cardSubtitle = subCap ? <Card.Subtitle className="mb-2 text-muted">{subCap}</Card.Subtitle> : <></>;
         const cardDescription = text ? <Card.Text>{text}</Card.Text> : <></>;
 
@@ -67,9 +71,70 @@ export class DnbCard extends Component {
                 <Card.Body className="ps-0 pe-0">
                     {cardSubtitle}
                     {cardDescription}
-                    <DnbButtonRoute linkTo="Contact">Go somewhere</DnbButtonRoute>
+                    {/* <DnbButtonRoute linkTo="Contact">Go somewhere</DnbButtonRoute> */}
+                    <DnbBtnModal title={cardSubtitle}>
+                        <div className="w-100">
+                            <img src={src} alt="img" style={{
+                                _width: '100%',
+                                get width() {
+                                    return this._width;
+                                },
+                                set width(value) {
+                                    this._width = value;
+                                },
+                            }} />
+                        </div>
+                    </DnbBtnModal>
                 </Card.Body>
             </Card>
+        );
+    }
+}
+
+class DnbBtnModal extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: `dnb-modal-component-${Date.now()}`,
+            show: false
+        };
+        this.setShow = this.setShow.bind(this);
+        this.setHide = this.setHide.bind(this);
+    }
+    setShow() {
+        this.setState({ show: true });
+    }
+    setHide() {
+        this.setState({ show: false });
+    }
+
+    render() {
+        const { title, text, children } = this.props;
+        return (
+            <>
+                <Button variant="primary" className="text-white"
+                    onClick={this.setShow}>
+                    Expand Image
+                </Button>
+                <Modal
+                    show={this.state.show}
+                    size="xl"
+                    //fullscreen={true}
+                    centered
+                    onHide={this.setHide}
+                    dialogClassName="modal-90w"
+                    aria-labelledby={this.state.id}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id={this.state.id}>
+                            {title}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {children}
+                    </Modal.Body>
+                </Modal>
+            </>
         );
     }
 }
