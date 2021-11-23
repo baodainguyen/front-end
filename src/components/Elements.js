@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { getCookie, CookieKey, isEmail } from '../global/Globals';
 import { Logos, GroupLogos } from '../global/Files';
@@ -126,6 +127,17 @@ export class Subcribe extends Component {
                     </div>
                 </Form.Group>
             </Form>
+        );
+    }
+}
+
+export class DnbButtonRoute extends Component {
+    render() {
+        const { linkTo, children } = this.props;
+        return (
+            <a href={linkTo} as={Link} to={`/${linkTo}`} className="btn btn-primary text-white">
+                {children}
+            </a>
         );
     }
 }

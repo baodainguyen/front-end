@@ -21,6 +21,8 @@ $myColor: red;
 h1 {
   color: $myColor;
 }
+
+#dnbApp .navbar.sticky-top {z-index: $zindex-sticky;}
 .navbar-collapse {
     position: relative;
     
@@ -205,3 +207,7 @@ $height9 : 165px;
     }
 }
 .h4.card-title.h5 {font-size: $h4-font-size;}
+.modal-title[id^="dnb-modal-component"] > .text-muted.card-subtitle{
+    margin-bottom: 0 !important;
+    margin-top: 3px;
+}
