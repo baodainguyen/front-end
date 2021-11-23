@@ -74,7 +74,15 @@ export class DnbCard extends Component {
                     {/* <DnbButtonRoute linkTo="Contact">Go somewhere</DnbButtonRoute> */}
                     <DnbBtnModal title={cardSubtitle}>
                         <div className="w-100">
-                            <img src={src} alt="img" style={{ width: '100%' }} />
+                            <img src={src} alt="img" style={{
+                                _width: '100%',
+                                get width() {
+                                    return this._width;
+                                },
+                                set width(value) {
+                                    this._width = value;
+                                },
+                            }} />
                         </div>
                     </DnbBtnModal>
                 </Card.Body>
@@ -109,7 +117,7 @@ class DnbBtnModal extends Component {
                 </Button>
                 <Modal
                     show={this.state.show}
-                    size="xl" 
+                    size="xl"
                     //fullscreen={true}
                     centered
                     onHide={this.setHide}
