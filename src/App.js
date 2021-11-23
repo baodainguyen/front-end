@@ -3,7 +3,7 @@ import {
     BrowserRouter as Router,
     Route, Routes
 } from "react-router-dom";
-import { RunServices } from './global/Services';
+import { RunServices, PageContent } from './global/Services';
 import { Navigator } from '../src/components/BootstrapElements';
 import { SubMenu, MainMenu, Contact } from './components/Pages';
 import { Home } from './components/Home';
@@ -23,6 +23,14 @@ class App extends Component {
     componentDidMount() {
         RunServices().getNavigator().then(_navs => {
             this.setState({ navs: _navs });
+            PageContent.NavLink = [];
+            _navs.filter(i => {
+                if(i.title) PageContent.NavLink.push(removeSpace(i.title));
+                if(i.sub1) PageContent.NavLink.push(removeSpace(i.sub1));
+                if(i.sub2) PageContent.NavLink.push(removeSpace(i.sub2));
+                return true;
+            });
+            //console.log(PageContent.NavLink)
         });
     }
 

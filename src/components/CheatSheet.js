@@ -24,7 +24,7 @@ class Aside extends Component {
                 <nav id="toc">
                     <ul className="list-unstyled">
                         <li className="my-2">
-                            <button className="btn fs-5 d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false"
+                            <button className="btn fs-3 d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false"
                                 data-bs-target="#contents-collapse" aria-controls="contents-collapse">Contents</button>
                             <ul className="list-unstyled ps-3 collapse" id="contents-collapse">
                                 <li><a className="d-inline-flex align-items-center rounded" href="#typography">Typography</a></li>
@@ -34,7 +34,7 @@ class Aside extends Component {
                             </ul>
                         </li>
                         <li className="my-2">
-                            <button className="btn fs-5 d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false"
+                            <button className="btn fs-3 d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false"
                                 data-bs-target="#forms-collapse" aria-controls="forms-collapse">Forms</button>
                             <ul className="list-unstyled ps-3 collapse" id="forms-collapse">
                                 <li><a className="d-inline-flex align-items-center rounded" href="#overview">Overview</a></li>

@@ -121,7 +121,7 @@ export class Subcribe extends Component {
                     </div>
                     <div className="col-auto">
                         <Button variant="primary" type="submit">
-                            <strong>Subcribe</strong>
+                            <strong className="text-white">Subcribe</strong>
                         </Button>
                     </div>
                 </Form.Group>

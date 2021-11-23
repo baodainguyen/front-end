@@ -150,7 +150,7 @@ $height9 : 165px;
     }
 }
 .dnb-card-group {
-    height: $height1 + $height3 + $height6 + $height9 + 210px;
+    height: $height1 + $height3 + $height6 + $height9 + 168px;
     @media (max-width: 1270px) {
         height: $height1 + $height3 + $height6 + $height9 + 300px;
      }
@@ -204,3 +204,4 @@ $height9 : 165px;
         object-fit: cover;
     }
 }
+.h4.card-title.h5 {font-size: $h4-font-size;}
