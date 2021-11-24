@@ -112,8 +112,9 @@ class DnbBtnModal extends Component {
         const { title, text, children } = this.props;
         return (
             <>
-                <Button variant="primary" onClick={this.setShow}>
-                    Launch demo modal
+                <Button variant="primary" className="text-white"
+                    onClick={this.setShow}>
+                    Expand Image
                 </Button>
                 <Modal
                     show={this.state.show}

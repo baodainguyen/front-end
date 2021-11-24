@@ -5,7 +5,7 @@ const firebaseApp = initializeApp({ apiKey: 'AIzaSyBEt6yngDEuwTHLZmR0GECQfUD9xNF
 const db = getFirestore();
 
 export function RunServices() {
-    async function setSubcribe(emailObj){
+    async function setSubcribe(emailObj) {
         await setDoc(doc(db, "subcribes", "email"), emailObj);
     }
     async function getAbout() {
@@ -56,8 +56,29 @@ export function RunServices() {
             }
         });
     }
+    async function getSection02() {
+        const s02 = doc(db, "home", "section02");
+        const docS02 = await getDoc(s02);
+        return new Promise(resolve => {
+            if (docS02.exists()) {
+                resolve(docS02.data());//{title, head}
+            }
+        });
+    }
+    async function getAllCard() {
+        const queryImgs = await getDocs(collection(db, "home", "section02", 'cards'));
+        return new Promise(resolve => {
+            var _cards = [];
+            queryImgs.forEach((doc) => {
+                _cards.push(doc.data()); //{title, img, head, des}
+            });
+            resolve(_cards);
+        });
+    }
 
     return {
+        getSection02: getSection02,
+        getAllCard: getAllCard,
         setSubcribe: setSubcribe,
         getSection01: getSection01,
         getPreviewImages: getPreviewImages,
@@ -69,6 +90,8 @@ export function RunServices() {
 
 export const PageContent = {
     Section01: undefined,
+    Section02: undefined,
+    Cards: [],
     PreviewImgs: [],
     NavLink: [],
     About: undefined,

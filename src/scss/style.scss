@@ -1,17 +1,20 @@
 @import "../../node_modules/bootstrap/scss/functions";
 
-$primary: #97c74e;
+$primary: #4AB5F4;
+$secondary: #6EBE00;
+$light: #F3FAFF;
 $dark: #2c303a;
 $border-radius-sm: .27rem;
 $border-radius: .33rem;
 $border-radius-lg: .69rem;
+$navbar-light-active-color: $primary;
 
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
 
 $theme-colors: (
-  "primary": $primary,
-  "dark": $dark
+  "primary": $primary, "secondary":  $secondary, 
+  "dark": $dark, "light": $light
 );
 
 @import "../../node_modules/bootstrap";
