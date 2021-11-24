@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { RunServices, PageContent } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
+import { BackgroundLinear } from './Elements';
 import { isEmpty } from '../global/Globals';
 
 export class Home extends Component {
@@ -16,11 +17,36 @@ export class Home extends Component {
                         </Row>
                     </Container>
                 </Container>
+                <Section03 />
                 <Container className="mt-5">
                     <Section02 />
                 </Container>
             </>
         )
+    }
+}
+
+class Section03 extends Component {
+
+    render() {
+        return (
+            <BackgroundLinear botLeftColor="194189" midColor="3B4980" topRightColor="8738a7" >
+                <Container>
+                    <h1 className="text-white pt-5 mb-5">Devours tasks. Sips battery.</h1>
+                    <Row>
+                        <Col>
+                            <h5 className="text-white">The 8-core CPU in M1 is the highest-performing CPU we’ve ever built, by far. It combines four performance cores and four efficiency cores that work together to tackle demanding multithreaded tasks, resulting in a quantum leap in performance at a fraction of the power — and a significant boost to battery life.</h5>
+                        </Col>
+                        <Col>
+                            <h1 className="display-xl text-white text-center">8-core CPU</h1>
+                        </Col>
+                        <Col>
+                            <p className="text-white">M1 has the fastest CPU we’ve ever made. With that kind of processing speed, MacBook Air can take on new extraordinarily intensive tasks like professional-quality editing and action-packed gaming. But the 8‑core CPU on M1 isn‘t just up to 3.5x faster than the previous generation2 — it balances high-performance cores with efficiency cores that can still crush everyday jobs while using just a tenth of the power.</p>
+                        </Col>
+                    </Row>
+                </Container>
+            </BackgroundLinear>
+        );
     }
 }
 
