@@ -7,19 +7,33 @@ $dark: #2c303a;
 $border-radius-sm: 0.27rem;
 $border-radius: 0.33rem;
 $border-radius-lg: 0.69rem;
+$border-radius-xl: 1.8rem;
 $navbar-light-active-color: $primary;
 
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
 
-$theme-colors: (
-    "primary": $primary,
-    "secondary": $secondary,
-    "dark": $dark,
-    "light": $light,
+$spacers: (
+    0: 0, 1: $spacer * 0.25, 2: $spacer * 0.5,
+    3: $spacer, 4: $spacer * 1.5, 5: $spacer * 3,
+    6: $spacer * 4.2, 7: $spacer * 5.7,
 );
 
 @import "../../node_modules/bootstrap";
+
+.rounded {
+    &-xl {
+        border-radius: $border-radius-xl;
+    }
+}
+.dnb-h600 {
+    min-height: 600px;
+    max-height: 600px;
+}
+.dhb-h48 {
+    min-height: 48px;
+    max-height: 48px;
+}
 
 .display {
     &-xl {
@@ -187,7 +201,7 @@ $height9: 165px;
     }
 }
 .dnb-card-group {
-    height: $height1 + $height3 + $height6 + $height9 + 168px;
+    height: $height1 + $height3 + $height6 + $height9 + 129px;
     @media (max-width: 1270px) {
         height: $height1 + $height3 + $height6 + $height9 + 300px;
     }

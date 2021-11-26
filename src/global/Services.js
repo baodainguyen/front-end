@@ -43,7 +43,7 @@ export function RunServices() {
             var _imgs = [];
             queryImgs.forEach((doc) => {
                 _imgs.push(doc.data()); //{title, url}
-            }); //console.log(_imgs)
+            });
             resolve(_imgs);
         });
     }
@@ -57,6 +57,23 @@ export function RunServices() {
         });
     }
     async function getSection02() {
+        const s03 = doc(db, "home", "section03");
+        const _title = await getDoc(s03);
+
+        const query = await getDocs(collection(db, "home", "section03", 'slides'));
+        return new Promise(resolve => {
+            var _slides = [];
+            query.forEach((doc) => {
+                _slides.push(doc.data()); //{title, img, sub}
+            });
+            const _s3 = _title.exists() ? _title.data() : {};
+            resolve({
+                title: _s3.title,
+                slides: _slides
+            });
+        });
+    }
+    async function getSection03() {
         const s02 = doc(db, "home", "section02");
         const docS02 = await getDoc(s02);
         return new Promise(resolve => {
@@ -77,23 +94,25 @@ export function RunServices() {
     }
 
     return {
-        getSection02: getSection02,
-        getAllCard: getAllCard,
-        setSubcribe: setSubcribe,
-        getSection01: getSection01,
-        getPreviewImages: getPreviewImages,
         getNavigator: getNavigator,
+        getPreviewImages: getPreviewImages,
+        getSection01: getSection01,
+        getSection02: getSection02,
+        getSection03: getSection03,
+        getAllCard: getAllCard,
         getEducation: getEducation,
-        getAbout: getAbout
+        getAbout: getAbout,
+        setSubcribe: setSubcribe
     }
 }
 
 export const PageContent = {
+    NavLink: [],
+    PreviewImgs: [],
     Section01: undefined,
     Section02: undefined,
+    Section03: undefined,
     Cards: [],
-    PreviewImgs: [],
-    NavLink: [],
     About: undefined,
     Education: undefined
 }

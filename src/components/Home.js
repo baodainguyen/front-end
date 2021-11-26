@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button, Row, Col } from 'react-bootstrap';
+import { Container, Button, Row, Col, Carousel } from 'react-bootstrap';
 import { RunServices, PageContent } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
 import { BackgroundLinear } from './Elements';
@@ -9,44 +9,22 @@ export class Home extends Component {
     render() {
         return (
             <>
-                <Container fluid className="bg-light pt-3">
+                <Container className="my-5">
+                    <Row>
+                        <Section01 />
+                        <PreviewGrid />
+                    </Row>
+                </Container>
+                <Container fluid className="bg-light pt-7 pb-6">
                     <Container>
-                        <Row>
-                            <Section01 />
-                            <PreviewGrid />
-                        </Row>
+                        <Section02 />
                     </Container>
                 </Container>
-                <Section03 />
                 <Container className="mt-5">
-                    <Section02 />
+                    <Section03 />
                 </Container>
             </>
         )
-    }
-}
-
-class Section03 extends Component {
-
-    render() {
-        return (
-            <BackgroundLinear botLeftColor="194189" midColor="3B4980" topRightColor="8738a7" >
-                <Container>
-                    <h1 className="text-white pt-5 mb-5">Devours tasks. Sips battery.</h1>
-                    <Row>
-                        <Col>
-                            <h5 className="text-white">The 8-core CPU in M1 is the highest-performing CPU we’ve ever built, by far. It combines four performance cores and four efficiency cores that work together to tackle demanding multithreaded tasks, resulting in a quantum leap in performance at a fraction of the power — and a significant boost to battery life.</h5>
-                        </Col>
-                        <Col>
-                            <h1 className="display-xl text-white text-center">8-core CPU</h1>
-                        </Col>
-                        <Col>
-                            <p className="text-white">M1 has the fastest CPU we’ve ever made. With that kind of processing speed, MacBook Air can take on new extraordinarily intensive tasks like professional-quality editing and action-packed gaming. But the 8‑core CPU on M1 isn‘t just up to 3.5x faster than the previous generation2 — it balances high-performance cores with efficiency cores that can still crush everyday jobs while using just a tenth of the power.</p>
-                        </Col>
-                    </Row>
-                </Container>
-            </BackgroundLinear>
-        );
     }
 }
 
@@ -54,15 +32,96 @@ class Section02 extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeIndex: 0, intervalID: undefined,
             title: !PageContent.Section02 ? 'Section 02' : PageContent.Section02.title,
-            head: !PageContent.Section02 ? '' : PageContent.Section02.head,
-            cards: PageContent.Cards
+            slides: !PageContent.Section02 ? [] : PageContent.Section02.slides
         };
+        this.goToIndex = this.goToIndex.bind(this);
+        this.setAutoNext = this.setAutoNext.bind(this);
     }
     componentDidMount() {
         if (!PageContent.Section02) {
             RunServices().getSection02().then(data => {
                 PageContent.Section02 = data;
+                this.setState({
+                    title: data.title,
+                    slides: data.slides
+                });
+            }).then(this.setAutoNext);
+        }
+    }
+    setAutoNext() {
+        const len = this.state.slides.length;
+        const _iId = setInterval(() => {
+            var _aI = this.state.activeIndex;
+            _aI = ++_aI % len;
+            this.setState({ activeIndex: _aI });
+        }, 5000);
+        this.setState({ intervalID: _iId });
+    }
+    goToIndex(index) {
+        clearInterval(this.state.intervalID);
+        this.setState({ activeIndex: index });
+        this.setAutoNext();
+    }
+
+    render() {
+        const { slides, title, activeIndex } = this.state;
+        return (
+            <Row>
+                <Col xl={9} lg={8} md={7} sm={6} xm={12}>
+                    <section className="rounded-xl dnb-h600 overflow-hidden mb-5" >
+                        <Carousel controls={false} indicators={false}
+                            activeIndex={activeIndex}>
+                            {slides.map((s, i) => {
+
+                                return <Carousel.Item key={`dnb-carousel-${i}`}>
+                                    <img src={s.img} alt={s.title}
+                                        className="d-block w-100 rounded-xl dnb-h600 dnb-img-cover rounded"
+                                    />
+                                    <Carousel.Caption>
+                                        <h3>{s.title}</h3>
+                                        <p>{s.sub}</p>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                            })}
+                        </Carousel>
+                    </section>
+                </Col>
+                <Col xl={3} lg={4} md={5} sm={6} xm={12}>
+                    <BackgroundLinear className="rounded-xl p-3 dnb-h600 overflow-hidden" botLeftColor="5bbdfe" midColor="87cfff" topRightColor="c6e8ff" >
+                        <h1 className="text-white pt-3 mb-3">{title}</h1>
+                        <article className="overflow-hidden">
+                            {slides.map((s, i) => {
+                                return <div className="d-flex mb-3" onClick={() => { this.goToIndex(i) }} key={i}>
+                                    <img
+                                        className="d-block w-25 dhb-h48 me-3 mt-1 dnb-img-cover rounded"
+                                        src={s.img} alt={s.title}
+                                    />
+                                    <div className="w-75 text-white fs-6 fw-bold">{s.sub}</div>
+                                </div>
+                            })}
+                        </article>
+                    </BackgroundLinear>
+                </Col>
+            </Row>
+        );
+    }
+}
+
+class Section03 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: !PageContent.Section03 ? 'Section 03' : PageContent.Section03.title,
+            head: !PageContent.Section03 ? '' : PageContent.Section03.head,
+            cards: PageContent.Cards
+        };
+    }
+    componentDidMount() {
+        if (!PageContent.Section03) {
+            RunServices().getSection03().then(data => {
+                PageContent.Section03 = data;
                 this.setState({
                     title: data.title,
                     head: data.head
