@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Button, Row, Col, Carousel } from 'react-bootstrap';
-import { RunServices, PageContent } from '../global/Services';
+import { DataSection01, DataSection02, DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
 import { BackgroundLinear } from './Elements';
 import { isEmpty } from '../global/Globals';
@@ -32,35 +32,34 @@ class Section02 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeIndex: 0, intervalID: undefined,
-            title: !PageContent.Section02 ? 'Section 02' : PageContent.Section02.title,
-            slides: !PageContent.Section02 ? [] : PageContent.Section02.slides
+            activeIndex: 0,
+            title: DataSection02.Text,
+            slides: DataSection02.Slides
         };
         this.goToIndex = this.goToIndex.bind(this);
         this.setAutoNext = this.setAutoNext.bind(this);
     }
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
     componentDidMount() {
-        if (!PageContent.Section02) {
-            RunServices().getSection02().then(data => {
-                PageContent.Section02 = data;
-                this.setState({
-                    title: data.title,
-                    slides: data.slides
-                });
-            }).then(this.setAutoNext);
-        }
+        DataSection02.get().then(data => {
+            this.setState({
+                title: data.title,
+                slides: data.slides
+            });
+        }).finally(this.setAutoNext);
     }
     setAutoNext() {
         const len = this.state.slides.length;
-        const _iId = setInterval(() => {
+        this.intervalID = setInterval(() => {
             var _aI = this.state.activeIndex;
             _aI = ++_aI % len;
             this.setState({ activeIndex: _aI });
         }, 5000);
-        this.setState({ intervalID: _iId });
     }
     goToIndex(index) {
-        clearInterval(this.state.intervalID);
+        clearInterval(this.intervalID);
         this.setState({ activeIndex: index });
         this.setAutoNext();
     }
@@ -112,28 +111,18 @@ class Section02 extends Component {
 class Section03 extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            title: !PageContent.Section03 ? 'Section 03' : PageContent.Section03.title,
-            head: !PageContent.Section03 ? '' : PageContent.Section03.head,
-            cards: PageContent.Cards
-        };
+        this.state = Object.assign({}, DataSection03);
     }
     componentDidMount() {
-        if (!PageContent.Section03) {
-            RunServices().getSection03().then(data => {
-                PageContent.Section03 = data;
-                this.setState({
-                    title: data.title,
-                    head: data.head
-                });
+        DataSection03.getText().then(data => {
+            this.setState({
+                title: data.title,
+                head: data.head
             });
-        }
-        if (PageContent.Cards.length < 1) {
-            RunServices().getAllCard().then(cards => {
-                PageContent.Cards = cards;
-                this.setState({ cards: cards });
-            });
-        }
+        });
+        DataSection03.getAllCards().then(cards => {
+            this.setState({ cards: cards });
+        });
     }
 
     render() {
@@ -162,28 +151,23 @@ class Section03 extends Component {
 class Section01 extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            s01: PageContent.Section01 ? PageContent.Section01 : {}
-        };
+        this.state = { text: DataSection01.Text };
     }
     componentDidMount() {
-        if (!PageContent.Section01) {
-            RunServices().getSection01().then(data => {
-                PageContent.Section01 = data;
-                this.setState({ s01: data });
-            });
-        }
+        DataSection01.getText().then(data => {
+            this.setState({ text: data });
+        });
     }
 
     render() {
-        const _s01 = this.state.s01;
-        const actionBtn = isEmpty(_s01.abutton) ? <></> : <Button className="rounded-1" variant="dark">{_s01.abutton}</Button>
+        const { title, head, des, abutton } = this.state.text;
+        const actionBtn = isEmpty(abutton) ? <></> : <Button className="rounded-1" variant="dark">{abutton}</Button>
         return (
             <Col lg={4} md={12} className="d-flex align-items-center mb-5">
                 <div style={{ marginTop: '-90px' }}>
-                    <h5>{_s01.title}</h5>
-                    <h3>{_s01.head}</h3>
-                    <p>{_s01.des}</p>
+                    <h5>{title}</h5>
+                    <h3>{head}</h3>
+                    <p>{des}</p>
                     {actionBtn}
                 </div>
             </Col>
@@ -195,17 +179,13 @@ class PreviewGrid extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            imgs: PageContent.PreviewImgs
+            imgs: DataSection01.Imgs
         };
     }
     componentDidMount() {
-        if (PageContent.PreviewImgs.length < 1) {
-            RunServices().getPreviewImages().then(_imgs => {
-                if (!_imgs || _imgs.length < 1) return;
-                PageContent.PreviewImgs = _imgs;
-                this.setState({ imgs: _imgs });
-            });
-        }
+        DataSection01.getImgs().then(_imgs => {
+            this.setState({ imgs: _imgs });
+        });
     }
 
     render() {
