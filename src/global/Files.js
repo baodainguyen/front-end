@@ -6,13 +6,18 @@ import LogoWebpack from '../assets/logo-webpack.svg';
 import LogoBabel from '../assets/logo-babel.svg';
 import LogoFirebase from '../assets/logo-firebase.svg';
 import LogoOpenSource from '../assets/logo-opensource.svg';
+import LogoJs from '../assets/logo-js.svg';
 
 export const Logo = LogoOpenSource;
 export const Logos = [
+    { src: LogoJs, name: 'JavaScript' },
     { src: LogoReact, name: 'React' },
     { src: LogoBootstrap, name: 'Bootstrap' },
     { src: LogoTailwind, name: 'Tailwind' },
-    { src: LogoSass, name: 'Sass' }
+    { src: LogoSass, name: '' },
+    { src: LogoBabel, name: '' },
+    { src: LogoWebpack, name: 'Webpack' },
+    { src: LogoFirebase, name: 'Firebase' }
 ];
 
 export const GroupLogos = [

@@ -26,13 +26,11 @@ $spacers: (
         border-radius: $border-radius-xl;
     }
 }
-.dnb-h600 {
-    min-height: 600px;
-    max-height: 600px;
-}
-.dhb-h48 {
-    min-height: 48px;
-    max-height: 48px;
+.dnb- {
+    &h30 {max-height: 30px; min-height: 30px;}
+    &h48 { min-height: 48px; max-height: 48px; }
+    &h600 { min-height: 600px; max-height: 600px; }
+
 }
 
 .display {
@@ -237,11 +235,6 @@ $height9: 165px;
             text-align: center;
             transform: translateY(18px);
             color: white;
-        }
-        &-group.flex-column {
-            @media (max-width: 576px) {
-                align-items: center;
-            }
         }
     }
 }
