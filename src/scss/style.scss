@@ -1,37 +1,60 @@
 @import "../../node_modules/bootstrap/scss/functions";
 
-$primary: #4AB5F4;
-$secondary: #6EBE00;
-$light: #F3FAFF;
+$primary: #4ab5f4;
+$secondary: #6ebe00;
+$light: #f3faff;
 $dark: #2c303a;
-$border-radius-sm: .27rem;
-$border-radius: .33rem;
-$border-radius-lg: .69rem;
+$border-radius-sm: 0.27rem;
+$border-radius: 0.33rem;
+$border-radius-lg: 0.69rem;
+$border-radius-xl: 1.8rem;
 $navbar-light-active-color: $primary;
 
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
 
-$theme-colors: (
-  "primary": $primary, "secondary":  $secondary, 
-  "dark": $dark, "light": $light
+$spacers: (
+    0: 0, 1: $spacer * 0.25, 2: $spacer * 0.5,
+    3: $spacer, 4: $spacer * 1.5, 5: $spacer * 3,
+    6: $spacer * 4.2, 7: $spacer * 5.7,
 );
 
 @import "../../node_modules/bootstrap";
 
-$myColor: red;
-
-h1 {
-  color: $myColor;
+.rounded {
+    &-xl {
+        border-radius: $border-radius-xl;
+    }
+}
+.dnb-h600 {
+    min-height: 600px;
+    max-height: 600px;
+}
+.dhb-h48 {
+    min-height: 48px;
+    max-height: 48px;
 }
 
-#dnbApp .navbar.sticky-top {z-index: $zindex-sticky;}
+.display {
+    &-xl {
+        font: {
+            size: 6rem;
+            weight: 600;
+        }
+    }
+}
+
+#dnbApp .navbar.sticky-top {
+    z-index: $zindex-sticky;
+}
 .navbar-collapse {
     position: relative;
-    
+
     .nav-link {
-        font-size: 18px;
-        font-weight: 500;;
+        font: {
+            size: 18px;
+            weight: 500;
+        }
     }
 }
 .dnb-link-group {
@@ -39,7 +62,7 @@ h1 {
     align-items: center;
     margin-right: 12px;
     margin-left: 12px;
-    border-bottom: 1px solid rgba(0,0,0,0.069);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.069);
     .nav-link {
         font-size: 12px;
     }
@@ -54,94 +77,116 @@ h1 {
         display: block;
     }
 }
-.form-control {min-width: 248px;}
+.form-control {
+    min-width: 248px;
+}
 
-$height1 : 114px;
-$width1 : 210px;
-$left1 : 147px;
-$left3 : 81px;
-$height2 : 162px;
-$width2 : 219px;
-$width3 : 206px;
-$width5 : 222px;
-$height3 : 156px;
-$height6 : 198px;
-$left8 : 195px;
-$width8 : 237px;
-$height9 : 165px;
+$height1: 114px;
+$width1: 210px;
+$left1: 147px;
+$left3: 81px;
+$height2: 162px;
+$width2: 219px;
+$width3: 206px;
+$width5: 222px;
+$height3: 156px;
+$height6: 198px;
+$left8: 195px;
+$width8: 237px;
+$height9: 165px;
 .dnb-card {
     position: absolute;
 
-    &1{
-        width: $width1; height: $height1;
-        top:0; left: $left1;
+    &1 {
+        width: $width1;
+        height: $height1;
+        top: 0;
+        left: $left1;
     }
     &2 {
-        width: $width2; height: $height2;
-        top: 24px; left: $left1 + $width1 + 24px;
+        width: $width2;
+        height: $height2;
+        top: 24px;
+        left: $left1 + $width1 + 24px;
     }
     &3 {
-        width: $width3; height: $height3;
-        top: $height1 + 36px; left: $left3;
+        width: $width3;
+        height: $height3;
+        top: $height1 + 36px;
+        left: $left3;
     }
     &4 {
-        width: 201px; height: 126px;
-        top: $height2 + 9px; 
+        width: 201px;
+        height: 126px;
+        top: $height2 + 9px;
         left: $left1 + $width1 + $width2 + 39px;
     }
     &5 {
-        width: $width5; height: 213px;
+        width: $width5;
+        height: 213px;
         top: $height2 + 24px + 42px;
         left: $left3 + $width3 + 24px;
     }
     &6 {
-        width: 259px; height: $height6;
+        width: 259px;
+        height: $height6;
         top: $height1 + $height2 + 72px;
     }
     &7 {
-        width: 216px; height: 165px;
+        width: 216px;
+        height: 165px;
         top: $height1 + $height2 + 108px;
         left: $left3 + $width3 + $width5 + 51px;
     }
     &8 {
-        width: $width8; height: 225px;
+        width: $width8;
+        height: 225px;
         top: $height1 + $height3 + $height6 + 21px;
         left: $left8;
     }
     &9 {
-        width: 246px; height: $height9;
+        width: 246px;
+        height: $height9;
         top: $height1 + $height3 + $height6 + 108px;
         left: $left8 + $width8 + 48px;
     }
     @media (max-width: 1270px) {
-        $left1 : 90px;
-        $left3 : 30px;
-        &1{ left: $left1; }
-        &2{ left: calc(100% - 300px); }
-        &3{ left: $left3; }
+        $left1: 90px;
+        $left3: 30px;
+        &1 {
+            left: $left1;
+        }
+        &2 {
+            left: calc(100% - 300px);
+        }
+        &3 {
+            left: $left3;
+        }
         &4 {
-             top: $height2 + 39px;
-             left: calc(100% - 210px);
+            top: $height2 + 39px;
+            left: calc(100% - 210px);
         }
         &5 {
-            top: $height2 + $height3 + 18px; 
+            top: $height2 + $height3 + 18px;
             left: $left3 + $width3 + 72px;
         }
-        &7 { 
+        &7 {
             top: $height1 + $height3 + $height6 + 90px;
             left: 21px;
         }
-        &8 { 
+        &8 {
             top: $height1 + $height2 + $height3 + 138px;
             left: calc(100% - 240px);
-        };
-        &9 { 
+        }
+        &9 {
             top: $height1 + $height2 + $height3 + $height6 + 120px;
             left: calc(100% - 500px);
-        };
+        }
     }
     @media (max-width: 751px) {
-        &2{ left: calc(100% - 200px); }
+        &2 {
+            left: calc(100% - 200px);
+        }
     }
     @media (max-width: 546px) {
         position: initial;
@@ -151,14 +196,15 @@ $height9 : 165px;
         margin-bottom: 9px;
     }
     @media (max-width: 414px) {
-        width: 100%; height: 237px;
+        width: 100%;
+        height: 237px;
     }
 }
 .dnb-card-group {
-    height: $height1 + $height3 + $height6 + $height9 + 168px;
+    height: $height1 + $height3 + $height6 + $height9 + 129px;
     @media (max-width: 1270px) {
         height: $height1 + $height3 + $height6 + $height9 + 300px;
-     }
+    }
     @media (max-width: 992px) {
         height: $height1 + $height3 + $height6 + $height9 + 300px;
     }
@@ -167,7 +213,6 @@ $height9 : 165px;
     }
 }
 .dnb-tech- {
-
     &item {
         height: 243px;
         background-color: #2c303a;
@@ -175,7 +220,8 @@ $height9 : 165px;
         margin-bottom: 21px;
 
         div {
-            width: 81%; height: 131px;
+            width: 81%;
+            height: 131px;
             margin: auto;
             display: grid;
             justify-content: center;
@@ -192,8 +238,8 @@ $height9 : 165px;
             transform: translateY(18px);
             color: white;
         }
-        &-group.flex-column{
-            @media (max-width: 576px){
+        &-group.flex-column {
+            @media (max-width: 576px) {
                 align-items: center;
             }
         }
@@ -201,7 +247,6 @@ $height9 : 165px;
 }
 
 .dnb-img- {
-
     &max-height300 {
         max-height: 300px;
     }
@@ -209,8 +254,10 @@ $height9 : 165px;
         object-fit: cover;
     }
 }
-.h4.card-title.h5 {font-size: $h4-font-size;}
-.modal-title[id^="dnb-modal-component"] > .text-muted.card-subtitle{
+.h4.card-title.h5 {
+    font-size: $h4-font-size;
+}
+.modal-title[id^="dnb-modal-component"] > .text-muted.card-subtitle {
     margin-bottom: 0 !important;
     margin-top: 3px;
 }

@@ -1,31 +1,22 @@
 import React, { Component } from 'react';
-import { RunServices, PageContent } from '../global/Services';
+import { DataAbout, DataEducation } from '../global/Services';
 import { Container } from 'react-bootstrap';
 import { getCookie, CookieKey } from '../global/Globals';
 
 class About extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            name: !PageContent.About ? '***' : PageContent.About['name'],
-            address: !PageContent.About ? '***' : PageContent.About['address'],
-            phone: !PageContent.About ? '***' : PageContent.About['phone'],
-            email: !PageContent.About ? '***' : PageContent.About['email']
-        };
+        this.state = Object.assign({}, DataAbout)
     }
     componentDidMount() {
-        if (!PageContent.About) {
-            RunServices().getAbout().then(data => {
-                if (!data) return;
-                PageContent.About = data;
-                this.setState({
-                    name: data['name'],
-                    address: data['address'],
-                    phone: data['phone'],
-                    email: data['email'],
-                });
+        DataAbout.get().then(data => {
+            this.setState({
+                name: data['name'],
+                address: data['address'],
+                phone: data['phone'],
+                email: data['email'],
             });
-        }
+        });
     }
     render() {
         const { name, address, phone, email } = this.state;
@@ -44,28 +35,18 @@ class About extends Component {
 class Education extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            title: !PageContent.Education ? '***' : PageContent.Education['title'],
-            position: !PageContent.Education ? '***' : PageContent.Education['position'],
-            start: !PageContent.Education ? '***' : PageContent.Education['start'],
-            end: !PageContent.Education ? '***' : PageContent.Education['end'],
-            note1: !PageContent.Education ? '***' : PageContent.Education['note1']
-        };
+        this.state = Object.assign({}, DataEducation);
     }
     componentDidMount() {
-        if (!PageContent.Education) {
-            RunServices().getEducation().then(data => {
-                if (!data) return;
-                PageContent.Education = data;
-                this.setState({
-                    title: data['title'],
-                    position: data['position'],
-                    start: data['start'],
-                    end: data['end'],
-                    note1: data['note1'],
-                });
+        DataEducation.get().then(data => {
+            this.setState({
+                title: data['title'],
+                position: data['position'],
+                start: data['start'],
+                end: data['end'],
+                note1: data['note1'],
             });
-        }
+        });
     }
 
     render() {
@@ -83,7 +64,7 @@ class Education extends Component {
 }
 
 export class Resume extends Component {
-    
+
     render() {
         return (
             <Container>

@@ -141,3 +141,18 @@ export class DnbButtonRoute extends Component {
         );
     }
 }
+
+export class BackgroundLinear extends Component {
+
+    render(){
+        const {children, botLeftColor, midColor, topRightColor, className} = this.props;
+        const _bg = `linear-gradient(to right top, #${botLeftColor} 0%, #${midColor} 25%, #${topRightColor} 100%)`;
+        
+        return(
+            <section className={className} 
+                style={{backgroundImage : _bg}}>
+                {children}
+            </section>
+        );
+    }
+}
