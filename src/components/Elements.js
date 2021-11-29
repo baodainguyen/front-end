@@ -25,7 +25,7 @@ class ListLang extends Component {
                 {Logos.map((item, i) => {
                     const { src, name } = item;
                     return <span key={`program-lang-${i}`}
-                        className="d-inline-flex align-items-center bg-light me-3 mb-3 py-2 px-3 rounded-2"
+                        className="d-inline-flex align-items-center bg-light me-3 mb-3 py-2 px-3 rounded-2 shadow-sm"
                     >
                         <img className="dnb-h30" src={src} alt={`${name} Logo`} />
                         {
