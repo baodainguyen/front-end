@@ -109,7 +109,7 @@ class DnbBtnModal extends Component {
     }
 
     render() {
-        const { title, text, children } = this.props;
+        const { title, children } = this.props;
         return (
             <>
                 <Button variant="primary" className="text-white"

@@ -43,7 +43,7 @@ export function RunServices() {
             var _imgs = [];
             queryImgs.forEach((doc) => {
                 _imgs.push(doc.data()); //{title, url}
-            }); //console.log(_imgs)
+            });
             resolve(_imgs);
         });
     }
@@ -57,6 +57,23 @@ export function RunServices() {
         });
     }
     async function getSection02() {
+        const s03 = doc(db, "home", "section03");
+        const _title = await getDoc(s03);
+
+        const query = await getDocs(collection(db, "home", "section03", 'slides'));
+        return new Promise(resolve => {
+            var _slides = [];
+            query.forEach((doc) => {
+                _slides.push(doc.data()); //{title, img, sub}
+            });
+            const _s3 = _title.exists() ? _title.data() : {};
+            resolve({
+                title: _s3.title,
+                slides: _slides
+            });
+        });
+    }
+    async function getSection03() {
         const s02 = doc(db, "home", "section02");
         const docS02 = await getDoc(s02);
         return new Promise(resolve => {
@@ -77,23 +94,124 @@ export function RunServices() {
     }
 
     return {
-        getSection02: getSection02,
-        getAllCard: getAllCard,
-        setSubcribe: setSubcribe,
-        getSection01: getSection01,
-        getPreviewImages: getPreviewImages,
         getNavigator: getNavigator,
+        getPreviewImages: getPreviewImages,
+        getSection01: getSection01,
+        getSection02: getSection02,
+        getSection03: getSection03,
+        getAllCard: getAllCard,
         getEducation: getEducation,
-        getAbout: getAbout
+        getAbout: getAbout,
+        setSubcribe: setSubcribe
     }
 }
 
-export const PageContent = {
-    Section01: undefined,
-    Section02: undefined,
-    Cards: [],
-    PreviewImgs: [],
-    NavLink: [],
-    About: undefined,
-    Education: undefined
+export const DataEducation = {
+    title: '', position: '', start: '', end: '', note1: '',
+    get: async function () {
+        if (this.title === '') {
+            const data = await RunServices().getEducation();
+            this.title = data['title'];
+            this.position = data['position'];
+            this.start = data['start'];
+            this.end = data['end'];
+            this.note1 = data['note1'];
+            return data;
+        }
+        return new Promise(r => { });
+    }
+}
+export const DataAbout = {
+    name: '***', address: '***', phone: '***', email: '***',
+    get: async function () {
+        if (this.name === '***') {
+            const data = await RunServices().getAbout();
+            this.name = data['name'];
+            this.address = data['address'];
+            this.phone = data['phone'];
+            this.email = data['email'];
+            return data;
+        }
+        return new Promise(r => { });
+    }
+}
+export const DataSection03 = {
+    title: undefined, head: undefined, cards: [],
+    getText: async function () {
+        if (this.title === undefined || this.head === undefined) {
+            const data = await RunServices().getSection03();
+            this.title = data.title;
+            this.head = data.head;
+            return data;
+        }
+        return new Promise(r => { });
+    },
+    getAllCards: async function () {
+        if (this.cards.length < 1) {
+            this.cards = await RunServices().getAllCard();
+            return this.cards;
+        }
+        return new Promise(r => { });
+    }
+}
+export const DataSection02 = {
+    Text: undefined,
+    Slides: [],
+    get: async function () {
+        if (this.Text === undefined) {
+            const data = await RunServices().getSection02();
+            this.Text = data.title;
+            this.Slides = data.slides;
+            return data;
+        }
+        return new Promise(r => {
+            r({
+                title: this.Text, slides: this.Slides
+            })
+        });
+    }
+}
+export const DataSection01 = {
+    Text: {},
+    getText: async function () {
+        if (this.Text.title === undefined) {
+            const data = await RunServices().getSection01();
+            this.Text = data; // { title, head, des, abutton? }
+            return data;
+        }
+        return new Promise(r => { });   // don't run then function
+    },
+    Imgs: [],
+    getImgs: async function () {
+        if (this.Imgs.length < 1) {
+            const _imgs = await RunServices().getPreviewImages();
+            if (!_imgs || _imgs.length < 1)
+                return [];
+            this.Imgs = _imgs;
+            return _imgs;
+        }
+        return new Promise(r => { });   // don't run then function
+    }
+}
+
+export const NavLink = {
+    Navs: [],
+    get: async function () {
+        if (this.Navs.length < 1) {
+            const _navs = await RunServices().getNavigator();
+            this.Navs = _navs;
+            return _navs;
+        }
+        return new Promise(r => { });
+    },
+    getRoute: function () {
+        var _rL = [];
+        this.Navs.filter(i => {
+            if (i.title) _rL.push(removeSpace(i.title));
+            if (i.sub1) _rL.push(removeSpace(i.sub1));
+            if (i.sub2) _rL.push(removeSpace(i.sub2));
+            return true;
+        });
+        return _rL;
+    }
 }
