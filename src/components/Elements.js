@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { getCookie, CookieKey, isEmail } from '../global/Globals';
-import { Logos, GroupLogos } from '../global/Files';
+import { Logos } from '../global/Files';
 import { RunServices } from '../global/Services';
 
 export class Footer extends Component {
@@ -11,7 +11,6 @@ export class Footer extends Component {
         return (
             <Container>
                 <ListLang />
-                <ListTechnology />
                 <h2>Footer's Content</h2>
 
             </Container>
@@ -26,11 +25,11 @@ class ListLang extends Component {
                 {Logos.map((item, i) => {
                     const { src, name } = item;
                     return <span key={`program-lang-${i}`}
-                        className="d-inline-flex align-items-center bg-dark me-3 py-2 px-3 rounded-2"
+                        className="d-inline-flex align-items-center bg-light me-3 mb-3 py-2 px-3 rounded-2"
                     >
                         <img className="dnb-h30" src={src} alt={`${name} Logo`} />
                         {
-                            name ? <span className="fs-5 ms-2 text-white">{name}</span> : <></>
+                            name ? <span className="fs-5 ms-2 text-dark">{name}</span> : <></>
                         }
                     </span>
                 })}
@@ -148,13 +147,13 @@ export class DnbButtonRoute extends Component {
 
 export class BackgroundLinear extends Component {
 
-    render() {
-        const { children, botLeftColor, midColor, topRightColor, className } = this.props;
+    render(){
+        const {children, botLeftColor, midColor, topRightColor, className} = this.props;
         const _bg = `linear-gradient(to right top, #${botLeftColor} 0%, #${midColor} 25%, #${topRightColor} 100%)`;
-
-        return (
-            <section className={className}
-                style={{ backgroundImage: _bg }}>
+        
+        return(
+            <section className={className} 
+                style={{backgroundImage : _bg}}>
                 {children}
             </section>
         );
