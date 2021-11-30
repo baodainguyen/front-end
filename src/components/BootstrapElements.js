@@ -63,29 +63,31 @@ export class DnbCard extends Component {
         const cardDescription = text ? <Card.Text>{text}</Card.Text> : <></>;
 
         return (
-            <Card className="border-0 rounded-3 w-100 mb-5">
-                {cardTitle}
+            <Card className="w-100 mb-5 bg-dark rounded-3 border-0 shadow-sm">
                 <Card.Img variant="top" src={src}
-                    className="rounded-3 dnb-img-max-height300 dnb-img-cover"
+                    className="rounded-xl dnb-h360 dnb-img-cover"
                 />
-                <Card.Body className="ps-0 pe-0">
-                    {cardSubtitle}
-                    {cardDescription}
-                    {/* <DnbButtonRoute linkTo="Contact">Go somewhere</DnbButtonRoute> */}
-                    <DnbBtnModal title={cardSubtitle}>
-                        <div className="w-100">
-                            <img src={src} alt="img" style={{
-                                _width: '100%',
-                                get width() {
-                                    return this._width;
-                                },
-                                set width(value) {
-                                    this._width = value;
-                                },
-                            }} />
-                        </div>
-                    </DnbBtnModal>
-                </Card.Body>
+                <Card.ImgOverlay className="bg-dark-o3 rounded-3">
+                    <Card.Body className="position-absolute bottom-0 mb-3 w-92 mw-92 rounded-3 bg-white">
+                        {cardTitle}
+                        {cardSubtitle}
+                        {cardDescription}
+                        {/* <DnbButtonRoute linkTo="Contact">Go somewhere</DnbButtonRoute> */}
+                        <DnbBtnModal title={cardSubtitle}>
+                            <div className="w-100">
+                                <img src={src} alt="img" style={{
+                                    _width: '100%',
+                                    get width() {
+                                        return this._width;
+                                    },
+                                    set width(value) {
+                                        this._width = value;
+                                    },
+                                }} />
+                            </div>
+                        </DnbBtnModal>
+                    </Card.Body>
+                </Card.ImgOverlay>
             </Card>
         );
     }

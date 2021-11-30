@@ -7,10 +7,45 @@ $dark: #2c303a;
 $border-radius-sm: 0.27rem;
 $border-radius: 0.33rem;
 $border-radius-lg: 0.69rem;
+$border-radius-lgx: 1.25rem;
 $border-radius-xl: 1.8rem;
 $navbar-light-active-color: $primary;
 
 @import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/utilities";
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "width": map-merge(
+      map-get($utilities, "width"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "width"), "values"),
+          (92: 92%),
+        ),
+      ),
+    ),
+    "max-width": map-merge(
+      map-get($utilities, "max-width"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "max-width"), "values"),
+          (92: 92%),
+        ),
+      ),
+    ),
+    "rounded": map-merge(
+      map-get($utilities, "rounded"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "rounded"), "values"),
+          (xl: $border-radius-xl),
+        ),
+      ),
+  ))
+);
+
 @import "../../node_modules/bootstrap/scss/mixins";
 
 $spacers: (
@@ -21,14 +56,11 @@ $spacers: (
 
 @import "../../node_modules/bootstrap";
 
-.rounded {
-    &-xl {
-        border-radius: $border-radius-xl;
-    }
-}
+.bg-dark-o3 {background-color: rgba(44, 48, 58, 0.3);}
 .dnb- {
     &h30 {max-height: 30px; min-height: 30px;}
     &h48 { min-height: 48px; max-height: 48px; }
+    &h360 {min-height: 360px; max-height: 360px;}
     &h600 { min-height: 600px; max-height: 600px; }
 }
 
@@ -239,9 +271,6 @@ $height9: 165px;
 }
 
 .dnb-img- {
-    &max-height300 {
-        max-height: 300px;
-    }
     &cover {
         object-fit: cover;
     }
