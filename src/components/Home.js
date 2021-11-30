@@ -15,12 +15,12 @@ export class Home extends Component {
                         <PreviewGrid />
                     </Row>
                 </Container>
-                <Container fluid className="bg-light pt-7 pb-6">
+                <Container fluid className="bg-light py-7">
                     <Container>
                         <Section02 />
                     </Container>
                 </Container>
-                <Container className="mt-5">
+                <Container className="my-5">
                     <Section03 />
                 </Container>
             </>
@@ -131,7 +131,7 @@ class Section03 extends Component {
             <>
                 <h3>{this.state.title}</h3>
                 {_head}
-                <Row className="pt-3">
+                <Row className="py-3">
                     {this.state.cards.map((card, i) => {
 
                         return <Col xs={12} md={6} lg={4} key={i}>

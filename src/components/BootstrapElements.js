@@ -63,12 +63,12 @@ export class DnbCard extends Component {
         const cardDescription = text ? <Card.Text>{text}</Card.Text> : <></>;
 
         return (
-            <Card className="border-0 rounded-3 w-100 mb-5">
-                {cardTitle}
+            <Card className="w-100 mb-4 bg-dark rounded-lg overflow-hidden border-0">
                 <Card.Img variant="top" src={src}
-                    className="rounded-3 dnb-img-max-height300 dnb-img-cover"
-                />
-                <Card.Body className="ps-0 pe-0">
+                    className="dnb-h360 rounded-lg dnb-img-cover" />
+                <Card.ImgOverlay className="bg-dark-o3 rounded-lg" />
+                <Card.Body className="position-absolute bottom-0 start-50 translate-middle-x w-fm2r mb-3 rounded-4 bg-white">
+                    {cardTitle}
                     {cardSubtitle}
                     {cardDescription}
                     {/* <DnbButtonRoute linkTo="Contact">Go somewhere</DnbButtonRoute> */}
