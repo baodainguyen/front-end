@@ -138,3 +138,4 @@ class DnbBtnModal extends Component {
         );
     }
 }
+

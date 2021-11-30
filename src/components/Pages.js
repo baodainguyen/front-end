@@ -32,3 +32,4 @@ export class Contact extends Component {
         )
     }
 }
+

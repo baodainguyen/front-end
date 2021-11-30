@@ -23,4 +23,3 @@ export const Logos = [
     { src: LogoWebpack, name: 'Webpack' },
     { src: LogoFirebase, name: 'Firebase' }
 ];
-
