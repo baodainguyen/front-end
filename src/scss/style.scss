@@ -6,62 +6,90 @@ $light: #f3faff;
 $dark: #2c303a;
 $border-radius-sm: 0.27rem;
 $border-radius: 0.33rem;
-$border-radius-lg: 0.69rem;
-$border-radius-lgx: 1.25rem;
-$border-radius-xl: 1.8rem;
+$border-radius-lg: 0.69rem;     /*rounded-3*/
 $navbar-light-active-color: $primary;
 
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/utilities";
 
 $utilities: map-merge(
-  $utilities,
-  (
-    "width": map-merge(
-      map-get($utilities, "width"),
-      (
-        values: map-merge(
-          map-get(map-get($utilities, "width"), "values"),
-          (92: 92%),
-        ),
-      ),
-    ),
-    "max-width": map-merge(
-      map-get($utilities, "max-width"),
-      (
-        values: map-merge(
-          map-get(map-get($utilities, "max-width"), "values"),
-          (92: 92%),
-        ),
-      ),
-    ),
-    "rounded": map-merge(
-      map-get($utilities, "rounded"),
-      (
-        values: map-merge(
-          map-get(map-get($utilities, "rounded"), "values"),
-          (xl: $border-radius-xl),
-        ),
-      ),
-  ))
+    $utilities,
+    (
+        "width":
+            map-merge(
+                map-get($utilities, "width"),
+                (
+                    values:
+                        map-merge(
+                            map-get(map-get($utilities, "width"), "values"),
+                            (
+                                fm2r: calc(100% - 2rem),
+                            )
+                        ),
+                )
+            ),
+        "rounded":
+            map-merge(
+                map-get($utilities, "rounded"),
+                (
+                    values:
+                        map-merge(
+                            map-get(map-get($utilities, "rounded"), "values"),
+                            (
+                                4: 1.2rem,
+                                lg: 1.5rem,
+                                xl: 1.8rem,
+                            )
+                        ),
+                )
+            ),
+        "padding-y":
+            map-merge(
+                map-get($utilities, "padding-y"),
+                (
+                    values:
+                        map-merge(
+                            map-get(map-get($utilities, "padding-y"), "values"),
+                            (
+                                6: $spacer * 4.2,
+                                7: $spacer * 5.7,
+                            )
+                        ),
+                )
+            ),
+    )
 );
 
 @import "../../node_modules/bootstrap/scss/mixins";
 
-$spacers: (
-    0: 0, 1: $spacer * 0.25, 2: $spacer * 0.5,
-    3: $spacer, 4: $spacer * 1.5, 5: $spacer * 3,
-    6: $spacer * 4.2, 7: $spacer * 5.7,
-);
-
 @import "../../node_modules/bootstrap";
 
-.bg-dark-o3 {background-color: rgba(44, 48, 58, 0.3);}
+@import "./SF-Pro.scss";
+
+.fontNotoSans {font-family: 'Noto Sans';}
+.fontSFProD {font-family: 'SF Pro Display';}
+.fontSFProT {font-family: 'SF Pro Text';}
+
+.bg-dark-o3 {
+    background-color: rgba(44, 48, 58, 0.3);
+}
 .dnb- {
-    &h30 {max-height: 30px; min-height: 30px;}
-    &h48 { min-height: 48px; max-height: 48px; }
-    &h360 {min-height: 360px; max-height: 360px;}
-    &h600 { min-height: 600px; max-height: 600px; }
+    &h30 {
+        max-height: 30px;
+        min-height: 30px;
+    }
+    &h48 {
+        min-height: 48px;
+        max-height: 48px;
+    }
+    &h360 {
+        min-height: 360px;
+        max-height: 360px;
+    }
+    &h600 {
+        min-height: 600px;
+        max-height: 600px;
+    }
 }
 
 .display {

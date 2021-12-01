@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button, Row, Col, Carousel, Card } from 'react-bootstrap';
+import { Container, Button, Row, Col, Carousel } from 'react-bootstrap';
 import { DataSection01, DataSection02, DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
 import { BackgroundLinear } from './Elements';
@@ -9,18 +9,18 @@ export class Home extends Component {
     render() {
         return (
             <>
-                <Container className="my-5">
+                <Container className="my-5 fontNotoSans">
                     <Row>
                         <Section01 />
                         <PreviewGrid />
                     </Row>
                 </Container>
-                <Container fluid className="bg-light pt-7 pb-6">
+                <Container fluid className="bg-light py-7 fontSFProT">
                     <Container>
                         <Section02 />
                     </Container>
                 </Container>
-                <Container className="mt-5">
+                <Container className="my-5">
                     <Section03 />
                 </Container>
             </>
@@ -131,7 +131,7 @@ class Section03 extends Component {
             <>
                 <h3>{this.state.title}</h3>
                 {_head}
-                <Row className="pt-3">
+                <Row className="py-3">
                     {this.state.cards.map((card, i) => {
 
                         return <Col xs={12} md={6} lg={4} key={i}>
@@ -140,23 +140,6 @@ class Section03 extends Component {
                                 subCap={card.head}
                                 text={card.des}
                             />
-                        </Col>
-                    })}
-                </Row>
-                <Row className="mb-5">
-                    {this.state.cards.map((card, i) => {
-                        return <Col xs={12} md={6} lg={4} key={i}>
-                            <Card className="bg-white text-white rounded-lg border-0 shadow-sm">
-                                <Card.Img className="rounded-lg" src={card.img} alt="Card image" />
-                                <div className="position-absolute bottom-0 ms-3 mb-3 p-3 w-92 mw-92 rounded-3 bg-dark">
-                                    <Card.Title>{card.title}</Card.Title>
-                                    <Card.Text>{card.des}</Card.Text>
-                                    <Card.Text>Last updated 3 mins ago</Card.Text>
-                                    <Button variant="primary" className="text-white">
-                                        Expand Image
-                                    </Button>
-                                </div>
-                            </Card>
                         </Col>
                     })}
                 </Row>

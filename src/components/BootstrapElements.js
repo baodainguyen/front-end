@@ -11,7 +11,7 @@ export class Navigator extends Component {
         const _navs = this.props.list;
 
         return (
-            <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top">
+            <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top" className="fontNotoSans">
                 <Container>
                     <Navbar.Brand as={Link} to="/" href="#home">
                         <img style={{ display: 'inline-block', width: '54px' }} src={Logo} /></Navbar.Brand>
@@ -63,31 +63,29 @@ export class DnbCard extends Component {
         const cardDescription = text ? <Card.Text>{text}</Card.Text> : <></>;
 
         return (
-            <Card className="w-100 mb-5 bg-dark rounded-3 border-0 shadow-sm">
+            <Card className="w-100 mb-4 bg-dark rounded-lg overflow-hidden border-0">
                 <Card.Img variant="top" src={src}
-                    className="rounded-xl dnb-h360 dnb-img-cover"
-                />
-                <Card.ImgOverlay className="bg-dark-o3 rounded-3">
-                    <Card.Body className="position-absolute bottom-0 mb-3 w-92 mw-92 rounded-3 bg-white">
-                        {cardTitle}
-                        {cardSubtitle}
-                        {cardDescription}
-                        {/* <DnbButtonRoute linkTo="Contact">Go somewhere</DnbButtonRoute> */}
-                        <DnbBtnModal title={cardSubtitle}>
-                            <div className="w-100">
-                                <img src={src} alt="img" style={{
-                                    _width: '100%',
-                                    get width() {
-                                        return this._width;
-                                    },
-                                    set width(value) {
-                                        this._width = value;
-                                    },
-                                }} />
-                            </div>
-                        </DnbBtnModal>
-                    </Card.Body>
-                </Card.ImgOverlay>
+                    className="dnb-h360 rounded-lg dnb-img-cover" />
+                <Card.ImgOverlay className="bg-dark-o3 rounded-lg" />
+                <Card.Body className="position-absolute bottom-0 start-50 translate-middle-x w-fm2r mb-3 rounded-4 bg-white">
+                    {cardTitle}
+                    {cardSubtitle}
+                    {cardDescription}
+                    {/* <DnbButtonRoute linkTo="Contact">Go somewhere</DnbButtonRoute> */}
+                    <DnbBtnModal title={cardSubtitle}>
+                        <div className="w-100">
+                            <img src={src} alt="img" style={{
+                                _width: '100%',
+                                get width() {
+                                    return this._width;
+                                },
+                                set width(value) {
+                                    this._width = value;
+                                },
+                            }} />
+                        </div>
+                    </DnbBtnModal>
+                </Card.Body>
             </Card>
         );
     }
@@ -103,8 +101,9 @@ class DnbBtnModal extends Component {
         this.setShow = this.setShow.bind(this);
         this.setHide = this.setHide.bind(this);
     }
-    setShow() {
+    setShow(e) {
         this.setState({ show: true });
+        e.preventDefault();
     }
     setHide() {
         this.setState({ show: false });
@@ -114,10 +113,10 @@ class DnbBtnModal extends Component {
         const { title, children } = this.props;
         return (
             <>
-                <Button variant="primary" className="text-white"
-                    onClick={this.setShow}>
+                <a className="border-0 bg-transparent p-0 text-primary text-decoration-none"
+                    onClick={this.setShow} href="">
                     Expand Image
-                </Button>
+                </a>
                 <Modal
                     show={this.state.show}
                     size="xl"
