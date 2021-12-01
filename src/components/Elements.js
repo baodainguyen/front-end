@@ -21,7 +21,7 @@ class ListLang extends Component {
 
     render() {
         return (
-            <section className="">
+            <section >
                 {Logos.map((item, i) => {
                     const { src, name } = item;
                     return <span key={`program-lang-${i}`}
@@ -46,7 +46,7 @@ class ListTechnology extends Component {
                     {Logos.map((logoItem, i) => (
                         <TechnologyItem logo={logoItem} key={i} />
                     ))}
-                    
+
                     <Col lg={2} md={4} sm={6}>
                         <h3>Get Started Quicker</h3>
                         <p>Get inspiration from Pens using frameworks, libraries, and design patterns. Then, start your own with premade templates.</p>
@@ -147,13 +147,13 @@ export class DnbButtonRoute extends Component {
 
 export class BackgroundLinear extends Component {
 
-    render(){
-        const {children, botLeftColor, midColor, topRightColor, className} = this.props;
+    render() {
+        const { children, botLeftColor, midColor, topRightColor, className } = this.props;
         const _bg = `linear-gradient(to right top, #${botLeftColor} 0%, #${midColor} 25%, #${topRightColor} 100%)`;
-        
-        return(
-            <section className={className} 
-                style={{backgroundImage : _bg}}>
+
+        return (
+            <section className={className}
+                style={{ backgroundImage: _bg }}>
                 {children}
             </section>
         );

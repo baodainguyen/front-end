@@ -11,7 +11,7 @@ export class Navigator extends Component {
         const _navs = this.props.list;
 
         return (
-            <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top">
+            <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top" className="fontNotoSans">
                 <Container>
                     <Navbar.Brand as={Link} to="/" href="#home">
                         <img style={{ display: 'inline-block', width: '54px' }} src={Logo} /></Navbar.Brand>
@@ -58,7 +58,7 @@ export class DnbCard extends Component {
 
     render() {
         const { src, cap, subCap, text } = this.props;
-        const cardTitle = cap ? <Card.Title className="h4">{cap}</Card.Title> : <></>;
+        const cardTitle = cap ? <Card.Title className="fontSFProD fw-bold">{cap}</Card.Title> : <></>;
         const cardSubtitle = subCap ? <Card.Subtitle className="mb-2 text-muted">{subCap}</Card.Subtitle> : <></>;
         const cardDescription = text ? <Card.Text>{text}</Card.Text> : <></>;
 
@@ -101,8 +101,9 @@ class DnbBtnModal extends Component {
         this.setShow = this.setShow.bind(this);
         this.setHide = this.setHide.bind(this);
     }
-    setShow() {
+    setShow(e) {
         this.setState({ show: true });
+        e.preventDefault();
     }
     setHide() {
         this.setState({ show: false });
@@ -112,10 +113,10 @@ class DnbBtnModal extends Component {
         const { title, children } = this.props;
         return (
             <>
-                <Button variant="primary" className="text-white"
-                    onClick={this.setShow}>
+                <a className="border-0 bg-transparent p-0 text-primary text-decoration-none"
+                    onClick={this.setShow} href="">
                     Expand Image
-                </Button>
+                </a>
                 <Modal
                     show={this.state.show}
                     size="xl"
