@@ -58,7 +58,7 @@ export class DnbCard extends Component {
 
     render() {
         const { src, cap, subCap, text } = this.props;
-        const cardTitle = cap ? <Card.Title className="h4">{cap}</Card.Title> : <></>;
+        const cardTitle = cap ? <Card.Title className="fontSFProD fw-bold">{cap}</Card.Title> : <></>;
         const cardSubtitle = subCap ? <Card.Subtitle className="mb-2 text-muted">{subCap}</Card.Subtitle> : <></>;
         const cardDescription = text ? <Card.Text>{text}</Card.Text> : <></>;
 
