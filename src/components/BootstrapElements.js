@@ -65,7 +65,7 @@ export class DnbCard extends Component {
         return (
             <Card className="w-100 mb-4 bg-dark rounded-lg overflow-hidden border-0">
                 <Card.Img variant="top" src={src}
-                    className="dnb-h360 rounded-lg dnb-img-cover" />
+                    className="dnb-h396 rounded-lg dnb-img-cover" />
                 <Card.ImgOverlay className="bg-dark-o3 rounded-lg" />
                 <Card.Body className="position-absolute bottom-0 start-50 translate-middle-x w-fm2r mb-3 rounded-4 bg-white">
                     {cardTitle}
