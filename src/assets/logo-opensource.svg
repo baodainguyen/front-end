@@ -1,67 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   width="132.46529mm"
-   height="73.686653mm"
-   viewBox="0 0 132.46529 73.686654"
-   version="1.1"
-   id="svg5"
-   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="logo-opensource.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview7"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:document-units="mm"
-     showgrid="false"
-     inkscape:zoom="0.74118967"
-     inkscape:cx="-167.9732"
-     inkscape:cy="97.815718"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="1358"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer1"
-     inkscape:snap-page="false"
-     width="124.46528mm" />
-  <defs
-     id="defs2" />
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-47.234303,-37.256798)">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:49.7417px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="49.925648"
-       y="75.467949"
-       id="text825"><tspan
-         sodipodi:role="line"
-         id="tspan823"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:49.7417px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';stroke-width:0.264583"
-         x="49.925648"
-         y="75.467949">Open</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:30.3195px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.473741"
-       x="84.125565"
-       y="107.31638"
-       id="text8027"><tspan
-         sodipodi:role="line"
-         id="tspan8025"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30.3195px;font-family:Nunito;-inkscape-font-specification:Nunito;stroke-width:0.473741"
-         x="84.125565"
-         y="107.31638">Source</tspan></text>
-  </g>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="477.12pt"
+    height="238.08pt"
+    viewBox="0 0 477.12 238.08">
+<defs/>
+<g id="layer1" transform="matrix(2.83465057472179 0 0 2.83465057472179 -143.49273843845 -76.8100040113242)" fill="none"><text id="text825" krita:useRichText="true" fill="#000000" stroke="#000000" stroke-opacity="0" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" font-family="sans-serif" font-size="49.7417"><tspan x="49.925648" y="75.467949" font-family="Raleway" font-stretch="normal" font-weight="700">Open</tspan></text><text id="text8027" krita:useRichText="true" fill="#000000" stroke="#000000" stroke-opacity="0" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" font-family="sans-serif" font-size="30.3195"><tspan x="84.125565" y="107.31638" font-family="Nunito" font-stretch="normal">Source</tspan></text>
+ </g>
 </svg>

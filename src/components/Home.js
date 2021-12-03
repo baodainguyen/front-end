@@ -190,7 +190,7 @@ class ColSectionBase64 extends Component {
 
         return (
             <Row className="p-3 d-flex justify-content-center" style={{ backgroundColor: background }}>
-                <img src="https://live.staticflickr.com/65535/51699992153_d166c33ac6_b.jpg"
+                <img src="https://live.staticflickr.com/65535/51720551677_ed3bcf1a62.jpg"
                     className="w-25 dhb-h48 dnb-img-cover rounded p-0"
                     onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"
                 />
