@@ -3,7 +3,7 @@ import { Container, Button, Row, Col, Carousel } from 'react-bootstrap';
 import { DataSection01, DataSection02, DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
 import { BackgroundLinear } from './Elements';
-import { isEmpty } from '../global/Globals';
+import { isEmpty, getAverageRGB } from '../global/Globals';
 
 export class Home extends Component {
     render() {
@@ -22,6 +22,9 @@ export class Home extends Component {
                 </Container>
                 <Container className="my-5">
                     <Section03 />
+                </Container>
+                <Container fluid className="my-3">
+                    <ColSectionBase64 />
                 </Container>
             </>
         )
@@ -92,9 +95,8 @@ class Section02 extends Component {
                         <article className="overflow-hidden">
                             {slides.map((s, i) => {
                                 return <div className="d-flex mb-3" onClick={() => { this.goToIndex(i) }} key={i}>
-                                    <img
+                                    <img src={s.img} alt={s.title}
                                         className="d-block w-25 dhb-h48 me-3 mt-1 dnb-img-cover rounded"
-                                        src={s.img} alt={s.title}
                                     />
                                     <div className="w-75 text-white fs-6 fw-bold">{s.sub}</div>
                                 </div>
@@ -168,6 +170,31 @@ class ColSection03 extends Component {
                     </Col>
                 })}
             </>
+        );
+    }
+}
+class ColSectionBase64 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = Object.assign({
+            background: 'rgb(74, 181, 244)'
+        }, DataSection03);
+    }
+    onLoad = (e) => {
+        var rgb = getAverageRGB(e);
+        console.log(rgb)
+        this.setState({ background: rgb });
+    }
+    render() {
+        const { background } = this.state;
+
+        return (
+            <Row className="p-3 d-flex justify-content-center" style={{ backgroundColor: background }}>
+                <img src="https://live.staticflickr.com/65535/51699992153_d166c33ac6_b.jpg"
+                    className="w-25 dhb-h48 dnb-img-cover rounded p-0"
+                    onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"
+                />
+            </Row>
         );
     }
 }
