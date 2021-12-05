@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Container, Button, Row, Col, Carousel } from 'react-bootstrap';
 import { DataSection01, DataSection02, DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
-import { BackgroundLinear } from './Elements';
-import { isEmpty, getAverageRGB } from '../global/Globals';
+import { isEmpty, getAverageRGB, getLuminanceFrom } from '../global/Globals';
 
 export class Home extends Component {
     render() {
@@ -35,7 +34,8 @@ class Section02 extends Component {
         this.state = {
             activeIndex: 0,
             title: DataSection02.Text,
-            slides: DataSection02.Slides
+            slides: DataSection02.Slides,
+            bg: 'rgb(91, 189, 254)', color: '#c6e8ff'
         };
         this.goToIndex = this.goToIndex.bind(this);
         this.setAutoNext = this.setAutoNext.bind(this);
@@ -52,11 +52,16 @@ class Section02 extends Component {
         }).finally(this.setAutoNext);
     }
     setAutoNext() {
-        const len = this.state.slides.length;
         this.intervalID = setInterval(() => {
+            const { slides } = this.state;
             var _aI = this.state.activeIndex;
-            _aI = ++_aI % len;
-            this.setState({ activeIndex: _aI });
+
+            _aI = ++_aI % slides.length;
+            this.setState({
+                activeIndex: _aI,
+                bg: slides[_aI].bg,
+                color: slides[_aI].color
+            });
         }, 5000);
     }
     goToIndex(index) {
@@ -64,9 +69,22 @@ class Section02 extends Component {
         this.setState({ activeIndex: index });
         this.setAutoNext();
     }
+    onLoad = (e, index) => {
+        const rgb = getAverageRGB(e);
+        const { slides, activeIndex } = this.state;
+
+        slides[index].bg = `rgb(${rgb.r},${rgb.g},${rgb.b})`;
+        slides[index].color = getLuminanceFrom(rgb.r, rgb.g, rgb.b);
+        if (index === activeIndex) {
+            this.setState({
+                bg: slides[index].bg,
+                color: slides[index].color
+            });
+        }
+    }
 
     render() {
-        const { slides, title, activeIndex } = this.state;
+        const { slides, title, activeIndex, bg, color } = this.state;
         return (
             <Row>
                 <Col xl={9} lg={8} md={7} sm={6} xm={12}>
@@ -88,19 +106,22 @@ class Section02 extends Component {
                     </section>
                 </Col>
                 <Col xl={3} lg={4} md={5} sm={6} xm={12}>
-                    <BackgroundLinear className="rounded-xl p-3 dnb-h600 overflow-hidden" botLeftColor="5bbdfe" midColor="87cfff" topRightColor="c6e8ff" >
-                        <h3 className="fontSFProD fw-bold text-white pt-3 mb-3">{title}</h3>
+                    <section className="rounded-xl p-3 dnb-h600 overflow-hidden" style={{ backgroundColor: bg }} >
+                        <h3 className="fontSFProD fw-bold pt-3 mb-3" style={{ color: color }}>{title}</h3>
                         <article className="overflow-hidden">
                             {slides.map((s, i) => {
+                                var highLight = "w-75 fs-6 fw-bold";
+                                if (i == activeIndex) highLight += " text-uppercase fontSFProD dnb-f12";
                                 return <div className="d-flex mb-3" onClick={() => { this.goToIndex(i) }} key={i}>
                                     <img src={s.img} alt={s.title}
+                                        crossOrigin="anonymous" onLoad={e => { this.onLoad(e.target, i) }}
                                         className="d-block w-25 dhb-h48 me-3 mt-1 dnb-img-cover rounded"
                                     />
-                                    <div className="w-75 text-white fs-6 fw-bold">{s.sub}</div>
+                                    <div className={highLight} style={{ color: color }}>{s.sub}</div>
                                 </div>
                             })}
                         </article>
-                    </BackgroundLinear>
+                    </section>
                 </Col>
             </Row>
         );
@@ -175,32 +196,35 @@ class ColSectionBase64 extends Component {
     constructor(props) {
         super(props);
         this.state = Object.assign({
-            background: 'rgb(74, 181, 244)'
+            background: 'rgb(74, 181, 244)', color: 'black'
         }, DataSection03);
     }
     onLoad = (e) => {
         var rgb = getAverageRGB(e);
         console.log(rgb)
-        this.setState({ background: rgb });
+        this.setState({
+            background: `rgb(${rgb.r},${rgb.g},${rgb.b})`,
+            color: getLuminanceFrom(rgb.r, rgb.g, rgb.b)
+        });
     }
     render() {
-        const { background } = this.state;
+        const { background, color } = this.state;
 
         return (
             <Container fluid className="my-3" style={{ backgroundColor: background }}>
-                <Container className="d-flex align-items-end py-3">
-                    <img src="https://live.staticflickr.com/65535/51720551677_ed3bcf1a62.jpg"
-                        className="dhb-h48 dnb-img-cover rounded-3 p-0"
-                        onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"
-                    />
-                    <div className="ms-3 dnb-w150">
-                        <span className="bg-primary rounded-2 p-2 color-white me-3 mb-3 text-white d-inline-block">Tag 001</span>
-                        <span className="bg-primary rounded-2 p-2 color-white me-3 mb-3 text-white d-inline-block">Tag 002</span>
-                        <span className="bg-primary rounded-2 p-2 color-white me-3 mb-3 text-white d-inline-block">Tag 003</span>
-                        <div className="bg-white rounded-3 p-3">
-                            <h1>Start selling with Square.</h1>
-                            <h6>Create your free account in minutes and join the millions of businesses using Square.</h6>
-                            <Button variant="primary text-white">Start a Square account</Button>
+                <Container className="py-3">
+                    <div className="d-flex align-items-end">
+                        <img src="https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/1554659392034-T0MNTLYE4IIL1YKI7YCH/31450619_2186457071640944_2273573094557745152_n.jpg"
+                            className="dhb-h48 dnb-img-cover flex-shrink-2 rounded-3 p-0" style={{ 'max-width': '988px' }}
+                            onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"
+                        />
+                        <div className="ms-3 dnb-w150 flex-grow-1" style={{ 'color': color }}>
+                            {/* <span className="bg-primary rounded-2 p-2 color-white me-3 mb-3 text-white d-inline-block">Tag 001</span> */}
+                            <div>
+                                <h1 className="fw-bold">Start selling with Square.</h1>
+                                <h6>Create your free account in minutes and join the millions of businesses using Square.</h6>
+                                <Button variant="primary text-white">Start a Square account</Button>
+                            </div>
                         </div>
                     </div>
                 </Container>
