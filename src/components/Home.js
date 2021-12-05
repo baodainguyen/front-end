@@ -23,9 +23,7 @@ export class Home extends Component {
                 <Container className="my-5">
                     <Section03 />
                 </Container>
-                <Container fluid className="my-3">
-                    <ColSectionBase64 />
-                </Container>
+                <ColSectionBase64 />
             </>
         )
     }
@@ -189,12 +187,24 @@ class ColSectionBase64 extends Component {
         const { background } = this.state;
 
         return (
-            <Row className="p-3 d-flex justify-content-center" style={{ backgroundColor: background }}>
-                <img src="https://live.staticflickr.com/65535/51720551677_ed3bcf1a62.jpg"
-                    className="w-25 dhb-h48 dnb-img-cover rounded p-0"
-                    onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"
-                />
-            </Row>
+            <Container fluid className="my-3" style={{ backgroundColor: background }}>
+                <Container className="d-flex align-items-end py-3">
+                    <img src="https://live.staticflickr.com/65535/51720551677_ed3bcf1a62.jpg"
+                        className="dhb-h48 dnb-img-cover rounded-3 p-0"
+                        onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"
+                    />
+                    <div className="ms-3 dnb-w150">
+                        <span className="bg-primary rounded-2 p-2 color-white me-3 mb-3 text-white d-inline-block">Tag 001</span>
+                        <span className="bg-primary rounded-2 p-2 color-white me-3 mb-3 text-white d-inline-block">Tag 002</span>
+                        <span className="bg-primary rounded-2 p-2 color-white me-3 mb-3 text-white d-inline-block">Tag 003</span>
+                        <div className="bg-white rounded-3 p-3">
+                            <h1>Start selling with Square.</h1>
+                            <h6>Create your free account in minutes and join the millions of businesses using Square.</h6>
+                            <Button variant="primary text-white">Start a Square account</Button>
+                        </div>
+                    </div>
+                </Container>
+            </Container>
         );
     }
 }
