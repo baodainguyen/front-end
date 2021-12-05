@@ -19,9 +19,7 @@ export class Home extends Component {
                         <Section02 />
                     </Container>
                 </Container>
-                <Container className="my-5">
-                    <Section03 />
-                </Container>
+                <Section03 />
                 <ColSectionBase64 />
             </>
         )
@@ -164,14 +162,14 @@ class Section03 extends Component {
             _cards02 = cards.slice(4);
         }
         return (
-            <>
+            <Container className="my-5">
                 <h3 className="fw-bold">{title}</h3>
                 <Row className="py-3">
                     <ColSection03 cards={_cards01} />
                     {_head}
                     <ColSection03 cards={_cards02} />
                 </Row>
-            </>
+            </Container>
         );
     }
 }
