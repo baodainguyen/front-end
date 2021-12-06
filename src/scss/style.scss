@@ -8,6 +8,7 @@ $border-radius-sm: 0.27rem;
 $border-radius: 0.33rem;
 $border-radius-lg: 0.69rem;     /*rounded-3*/
 $navbar-light-active-color: $primary;
+$thumbnail-border-radius: 3.69 * $border-radius-lg;
 
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/utilities";
@@ -70,26 +71,25 @@ $utilities: map-merge(
 .fontSFProD {font-family: 'SF Pro Display';}
 .fontSFProT {font-family: 'SF Pro Text';}
 
+.img-thumbnail {max-width: 180px;}
 .bg-dark-o3 {
     background-color: rgba(44, 48, 58, 0.3);
 }
 .dnb- {
+    &w150 {min-width: 300px; max-width: 300px;}
     &h30 {
-        max-height: 30px;
-        min-height: 30px;
+        min-height: 30px; max-height: 30px;
     }
     &h48 {
-        min-height: 48px;
-        max-height: 48px;
+        min-height: 48px; max-height: 48px;
     }
     &h396 {
-        min-height: 396px;
-        max-height: 396px;
+        min-height: 396px; max-height: 396px;
     }
     &h600 {
-        min-height: 600px;
-        max-height: 600px;
+        min-height: 600px; max-height: 600px;
     }
+    &f12 {font-size: 12px !important;}
 }
 
 .display {

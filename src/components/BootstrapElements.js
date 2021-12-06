@@ -14,7 +14,7 @@ export class Navigator extends Component {
             <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top" className="fontNotoSans">
                 <Container>
                     <Navbar.Brand as={Link} to="/" href="#home">
-                        <img style={{ display: 'inline-block', width: '54px' }} src={Logo} /></Navbar.Brand>
+                        <img style={{ display: 'inline-block', width: '66px' }} src={Logo} /></Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto"> </Nav>
