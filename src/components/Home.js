@@ -105,7 +105,8 @@ class Section02 extends Component {
                         <article className="overflow-hidden">
                             {slides.map((s, i) => {
                                 var highLight = "w-75 fs-6 fw-bold";
-                                if (i == activeIndex) highLight += " text-uppercase fontSFProD dnb-f12";
+                                if (i !== activeIndex) highLight += " opacity-50";
+                                
                                 return <div className="d-flex mb-3" onClick={() => { this.goToIndex(i) }} key={i}>
                                     <img src={s.img} alt={s.title}
                                         crossOrigin="anonymous" onLoad={e => { this.onLoad(e.target, i) }}
