@@ -25,7 +25,7 @@ export class Home extends Component {
         )
     }
 }
-
+//https://www.npmjs.com/package/@glidejs/glide
 class Section02 extends Component {
     constructor(props) {
         super(props);
@@ -212,7 +212,7 @@ class ColSectionBase64 extends Component {
             <Container fluid className="my-3" style={{ backgroundColor: background }}>
                 <Container className="py-3">
                     <div className="d-flex align-items-end">
-                        <img src="https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/1554659392034-T0MNTLYE4IIL1YKI7YCH/31450619_2186457071640944_2273573094557745152_n.jpg"
+                        <img src="https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/1638706389877-48JJP115PZYMNPN2JI01/2.jpg"
                             className="dhb-h48 dnb-img-cover flex-shrink-2 rounded-3 p-0" style={{ 'max-width': '988px' }}
                             onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"
                         />
