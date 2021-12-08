@@ -25,19 +25,15 @@ export class Home extends Component {
         )
     }
 }
-
+//https://www.npmjs.com/package/@glidejs/glide
 class Section02 extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeIndex: 0,
-            title: DataSection02.Text,
-            slides: DataSection02.Slides,
-            bg: 'rgb(91, 189, 254)', color: '#c6e8ff'
-        };
-        this.goToIndex = this.goToIndex.bind(this);
-        this.setAutoNext = this.setAutoNext.bind(this);
-    }
+    state = {
+        activeIndex: 0,
+        title: DataSection02.Text,
+        slides: DataSection02.Slides,
+        bg: 'rgb(91, 189, 254)', color: '#c6e8ff'
+    };
+
     componentWillUnmount() {
         clearInterval(this.intervalID);
     }
@@ -49,7 +45,7 @@ class Section02 extends Component {
             });
         }).finally(this.setAutoNext);
     }
-    setAutoNext() {
+    setAutoNext = () => {
         this.intervalID = setInterval(() => {
             const { slides } = this.state;
             var _aI = this.state.activeIndex;
@@ -62,7 +58,7 @@ class Section02 extends Component {
             });
         }, 5000);
     }
-    goToIndex(index) {
+    goToIndex = (index) => {
         clearInterval(this.intervalID);
         this.setState({ activeIndex: index });
         this.setAutoNext();
@@ -109,7 +105,8 @@ class Section02 extends Component {
                         <article className="overflow-hidden">
                             {slides.map((s, i) => {
                                 var highLight = "w-75 fs-6 fw-bold";
-                                if (i == activeIndex) highLight += " text-uppercase fontSFProD dnb-f12";
+                                if (i !== activeIndex) highLight += " opacity-50";
+                                
                                 return <div className="d-flex mb-3" onClick={() => { this.goToIndex(i) }} key={i}>
                                     <img src={s.img} alt={s.title}
                                         crossOrigin="anonymous" onLoad={e => { this.onLoad(e.target, i) }}
@@ -127,12 +124,10 @@ class Section02 extends Component {
 }
 
 class Section03 extends Component {
-    constructor(props) {
-        super(props);
-        this.state = Object.assign({
-            width: window.innerWidth
-        }, DataSection03);
-    }
+    state = Object.assign({
+        width: window.innerWidth
+    }, DataSection03);
+
     componentDidMount() {
         DataSection03.getText().then(data => {
             this.setState({
@@ -191,12 +186,10 @@ class ColSection03 extends Component {
     }
 }
 class ColSectionBase64 extends Component {
-    constructor(props) {
-        super(props);
-        this.state = Object.assign({
-            background: 'rgb(74, 181, 244)', color: 'black'
-        }, DataSection03);
-    }
+    state = Object.assign({
+        background: 'rgb(74, 181, 244)', color: 'black'
+    }, DataSection03);
+
     onLoad = (e) => {
         var rgb = getAverageRGB(e);
         console.log(rgb)
@@ -211,20 +204,22 @@ class ColSectionBase64 extends Component {
         return (
             <Container fluid className="my-3" style={{ backgroundColor: background }}>
                 <Container className="py-3">
-                    <div className="d-flex align-items-end">
-                        <img src="https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/1554659392034-T0MNTLYE4IIL1YKI7YCH/31450619_2186457071640944_2273573094557745152_n.jpg"
-                            className="dhb-h48 dnb-img-cover flex-shrink-2 rounded-3 p-0" style={{ 'max-width': '988px' }}
-                            onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"
-                        />
-                        <div className="ms-3 dnb-w150 flex-grow-1" style={{ 'color': color }}>
-                            {/* <span className="bg-primary rounded-2 p-2 color-white me-3 mb-3 text-white d-inline-block">Tag 001</span> */}
-                            <div>
-                                <h1 className="fw-bold">Start selling with Square.</h1>
-                                <h6>Create your free account in minutes and join the millions of businesses using Square.</h6>
-                                <Button variant="primary text-white">Start a Square account</Button>
+                    <Row>
+                        <Col lg="9" md="12">
+                            <img src="https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/1627654577989-RXF9XFY4M6BKXNUP9YB6/Art_of_Iris_Compiet_1+%2811%29.jpg"
+                                className="dhb-h48 dnb-img-cover flex-shrink-2 rounded-3 p-0" style={{ 'width': '100%' }}
+                                onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous" />
+                        </Col>
+                        <Col lg="3" md="12">
+                            <div className="d-flex align-items-end">
+                                <div className="ms-3 flex-grow-1" style={{ 'color': color }}>
+                                    <h1 className="fw-bold">Start explorer with <span className="d-inline-block">Open source.</span></h1>
+                                    <h6>Create your free account in minutes and join the millions of businesses using Open source.</h6>
+                                    <Button variant="primary text-white">Start a Open account</Button>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                 </Container>
             </Container>
         );
@@ -232,10 +227,8 @@ class ColSectionBase64 extends Component {
 }
 
 class Section01 extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { text: DataSection01.Text };
-    }
+    state = { text: DataSection01.Text };
+
     componentDidMount() {
         DataSection01.getText().then(data => {
             this.setState({ text: data });
@@ -259,12 +252,10 @@ class Section01 extends Component {
 }
 
 class PreviewGrid extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            imgs: DataSection01.Imgs
-        };
-    }
+    state = {
+        imgs: DataSection01.Imgs
+    };
+
     componentDidMount() {
         DataSection01.getImgs().then(_imgs => {
             this.setState({ imgs: _imgs });
