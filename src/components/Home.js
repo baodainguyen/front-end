@@ -208,15 +208,14 @@ class ColSectionBase64 extends Component {
                         <Col lg="9" md="12">
                             <img src="https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/1627654577989-RXF9XFY4M6BKXNUP9YB6/Art_of_Iris_Compiet_1+%2811%29.jpg"
                                 className="dhb-h48 dnb-img-cover flex-shrink-2 rounded-3 p-0" style={{ 'width': '100%' }}
-                                onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"
-                            />
+                                onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous" />
                         </Col>
                         <Col lg="3" md="12">
                             <div className="d-flex align-items-end">
                                 <div className="ms-3 flex-grow-1" style={{ 'color': color }}>
-                                    <h1 className="fw-bold">Start selling with Square.</h1>
-                                    <h6>Create your free account in minutes and join the millions of businesses using Square.</h6>
-                                    <Button variant="primary text-white">Start a Square account</Button>
+                                    <h1 className="fw-bold">Start explorer with <span className="d-inline-block">Open source.</span></h1>
+                                    <h6>Create your free account in minutes and join the millions of businesses using Open source.</h6>
+                                    <Button variant="primary text-white">Start a Open account</Button>
                                 </div>
                             </div>
                         </Col>
