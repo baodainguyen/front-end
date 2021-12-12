@@ -97,7 +97,7 @@ export function getAverageRGB(imgEl) {
 }
 export function getLuminanceFrom(r, g, b) {
     const luminance = .2126 * r + .7152 * g + .0722 * b;
-    console.log(luminance)
+    //console.log(luminance)
     if (luminance < 221)
         return ('white');
     return ('black');

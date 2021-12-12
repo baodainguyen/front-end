@@ -6,7 +6,7 @@ $light: #f3faff;
 $dark: #2c303a;
 $border-radius-sm: 0.27rem;
 $border-radius: 0.33rem;
-$border-radius-lg: 0.69rem;     /*rounded-3*/
+$border-radius-lg: 0.69rem; /*rounded-3*/
 $navbar-light-active-color: $primary;
 $thumbnail-border-radius: 3.69 * $border-radius-lg;
 
@@ -60,6 +60,18 @@ $utilities: map-merge(
             ),
     )
 );
+$grid-breakpoints: map-merge(
+    $grid-breakpoints,
+    (
+        xxxl: 1800px,
+    )
+);
+$container-max-widths: map-merge(
+    $container-max-widths,
+    (
+        xxxl: 1500px,
+    )
+);
 
 @import "../../node_modules/bootstrap/scss/mixins";
 
@@ -67,29 +79,52 @@ $utilities: map-merge(
 
 @import "./SF-Pro.scss";
 
-.fontNotoSans {font-family: 'Noto Sans';}
-.fontSFProD {font-family: 'SF Pro Display';}
-.fontSFProT {font-family: 'SF Pro Text';}
+.fontNotoSans {
+    font-family: "Noto Sans";
+}
+.fontSFProD {
+    font-family: "SF Pro Display";
+}
+.fontSFProT {
+    font-family: "SF Pro Text";
+}
 
-.img-thumbnail {max-width: 180px;}
+.img-thumbnail {
+    max-width: 180px;
+}
 .bg-dark-o3 {
     background-color: rgba(44, 48, 58, 0.3);
 }
+.glide__slides .dnb-glide-item {
+    min-width: 240px;
+    max-width: 240px;
+    min-height: 180px;
+    max-height: 180px;
+}
 .dnb- {
-    &w150 {min-width: 300px; max-width: 300px;}
+    &w150 {
+        min-width: 300px;
+        max-width: 300px;
+    }
     &h30 {
-        min-height: 30px; max-height: 30px;
+        min-height: 30px;
+        max-height: 30px;
     }
     &h48 {
-        min-height: 48px; max-height: 48px;
+        min-height: 48px;
+        max-height: 48px;
     }
     &h396 {
-        min-height: 396px; max-height: 396px;
+        min-height: 396px;
+        max-height: 396px;
     }
     &h600 {
-        min-height: 600px; max-height: 600px;
+        min-height: 600px;
+        max-height: 600px;
     }
-    &f12 {font-size: 12px !important;}
+    &f12 {
+        font-size: 12px !important;
+    }
 }
 
 .display {

@@ -3,6 +3,10 @@ import { Container, Button, Row, Col, Carousel } from 'react-bootstrap';
 import { DataSection01, DataSection02, DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
 import { isEmpty, getAverageRGB, getLuminanceFrom } from '../global/Globals';
+import Glide from '@glidejs/glide';
+import '../../node_modules/@glidejs/glide/dist/css/glide.core.min.css';
+import '../../node_modules/@glidejs/glide/dist/css/glide.theme.min.css';
+
 
 export class Home extends Component {
     render() {
@@ -20,12 +24,72 @@ export class Home extends Component {
                     </Container>
                 </Container>
                 <Section03 />
+                <Container>
+                    <Row>
+                        <Col md={4}>
+                            <h3>glidejs</h3>
+                        </Col>
+                        <Col md={8}><Section4 /></Col>
+                    </Row>
+                </Container>
                 <ColSectionBase64 />
             </>
         )
     }
 }
-//https://www.npmjs.com/package/@glidejs/glide
+class Section4 extends Component {
+    componentDidMount() {
+        new Glide('.glide', {
+            type: 'carousel',
+            perView: 4,
+            focusAt: 'center',
+            breakpoints: {
+                800: { perView: 2 },
+                480: { perView: 1 }
+            }
+        }).mount();
+    }
+    render() {
+        return (
+            <div className="glide">
+                <div className="glide__track" data-glide-el="track">
+                    <ul className="glide__slides">
+                        <li className="glide__slide overflow-hidden">
+                            <ItemGlide img="https://live.staticflickr.com/65535/51699992153_d166c33ac6_b.jpg" />
+                        </li>
+                        <li className="glide__slide overflow-hidden">
+                            <ItemGlide img="https://live.staticflickr.com/65535/51728456656_7e4105ffc0.jpg" />
+                        </li>
+                        <li className="glide__slide overflow-hidden">
+                            <ItemGlide img="https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg" />
+                        </li>
+                        <li className="glide__slide overflow-hidden">
+                            <ItemGlide img="https://live.staticflickr.com/65535/51725347106_0a289e0761.jpg" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        );
+    }
+}
+class ItemGlide extends Component {
+    state = { bg: 'white' }
+    onLoad = (e) => {
+        var rgb = getAverageRGB(e);
+        const background = `rgb(${rgb.r},${rgb.g},${rgb.b})`;
+        this.setState({ bg: background })
+    }
+    render() {
+        const { bg } = this.state;
+        const { img } = this.props;
+        return (
+            <div className='dnb-glide-item' style={{ backgroundColor: bg }}>
+                <img className="w-100 h-100" onLoad={e => { this.onLoad(e.target) }}
+                    src={img} crossOrigin="anonymous" />
+            </div>
+        );
+    }
+}
 class Section02 extends Component {
     state = {
         activeIndex: 0,
@@ -80,7 +144,7 @@ class Section02 extends Component {
     render() {
         const { slides, title, activeIndex, bg, color } = this.state;
         return (
-            <Row>
+            <Row className="gx-1">
                 <Col xl={9} lg={8} md={7} sm={6} xm={12}>
                     <section className="rounded-xl dnb-h600 overflow-hidden mb-5" >
                         <Carousel controls={false} indicators={false}
@@ -106,7 +170,7 @@ class Section02 extends Component {
                             {slides.map((s, i) => {
                                 var highLight = "w-75 fs-6 fw-bold";
                                 if (i !== activeIndex) highLight += " opacity-50";
-                                
+
                                 return <div className="d-flex mb-3" onClick={() => { this.goToIndex(i) }} key={i}>
                                     <img src={s.img} alt={s.title}
                                         crossOrigin="anonymous" onLoad={e => { this.onLoad(e.target, i) }}
@@ -192,7 +256,6 @@ class ColSectionBase64 extends Component {
 
     onLoad = (e) => {
         var rgb = getAverageRGB(e);
-        console.log(rgb)
         this.setState({
             background: `rgb(${rgb.r},${rgb.g},${rgb.b})`,
             color: getLuminanceFrom(rgb.r, rgb.g, rgb.b)
@@ -204,10 +267,10 @@ class ColSectionBase64 extends Component {
         return (
             <Container fluid className="my-3" style={{ backgroundColor: background }}>
                 <Container className="py-3">
-                    <Row>
+                    <Row className="gx-0">
                         <Col lg="9" md="12">
                             <img src="https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/1627654577989-RXF9XFY4M6BKXNUP9YB6/Art_of_Iris_Compiet_1+%2811%29.jpg"
-                                className="dhb-h48 dnb-img-cover flex-shrink-2 rounded-3 p-0" style={{ 'width': '100%' }}
+                                className="dhb-h48 dnb-img-cover flex-shrink-2 rounded-3 p-0 w-100"
                                 onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous" />
                         </Col>
                         <Col lg="3" md="12">
