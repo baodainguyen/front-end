@@ -24,47 +24,63 @@ export class Home extends Component {
                     </Container>
                 </Container>
                 <Section03 />
-                <Container>
+                {/* <Container>
                     <Row>
                         <Col md={4}>
                             <h3>glidejs</h3>
                         </Col>
                         <Col md={8}><Section4 /></Col>
                     </Row>
-                </Container>
+                </Container> */}
                 <ColSectionBase64 />
             </>
         )
     }
 }
 class Section4 extends Component {
+    state = { bg: 'white' };
     componentDidMount() {
-        new Glide('.glide', {
+        var glide = new Glide('.glide', {
             type: 'carousel',
             perView: 4,
-            focusAt: 'center',
+            startAt: 0,
+            focusAt: 0,
+            autoplay: 2100,
             breakpoints: {
-                800: { perView: 2 },
-                480: { perView: 1 }
+                800: { perView: 2 }, 480: { perView: 1 }
             }
         }).mount();
+        // glide.on('move.after', function(m) {
+        //     console.log(m)
+        // });
+        glide.play();
     }
+    setBg = (_bg, _w) => {
+        this.setState({ bg: _bg });
+        console.log(_w);
+    }
+
     render() {
+        const { bg } = this.state;
         return (
-            <div className="glide">
+            <div className="glide" style={{ backgroundColor: bg }}>
                 <div className="glide__track" data-glide-el="track">
                     <ul className="glide__slides">
                         <li className="glide__slide overflow-hidden">
-                            <ItemGlide img="https://live.staticflickr.com/65535/51699992153_d166c33ac6_b.jpg" />
+                            <ItemGlide img="https://live.staticflickr.com/65535/51699992153_d166c33ac6_b.jpg"
+                                setParentBg={this.setBg} />
                         </li>
                         <li className="glide__slide overflow-hidden">
-                            <ItemGlide img="https://live.staticflickr.com/65535/51728456656_7e4105ffc0.jpg" />
+                            <ItemGlide img="https://live.staticflickr.com/65535/51728456656_7e4105ffc0.jpg"
+                                setParentBg={this.setBg} />
                         </li>
                         <li className="glide__slide overflow-hidden">
-                            <ItemGlide img="https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg" />
+                            <ItemGlide img="https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg"
+                                setParentBg={this.setBg} />
                         </li>
                         <li className="glide__slide overflow-hidden">
-                            <ItemGlide img="https://live.staticflickr.com/65535/51725347106_0a289e0761.jpg" />
+                            <ItemGlide img="https://live.staticflickr.com/65535/51725347106_0a289e0761.jpg"
+                                setParentBg={this.setBg} />
                         </li>
                     </ul>
                 </div>
@@ -73,17 +89,18 @@ class Section4 extends Component {
     }
 }
 class ItemGlide extends Component {
-    state = { bg: 'white' }
+    state = { bg: '#4ab5f4' };
     onLoad = (e) => {
         var rgb = getAverageRGB(e);
         const background = `rgb(${rgb.r},${rgb.g},${rgb.b})`;
-        this.setState({ bg: background })
+        this.setState({ bg: background });
+        this.props.setParentBg(background, e.width);
     }
     render() {
         const { bg } = this.state;
         const { img } = this.props;
         return (
-            <div className='dnb-glide-item' style={{ backgroundColor: bg }}>
+            <div className='dnb-glide-item rounded-1 overflow-hidden d-flex align-items-center' style={{ backgroundColor: bg }}>
                 <img className="w-100 h-100" onLoad={e => { this.onLoad(e.target) }}
                     src={img} crossOrigin="anonymous" />
             </div>

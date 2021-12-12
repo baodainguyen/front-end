@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { Navbar, Container, Nav, Card, Modal, Button } from 'react-bootstrap';
-import { DnbButtonRoute } from './Elements';
+import { Navbar, Container, Nav, Card, Modal } from 'react-bootstrap';
 import { Logo } from '../global/Files';
 import { removeSpace } from '../global/Globals';
 
@@ -41,18 +40,13 @@ export class Navigator extends Component {
 }
 
 export class DnbCard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showModal: false
-        };
-        this.setShow = this.setShow.bind(this);
-        this.setHide = this.setHide.bind(this);
-    }
-    setShow() {
+    state = {
+        showModal: false
+    };
+    setShow = () => {
         this.setState({ showModal: true });
     }
-    setHide() {
+    setHide = () => {
         this.setState({ showModal: false });
     }
 
@@ -71,7 +65,6 @@ export class DnbCard extends Component {
                     {cardTitle}
                     {cardSubtitle}
                     {cardDescription}
-                    {/* <DnbButtonRoute linkTo="Contact">Go somewhere</DnbButtonRoute> */}
                     <DnbBtnModal title={cardSubtitle}>
                         <div className="w-100">
                             <img src={src} alt="img" style={{
@@ -92,20 +85,15 @@ export class DnbCard extends Component {
 }
 
 class DnbBtnModal extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            id: `dnb-modal-component-${Date.now()}`,
-            show: false
-        };
-        this.setShow = this.setShow.bind(this);
-        this.setHide = this.setHide.bind(this);
-    }
-    setShow(e) {
+    state = {
+        id: `dnb-modal-component-${Date.now()}`,
+        show: false
+    };
+    setShow = (e) => {
         this.setState({ show: true });
         e.preventDefault();
     }
-    setHide() {
+    setHide = () => {
         this.setState({ show: false });
     }
 
@@ -124,8 +112,7 @@ class DnbBtnModal extends Component {
                     centered
                     onHide={this.setHide}
                     dialogClassName="modal-90w"
-                    aria-labelledby={this.state.id}
-                >
+                    aria-labelledby={this.state.id} >
                     <Modal.Header closeButton>
                         <Modal.Title id={this.state.id}>
                             {title}
