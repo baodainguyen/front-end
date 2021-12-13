@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Container, Button, Form } from 'react-bootstrap';
 import { getCookie, CookieKey, isEmail } from '../global/Globals';
 import { Logos } from '../global/Files';
 import { RunServices } from '../global/Services';
@@ -39,22 +38,17 @@ class ListLang extends Component {
 }
 
 export class Subcribe extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '', id: Date.now(),
-            nofity: `We'll never share your email with anyone else.`
-        };
-        this.subcribeEmail = this.subcribeEmail.bind(this);
-        this.handleEmail = this.handleEmail.bind(this);
-    }
+    state = {
+        email: '', id: Date.now(),
+        nofity: `We'll never share your email with anyone else.`
+    };
     componentDidMount() {
         var _id = getCookie(CookieKey.Id);
         _id = +(_id);
 
         this.setState({ id: _id });
     }
-    subcribeEmail(e) {
+    subcribeEmail = (e) => {
         e.preventDefault();
         const email = this.state.email;
         if (isEmail(email)) {
@@ -67,7 +61,7 @@ export class Subcribe extends Component {
         }
         // alert
     }
-    handleEmail(e) {
+    handleEmail = (e) => {
         let _email = e.target.value;
         this.setState({ email: _email });
         if (!isEmail(_email)) {
@@ -100,28 +94,3 @@ export class Subcribe extends Component {
         );
     }
 }
-
-export class DnbButtonRoute extends Component {
-    render() {
-        const { linkTo, children } = this.props;
-        return (
-            <a href={linkTo} as={Link} to={`/${linkTo}`} className="btn btn-primary text-white">
-                {children}
-            </a>
-        );
-    }
-}
-
-// export class BackgroundLinear extends Component {
-//     render() {
-//         const { children, botLeftColor, midColor, topRightColor, className } = this.props;
-//         const _bg = `linear-gradient(to right top, #${botLeftColor} 0%, #${midColor} 25%, #${topRightColor} 100%)`;
-//         //botLeftColor="5bbdfe" midColor="87cfff" topRightColor="c6e8ff"
-//         return (
-//             <section className={className}
-//                 style={{ backgroundImage: _bg }}>
-//                 {children}
-//             </section>
-//         );
-//     }
-// }
