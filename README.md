@@ -1,3 +1,5 @@
+0. Screenshot:
+    ![localhost8001](https://github.com/baodainguyen/front-end/blob/backup/screenshot_8001.png)
 1. Install *@babel/preset-react*
     ```
     npm install --save-dev @babel/preset-react
