@@ -99,8 +99,15 @@ export function getLuminanceFrom(r, g, b) {
     const luminance = .2126 * r + .7152 * g + .0722 * b;
     //console.log(luminance)
     if (luminance < 221)
-        return ('white');
-    return ('black');
+        return ('rgb(255,255,255)');
+    return ('rgb(0,0,0)');
+}
+export function getRgba (rgbString, a) {   // rgb(123,456,789)
+    if(0 > a || a > 1) a = 1;
+    var x = rgbString.replace('rgb', 'rgba');
+    x = x.replace(')', `,${a})`);
+    console.log(x)
+    return x;
 }
 
 export function CheatSheetJs() {

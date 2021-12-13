@@ -161,7 +161,7 @@ export const DataSection02 = {
         if (this.Text === undefined) {
             const data = await RunServices().getSection02();
             this.Text = data.title;
-            this.Slides = data.slides;
+            this.Slides = data.slides; // [{title, sub, img, content}]
             return data;
         }
         return new Promise(r => {

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Button, Row, Col, Carousel } from 'react-bootstrap';
-import { DataSection01, DataSection02, DataSection03 } from '../global/Services';
+import { DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
-import { isEmpty, getAverageRGB, getLuminanceFrom } from '../global/Globals';
+import { getAverageRGB, getLuminanceFrom, getRgba } from '../global/Globals';
+import { MobileArticle } from './Elements';
 import Glide from '@glidejs/glide';
 import '../../node_modules/@glidejs/glide/dist/css/glide.core.min.css';
 import '../../node_modules/@glidejs/glide/dist/css/glide.theme.min.css';
@@ -12,15 +13,9 @@ export class Home extends Component {
     render() {
         return (
             <>
-                <Container className="my-5 fontNotoSans">
-                    <Row>
-                        <Section01 />
-                        <PreviewGrid />
-                    </Row>
-                </Container>
-                <Container fluid className="bg-light py-7">
+                <Container fluid className="bg-light py-3">
                     <Container>
-                        <Section02 />
+                        <MobileArticle />
                     </Container>
                 </Container>
                 <Section03 />
@@ -104,102 +99,6 @@ class ItemGlide extends Component {
                 <img className="w-100 h-100" onLoad={e => { this.onLoad(e.target) }}
                     src={img} crossOrigin="anonymous" />
             </div>
-        );
-    }
-}
-class Section02 extends Component {
-    state = {
-        activeIndex: 0,
-        title: DataSection02.Text,
-        slides: DataSection02.Slides,
-        bg: 'rgb(91, 189, 254)', color: '#c6e8ff'
-    };
-
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
-    }
-    componentDidMount() {
-        DataSection02.get().then(data => {
-            this.setState({
-                title: data.title,
-                slides: data.slides
-            });
-        }).finally(this.setAutoNext);
-    }
-    setAutoNext = () => {
-        this.intervalID = setInterval(() => {
-            const { slides } = this.state;
-            var _aI = this.state.activeIndex;
-
-            _aI = ++_aI % slides.length;
-            this.setState({
-                activeIndex: _aI,
-                bg: slides[_aI].bg,
-                color: slides[_aI].color
-            });
-        }, 5000);
-    }
-    goToIndex = (index) => {
-        clearInterval(this.intervalID);
-        this.setState({ activeIndex: index });
-        this.setAutoNext();
-    }
-    onLoad = (e, index) => {
-        const rgb = getAverageRGB(e);
-        const { slides, activeIndex } = this.state;
-
-        slides[index].bg = `rgb(${rgb.r},${rgb.g},${rgb.b})`;
-        slides[index].color = getLuminanceFrom(rgb.r, rgb.g, rgb.b);
-        if (index === activeIndex) {
-            this.setState({
-                bg: slides[index].bg,
-                color: slides[index].color
-            });
-        }
-    }
-
-    render() {
-        const { slides, title, activeIndex, bg, color } = this.state;
-        return (
-            <Row className="gx-1">
-                <Col xl={9} lg={8} md={7} sm={6} xm={12}>
-                    <section className="rounded-xl dnb-h600 overflow-hidden mb-5" >
-                        <Carousel controls={false} indicators={false}
-                            activeIndex={activeIndex}>
-                            {slides.map((s, i) => {
-                                return <Carousel.Item key={`dnb-carousel-${i}`}>
-                                    <img src={s.img} alt={s.title}
-                                        className="d-block w-100 rounded-xl dnb-h600 dnb-img-cover rounded"
-                                    />
-                                    <Carousel.Caption>
-                                        <h3>{s.title}</h3>
-                                        <p>{s.sub}</p>
-                                    </Carousel.Caption>
-                                </Carousel.Item>
-                            })}
-                        </Carousel>
-                    </section>
-                </Col>
-                <Col xl={3} lg={4} md={5} sm={6} xm={12}>
-                    <section className="rounded-xl p-3 dnb-h600 overflow-hidden" style={{ backgroundColor: bg }} >
-                        <h3 className="fontSFProD fw-bold pt-3 mb-3" style={{ color: color }}>{title}</h3>
-                        <article className="overflow-hidden">
-                            {slides.map((s, i) => {
-                                var highLight = "w-75 fs-6 fw-bold";
-                                if (i !== activeIndex) highLight += " opacity-50";
-
-                                return <div className="d-flex mb-3" onClick={() => { this.goToIndex(i) }} key={i}>
-                                    <img src={s.img} alt={s.title}
-                                        crossOrigin="anonymous" onLoad={e => { this.onLoad(e.target, i) }}
-                                        className="d-block w-25 dhb-h48 me-3 mt-1 dnb-img-cover rounded"
-                                    />
-                                    <div className={highLight} style={{ color: color }}>{s.sub}</div>
-                                </div>
-                            })}
-                        </article>
-                    </section>
-                </Col>
-            </Row>
         );
     }
 }
@@ -306,59 +205,4 @@ class ColSectionBase64 extends Component {
     }
 }
 
-class Section01 extends Component {
-    state = { text: DataSection01.Text };
-
-    componentDidMount() {
-        DataSection01.getText().then(data => {
-            this.setState({ text: data });
-        });
-    }
-
-    render() {
-        const { title, head, des, abutton } = this.state.text;
-        const actionBtn = isEmpty(abutton) ? <></> : <Button className="rounded-1" variant="dark">{abutton}</Button>
-        return (
-            <Col lg={4} md={12} className="d-flex align-items-center mb-5">
-                <div style={{ marginTop: '-90px' }}>
-                    <h5>{title}</h5>
-                    <h3>{head}</h3>
-                    <p>{des}</p>
-                    {actionBtn}
-                </div>
-            </Col>
-        );
-    }
-}
-
-class PreviewGrid extends Component {
-    state = {
-        imgs: DataSection01.Imgs
-    };
-
-    componentDidMount() {
-        DataSection01.getImgs().then(_imgs => {
-            this.setState({ imgs: _imgs });
-        });
-    }
-
-    render() {
-        const { imgs } = this.state;
-        return (
-            <Col lg={8} md={12}>
-                <div className="position-relative w-100 dnb-card-group">
-                    {imgs.map((img, i) => {
-                        let _style = {
-                            backgroundImage: `url(${img.url})`,
-                            backgroundSize: 'cover'
-                        };
-                        let _class = `dnb-card rounded-3 dnb-card${i + 1}`
-                        return <div className={_class} key={`section-01-img-${i}`}
-                            style={_style} title={img.title}></div>
-                    })}
-                </div>
-            </Col>
-        );
-    }
-}
 
