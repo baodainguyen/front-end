@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button, Row, Col, Carousel } from 'react-bootstrap';
+import { Container, Button, Row, Col, Card } from 'react-bootstrap';
 import { DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
 import { getAverageRGB, getLuminanceFrom, getRgba } from '../global/Globals';
@@ -130,25 +130,96 @@ class Section03 extends Component {
     render() {
         const { title, head, cards, width } = this.state;
         const _head = head ? <h4 className="mt-3">{head}</h4> : <></>;
-        var _cards01 = cards.slice(0, 3);
-        var _cards02 = cards.slice(3);
+        var _cards01 = cards.slice(0, 2);
+        var _cards02 = cards.slice(2);
         if (head && 767 < width && width < 992) {   // md={6}
             _cards01 = cards.slice(0, 4);
             _cards02 = cards.slice(4);
         }
-        return (
+        return (<>
+            <ColSection03 cards={_cards01} title={title} />
             <Container className="my-5">
-                <h3 className="fw-bold">{title}</h3>
                 <Row className="py-3">
-                    <ColSection03 cards={_cards01} />
                     {_head}
-                    <ColSection03 cards={_cards02} />
+                    <ColSection04 cards={_cards02} />
+                </Row>
+            </Container>
+        </>
+        );
+    }
+}
+class ColSection03 extends Component {
+    render() {
+        const { title, cards } = this.props;
+        return (
+            <Container fluid className='px-0 py-5'>
+                <Container><h3 className="fw-bold">{title}</h3></Container>
+                <Row className="gx-0">
+                    {cards.map((card, i) => {
+                        return <ColSection03Side isLeft={i % 2 == 0} card={card} />
+                    })}
                 </Row>
             </Container>
         );
     }
 }
-class ColSection03 extends Component {
+class ColSection03Side extends Component {
+    state = {
+        bg: 'rgb(0,0,0)', color: 'rgb(255,255,255)'
+    }
+    onLoad = (e) => {
+        const rgb = getAverageRGB(e);
+        const bg = `rgb(${rgb.r},${rgb.g},${rgb.b})`;
+        const color = getLuminanceFrom(rgb.r, rgb.g, rgb.b);
+        this.setState({
+            bg: bg,
+            color: color
+        });
+    }
+    render() {
+        const { card, isLeft } = this.props;
+        const {bg, color} = this.state;
+        const view = isLeft ? <>
+            <Col md={3}></Col>
+            <Col md={9} className='ms-n4'>
+                <Row className='gx-0'>
+                    <Col md={4}>
+                        <h5>{card.title}</h5>
+                        <p>{card.des}</p>
+                    </Col>
+                    <Col md={8} className='ms-4 me-n4'>
+                        <img className='w-100' src={card.img} onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"/>
+                    </Col>
+                </Row>
+            </Col>
+        </> : <>
+            <Col md={9}>
+                <Row className='gx-0'>
+                    <Col md={8}>
+                        <img className='w-100' src="https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/1627654577989-RXF9XFY4M6BKXNUP9YB6/Art_of_Iris_Compiet_1+%2811%29.jpg"
+                        onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous"/>
+                    </Col>
+                    <Col md={4}>
+                        <h5>{card.title}</h5>
+                        <p>{card.des}</p>
+                    </Col>
+                </Row>
+            </Col>
+            <Col md={3}></Col>
+        </>;
+
+        return (
+            <Col xs={12} md={6} >
+                <Card className='border-0 rounded-0' style={{backgroundColor: bg}}>
+                    <Row className='g-0' style={{color: color}}>
+                        {view}
+                    </Row>
+                </Card>
+            </Col>
+        );
+    }
+}
+class ColSection04 extends Component {
     render() {
         const { cards } = this.props;
         return (
