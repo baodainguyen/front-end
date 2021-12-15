@@ -248,7 +248,8 @@ class ColSection04 extends Component {
             <>
                 {cards.map((card, i) => {
                     return <Col xs={12} md={6} lg={4} key={i}>
-                        <DnbCard src={card.img}
+                        <DnbCard className="dnb-cardview shadow-sm"
+                            src={card.img}
                             cap={card.title}
                             subCap={card.head}
                             text={card.des} />

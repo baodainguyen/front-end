@@ -106,7 +106,6 @@ export function getRgba (rgbString, a) {   // rgb(123,456,789)
     if(0 > a || a > 1) a = 1;
     var x = rgbString.replace('rgb', 'rgba');
     x = x.replace(')', `,${a})`);
-    console.log(x)
     return x;
 }
 
