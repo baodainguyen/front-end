@@ -104,8 +104,9 @@ $container-max-widths: map-merge(
     background-color: rgba(44, 48, 58, 0.3);
 }
 .glide__slides .dnb-glide-item {
-    min-height: 180px;
-    max-height: 180px;
+    min-height: 360px;
+    max-height: 360px;
+    background-size: cover;
 }
 .dnb- {
     &h30 {
@@ -133,7 +134,7 @@ $container-max-widths: map-merge(
             transition: opacity 0.81s;
         }
         .card-body {
-            bottom: -138px;
+            bottom: -150px;
             transition: bottom 0.3s;
         }
         &:hover {
