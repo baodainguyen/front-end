@@ -4,6 +4,7 @@ import { DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
 import { getAverageRGB, getLuminanceFrom, getRgba } from '../global/Globals';
 import { MobileArticle } from './Elements';
+import { colSlider } from 'col-slider';
 import Glide from '@glidejs/glide';
 import '../../node_modules/@glidejs/glide/dist/css/glide.core.min.css';
 import '../../node_modules/@glidejs/glide/dist/css/glide.theme.min.css';
@@ -29,6 +30,16 @@ export class Home extends Component {
                         <Col md={10}><Section4 /></Col>
                     </Row>
                 </Container>
+                <Container className='py-5'>
+                    <Row>
+                        <Col md={10}><Section5 /></Col>
+                        <Col md={2}>
+                            <h3>col-slider</h3>
+                            <p>A dependency-free JavaScript ES6 slider in column style. It’s lightweight. Designed to slide.</p>
+                            <a href='https://www.npmjs.com/package/col-slider'>npm package</a>
+                        </Col>
+                    </Row>
+                </Container>
             </>
         )
     }
@@ -39,6 +50,16 @@ const aaa = [
     { src: 'https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg' },
     { src: 'https://live.staticflickr.com/65535/51725347106_0a289e0761.jpg' }
 ]
+class Section5 extends Component {
+    componentDidMount() {
+        colSlider({
+            slides: aaa, mainWidth: '80%'
+        }).append('.dnbBody');
+    }
+    render() {
+        return (<div className='dnbBody'></div>);
+    }
+}
 class Section4 extends Component {
 
     componentDidMount() {

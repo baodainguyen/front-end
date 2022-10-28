@@ -1,0 +1,60 @@
+.scrollbar-h0::-webkit-scrollbar {
+    height: 0px;
+  }
+  p, strong, a, h1,h2,h3,h4,h5,h6, img {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                          supported by Chrome, Edge, Opera and Firefox */
+  }
+  
+  $primaryColor: #f7542e;
+  $secondaryColor: #6577ff;
+  $w264: 380px !important; 
+  $h396: 396px !default;
+  $h198: $h396 / 2 - 15;
+  $h99: $h198 / 2 - 12;
+  $h111: $h99 + 50;
+  
+  .row {
+    .col-wrap {
+      
+    }
+    .col-md-8.col-wrap { }
+  }
+  .box-264-396 {min-width: $w264; height: $h396; max-height: $h396}
+  .box-h198 {height: $h198; max-height: $h198}
+  .box-h99 {height: $h99; max-height: $h99}
+  .box-h111 {height: $h111; max-height: $h111}
+  .minw200 {min-width:200px}
+  .d-grid {
+    display:grid; grid-gap: 30px; width: 100% !important; grid-template-columns: auto auto;
+  }
+  .d-grid-1st { & > .card:first-child { grid-column: 1 / span 2; grid-row: 1} }
+  .d-grid-lst { grid-gap: 20px;
+    & > .card:last-child { grid-column: 1 / span 2; } }
+  .rounded {border-radius: 12px !important;}
+  .rounded-lg {border-radius: 18px !important}
+  .bg-img-ui {
+    background-image: url('https://i.pinimg.com/564x/29/98/2b/29982bb0fe1c03d95c11d0144be79938.jpg');
+    background-repeat: no-repeat; background-size:cover;
+  }
+  .pos-abs {position:absolute;}
+  .pos-rel {position:relative;}
+  
+  $mt9: 84px !important;
+  .mt-9 {margin-top: $mt9;}
+  .mt-n9 { margin-top: -$mt9; }
+  @media screen and (max-width: 992px) {
+    .mt-n9 {margin-top: 0 !important}
+    .dnb-mobile-sticky-top { position: -webkit-sticky; position: sticky; top: 0; z-index: 1020; }
+    .dnb-mobile-sticky-top .dnb-search{background-color:white}
+    .dnb-mobile-sticky {position: sticky;top:$mt9}
+  }
+  @media screen and (max-width: 768px) {
+    .dnb-mobile-sticky-top {background-color: white}
+    #dnb-body > div:first-child {margin-top: 0 !important}
+  }

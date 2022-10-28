@@ -7,6 +7,7 @@ import { NavLink } from './global/Services';
 import { Navigator } from '../src/components/BootstrapElements';
 import { SubMenu, MainMenu, Contact } from './components/Pages';
 import { Home } from './components/Home';
+import { Main } from './components/Main';
 import { TutorialCheatSheet } from './components/Tutorials';
 import { Resume } from './components/Resume';
 import { Footer } from '../src/components/Elements';
@@ -20,6 +21,7 @@ class App extends Component {
     }
     componentDidMount() {
         NavLink.get().then(_navs => {
+            _navs.push({title: 'Main'})
             this.setState({ navs: _navs });
         });        
     }
@@ -71,6 +73,7 @@ function getPageFromNav(item) {
 function getPageFromMainMenu(title) {
     if (isEqualLowCase(title, 'about')) return <Resume />;
     if (isEqualLowCase(title, 'contact')) return <Contact />;
+    if (isEqualLowCase(title, 'Main')) return <Main />;
     return <MainMenu />;
 }
 function getPageFromSubMenu(sub) {
