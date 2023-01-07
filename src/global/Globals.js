@@ -46,12 +46,6 @@ export function removeSpace(txtSource, txtReplace) {
     return txtSource.replaceAll('  ', txtReplace).replaceAll(' ', txtReplace);
 }
 
-export function isEqualLowCase(txt1, txt2) {
-    txt1 = txt1.trim().toLowerCase();
-    txt2 = txt2.trim().toLowerCase();
-    return txt1 === txt2;
-}
-
 export function getAverageRGB(imgEl) {
     var blockSize = 5, // only visit every 5 pixels
         defaultRGB = { r: 0, g: 0, b: 0 }, // for non-supporting envs
@@ -106,7 +100,6 @@ export function getRgba (rgbString, a) {   // rgb(123,456,789)
     if(0 > a || a > 1) a = 1;
     var x = rgbString.replace('rgb', 'rgba');
     x = x.replace(')', `,${a})`);
-    console.log(x)
     return x;
 }
 

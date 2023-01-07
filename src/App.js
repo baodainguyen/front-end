@@ -7,10 +7,10 @@ import { NavLink } from './global/Services';
 import { Navigator } from '../src/components/BootstrapElements';
 import { SubMenu, MainMenu, Contact } from './components/Pages';
 import { Home } from './components/Home';
+import { Ecma } from './components/Ecma';
 import { TutorialCheatSheet } from './components/Tutorials';
 import { Resume } from './components/Resume';
-import { Footer } from '../src/components/Elements';
-import { removeSpace, isEqualLowCase } from './global/Globals';
+import { removeSpace } from './global/Globals';
 import './scss/style.scss';
 
 class App extends Component {
@@ -20,6 +20,7 @@ class App extends Component {
     }
     componentDidMount() {
         NavLink.get().then(_navs => {
+            _navs.unshift({title: 'Main'})
             this.setState({ navs: _navs });
         });        
     }
@@ -32,7 +33,6 @@ class App extends Component {
                     < Navigator list={_navs} />
                     < BodyPage list={_navs} />
                 </Router>
-                <Footer />
             </>
         );
     }
@@ -71,9 +71,15 @@ function getPageFromNav(item) {
 function getPageFromMainMenu(title) {
     if (isEqualLowCase(title, 'about')) return <Resume />;
     if (isEqualLowCase(title, 'contact')) return <Contact />;
+    if (isEqualLowCase(title, 'Main')) return <Ecma />;
     return <MainMenu />;
 }
 function getPageFromSubMenu(sub) {
     if (isEqualLowCase(sub, 'cheat sheet')) return <TutorialCheatSheet />;
     return <SubMenu />;
+}
+function isEqualLowCase(txt1, txt2) {
+    txt1 = txt1.trim().toLowerCase();
+    txt2 = txt2.trim().toLowerCase();
+    return txt1 === txt2;
 }

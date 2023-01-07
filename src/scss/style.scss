@@ -76,10 +76,14 @@ $container-max-widths: map-merge(
 @import "../../node_modules/bootstrap/scss/mixins";
 @import "../../node_modules/bootstrap";
 
-@include media-breakpoint-up(xxl) { 
-    .col-xl-3 { width:21% }
-    .col-xl-9 { width: 79% }
- }
+@include media-breakpoint-up(xxl) {
+    .col-xl-3 {
+        width: 21%;
+    }
+    .col-xl-9 {
+        width: 79%;
+    }
+}
 
 @import "./SF-Pro.scss";
 
@@ -100,8 +104,9 @@ $container-max-widths: map-merge(
     background-color: rgba(44, 48, 58, 0.3);
 }
 .glide__slides .dnb-glide-item {
-    min-height: 180px;
-    max-height: 180px;
+    min-height: 360px;
+    max-height: 360px;
+    background-size: cover;
 }
 .dnb- {
     &h30 {
@@ -122,6 +127,29 @@ $container-max-widths: map-merge(
     }
     &pointer {
         cursor: pointer;
+    }
+    &cardview {
+        .card-img-overlay {
+            opacity: 0;
+            transition: opacity 0.81s;
+        }
+        .card-body {
+            bottom: -150px;
+            transition: bottom 0.3s;
+        }
+        &:hover {
+            .card-img-overlay {
+                opacity: 1;
+            }
+            .card-body {
+                bottom: 0;
+            }
+        }
+    }
+    &img- {
+        &cover {
+            object-fit: cover;
+        }
     }
 }
 
@@ -171,40 +199,6 @@ $container-max-widths: map-merge(
     min-width: 248px;
 }
 
-.dnb-tech- {
-    &item {
-        height: 243px;
-        background-color: #2c303a;
-        padding-top: 33px;
-        margin-bottom: 21px;
-
-        div {
-            width: 81%;
-            height: 131px;
-            margin: auto;
-            display: grid;
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-            img {
-                max-width: 135px;
-                width: 100%;
-                display: block;
-            }
-        }
-        h3 {
-            text-align: center;
-            transform: translateY(18px);
-            color: white;
-        }
-    }
-}
-
-.dnb-img- {
-    &cover {
-        object-fit: cover;
-    }
-}
 .h4.card-title.h5 {
     font-size: $h4-font-size;
 }

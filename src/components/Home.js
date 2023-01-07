@@ -3,13 +3,17 @@ import { Container, Button, Row, Col, Card } from 'react-bootstrap';
 import { DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
 import { getAverageRGB, getLuminanceFrom, getRgba } from '../global/Globals';
-import { MobileArticle } from './Elements';
+import { MobileArticle, Footer } from './Elements';
+import { colSlider } from 'col-slider';
 import Glide from '@glidejs/glide';
 import '../../node_modules/@glidejs/glide/dist/css/glide.core.min.css';
 import '../../node_modules/@glidejs/glide/dist/css/glide.theme.min.css';
 
-
 export class Home extends Component {
+    componentDidMount() {
+        const mainNav = document.querySelector(`#dnbApp > nav.sticky-top:first-child`);
+        mainNav.style.display = ''
+    }
     render() {
         return (
             <>
@@ -19,64 +23,74 @@ export class Home extends Component {
                     </Container>
                 </Container>
                 <Section03 />
-                {/* <Container>
-                    <Row>
-                        <Col md={4}>
-                            <h3>glidejs</h3>
-                        </Col>
-                        <Col md={8}><Section4 /></Col>
-                    </Row>
-                </Container> */}
                 <ColSectionBase64 />
+                <Container className='py-5'>
+                    <Row>
+                        <Col md={2}>
+                            <h3>glidejs</h3>
+                            <p>A dependency-free JavaScript ES6 slider and carousel. It’s lightweight, flexible and fast. Designed to slide. No less, no more</p>
+                        </Col>
+                        <Col md={10}><Section4 /></Col>
+                    </Row>
+                </Container>
+                <Container className='py-5'>
+                    <Row>
+                        <Col md={10}><Section5 /></Col>
+                        <Col md={2}>
+                            <h3>col-slider</h3>
+                            <p>A dependency-free JavaScript ES6 slider in column style. It’s lightweight. Designed to slide.</p>
+                            <a href='https://www.npmjs.com/package/col-slider'>npm package</a>
+                        </Col>
+                    </Row>
+                </Container>
+                <Footer />
             </>
         )
     }
 }
-class Section4 extends Component {
-    state = { bg: 'white' };
+const aaa = [
+    { src: 'https://live.staticflickr.com/65535/51699992153_d166c33ac6_b.jpg' },
+    { src: 'https://live.staticflickr.com/65535/51728456656_7e4105ffc0.jpg' },
+    { src: 'https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg' },
+    { src: 'https://live.staticflickr.com/65535/51725347106_0a289e0761.jpg' }
+]
+class Section5 extends Component {
     componentDidMount() {
-        var glide = new Glide('.glide', {
+        colSlider({
+            slides: aaa, mainWidth: '80%'
+        }).append('.dnbBody');
+    }
+    render() {
+        return (<div className='dnbBody'></div>);
+    }
+}
+class Section4 extends Component {
+
+    componentDidMount() {
+        new Glide('.glide', {
             type: 'carousel',
-            perView: 4,
-            startAt: 0,
-            focusAt: 0,
+            perView: 4.5,
+            startAt: 1,
+            focusAt: 'center',
             autoplay: 2100,
             breakpoints: {
-                800: { perView: 2 }, 480: { perView: 1 }
+                1410: { perView: 3.5 }, 1080: { perView: 2.5 }, 810: { perView: 2.1 }
             }
-        }).mount();
-        // glide.on('move.after', function(m) {
-        //     console.log(m)
-        // });
-        glide.play();
-    }
-    setBg = (_bg, _w) => {
-        this.setState({ bg: _bg });
-        console.log(_w);
+        }).mount().play();
     }
 
     render() {
-        const { bg } = this.state;
+
         return (
-            <div className="glide" style={{ backgroundColor: bg }}>
-                <div className="glide__track" data-glide-el="track">
+            <div className="glide">
+                <div className="glide__track rounded-1" data-glide-el="track">
                     <ul className="glide__slides">
-                        <li className="glide__slide overflow-hidden">
-                            <ItemGlide img="https://live.staticflickr.com/65535/51699992153_d166c33ac6_b.jpg"
-                                setParentBg={this.setBg} />
-                        </li>
-                        <li className="glide__slide overflow-hidden">
-                            <ItemGlide img="https://live.staticflickr.com/65535/51728456656_7e4105ffc0.jpg"
-                                setParentBg={this.setBg} />
-                        </li>
-                        <li className="glide__slide overflow-hidden">
-                            <ItemGlide img="https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg"
-                                setParentBg={this.setBg} />
-                        </li>
-                        <li className="glide__slide overflow-hidden">
-                            <ItemGlide img="https://live.staticflickr.com/65535/51725347106_0a289e0761.jpg"
-                                setParentBg={this.setBg} />
-                        </li>
+                        {aaa.map((a, i) => {
+                            return <li className="glide__slide overflow-hidden rounded-1" key={`dnb-glide-${i}`}>
+                                <ItemGlide img={a.src} index={i} />
+                            </li>
+                        })
+                        }
                     </ul>
                 </div>
             </div>
@@ -84,20 +98,13 @@ class Section4 extends Component {
     }
 }
 class ItemGlide extends Component {
-    state = { bg: '#4ab5f4' };
-    onLoad = (e) => {
-        var rgb = getAverageRGB(e);
-        const background = `rgb(${rgb.r},${rgb.g},${rgb.b})`;
-        this.setState({ bg: background });
-        this.props.setParentBg(background, e.width);
-    }
+
     render() {
-        const { bg } = this.state;
         const { img } = this.props;
         return (
-            <div className='dnb-glide-item rounded-1 overflow-hidden d-flex align-items-center' style={{ backgroundColor: bg }}>
-                <img className="w-100 h-100" onLoad={e => { this.onLoad(e.target) }}
-                    src={img} crossOrigin="anonymous" />
+            <div style={{ backgroundImage: `url(${img})` }}
+                className='dnb-glide-item d-flex align-items-center'>
+                <img className="opacity-0" src={img} />
             </div>
         );
     }
@@ -157,7 +164,7 @@ class ColSection03 extends Component {
             sub = -450
         }
         return (
-            <Container fluid className='px-0 py-5'>
+            <Container fluid className='px-0 py-3'>
                 <Container><h3 className="fw-bold">{title}</h3></Container>
                 <Row className="gx-0">
                     {cards.map((card, i) => {
@@ -248,7 +255,8 @@ class ColSection04 extends Component {
             <>
                 {cards.map((card, i) => {
                     return <Col xs={12} md={6} lg={4} key={i}>
-                        <DnbCard src={card.img}
+                        <DnbCard className="dnb-cardview shadow-sm"
+                            src={card.img}
                             cap={card.title}
                             subCap={card.head}
                             text={card.des} />

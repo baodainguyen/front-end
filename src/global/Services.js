@@ -31,7 +31,6 @@ export function RunServices() {
         return new Promise(resolve => {
             var navs = [];
             querySnapshot.forEach((doc) => {
-                // console.log(doc.id, " => ", doc.data());
                 navs.push(doc.data());
             });
             resolve(navs);

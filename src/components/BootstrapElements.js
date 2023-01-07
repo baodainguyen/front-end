@@ -18,7 +18,7 @@ export class Navigator extends Component {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto"> </Nav>
                         <Nav>
-                            <Nav.Link as={Link} to="/" href="#home">Home</Nav.Link>
+                            {/* <Nav.Link as={Link} to="/" href="#home">Home</Nav.Link> */}
                             {_navs.map((item) => {
                                 const hasSub = !!item.sub1 || !!item.sub2;
                                 if (hasSub) {
@@ -40,9 +40,7 @@ export class Navigator extends Component {
 }
 
 export class DnbCard extends Component {
-    state = {
-        showModal: false
-    };
+    state = { showModal: false };
     setShow = () => {
         this.setState({ showModal: true });
     }
@@ -51,17 +49,18 @@ export class DnbCard extends Component {
     }
 
     render() {
-        const { src, cap, subCap, text } = this.props;
+        const { src, cap, subCap, text, className } = this.props;
         const cardTitle = cap ? <Card.Title className="fontSFProD fw-bold">{cap}</Card.Title> : <></>;
         const cardSubtitle = subCap ? <Card.Subtitle className="mb-2 text-muted">{subCap}</Card.Subtitle> : <></>;
         const cardDescription = text ? <Card.Text>{text}</Card.Text> : <></>;
 
         return (
-            <Card className="w-100 mb-4 bg-dark rounded-lg overflow-hidden border-0">
+            <Card className={`${className} w-100 mb-4 rounded-lg overflow-hidden border-0`}
+                style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover' }}>
                 <Card.Img variant="top" src={src}
-                    className="dnb-h396 rounded-lg dnb-img-cover" />
+                    className="dnb-h396 rounded-1 dnb-img-cover opacity-0" />
                 <Card.ImgOverlay className="bg-dark-o3 rounded-lg" />
-                <Card.Body className="position-absolute bottom-0 start-50 translate-middle-x w-fm2r mb-3 rounded-4 bg-white">
+                <Card.Body className="position-absolute start-50 translate-middle-x w-fm2r mb-3 rounded-4 bg-white">
                     {cardTitle}
                     {cardSubtitle}
                     {cardDescription}
