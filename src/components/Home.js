@@ -3,14 +3,17 @@ import { Container, Button, Row, Col, Card } from 'react-bootstrap';
 import { DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
 import { getAverageRGB, getLuminanceFrom, getRgba } from '../global/Globals';
-import { MobileArticle } from './Elements';
+import { MobileArticle, Footer } from './Elements';
 import { colSlider } from 'col-slider';
 import Glide from '@glidejs/glide';
 import '../../node_modules/@glidejs/glide/dist/css/glide.core.min.css';
 import '../../node_modules/@glidejs/glide/dist/css/glide.theme.min.css';
 
-
 export class Home extends Component {
+    componentDidMount() {
+        const mainNav = document.querySelector(`#dnbApp > nav.sticky-top:first-child`);
+        mainNav.style.display = ''
+    }
     render() {
         return (
             <>
@@ -40,6 +43,7 @@ export class Home extends Component {
                         </Col>
                     </Row>
                 </Container>
+                <Footer />
             </>
         )
     }

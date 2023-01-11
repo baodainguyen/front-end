@@ -8,3 +8,6 @@ build/*
 .firebase/*
 baodaihd89
 baodaihd89.pub
+.vscode
+.firebase
+package-lock.json

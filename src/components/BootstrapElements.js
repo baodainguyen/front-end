@@ -18,7 +18,7 @@ export class Navigator extends Component {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto"> </Nav>
                         <Nav>
-                            <Nav.Link as={Link} to="/" href="#home">Home</Nav.Link>
+                            {/* <Nav.Link as={Link} to="/" href="#home">Home</Nav.Link> */}
                             {_navs.map((item) => {
                                 const hasSub = !!item.sub1 || !!item.sub2;
                                 if (hasSub) {
