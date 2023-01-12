@@ -20,8 +20,8 @@ export default class App extends Component {
     }
     componentDidMount() {
         NavLink.get().then(_navs => {
-            _navs.unshift({title: 'Main'})
             _navs.unshift({title: 'ES6Features'})
+            _navs.unshift({title: 'Main'})
             this.setState({ navs: _navs });
         });        
     }

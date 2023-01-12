@@ -1,12 +1,13 @@
 import React, { Component, useEffect } from 'react'
-import { useSelector, useDispatch  } from 'react-redux'
+import { useSelector  } from 'react-redux'
 import { configureStore, createSlice } from '@reduxjs/toolkit'
-import { connect, Provider } from 'react-redux'
+import { Provider } from 'react-redux'
+import {getFeatures, getFeaturesES5, getFeaturesES6, getScopeFeatures} from '../global/ES6Service'
 
 const featureSlice = createSlice({
     name: 'Feature',
     initialState: {
-        FeatureName: 'Dai', ScopeFeatureName: 'NB'
+        FeatureName: 'Constants', ScopeFeatureName: 'Constants'
     },
     reducers: {
       setFeatureName: (state, action) => {
@@ -24,88 +25,90 @@ const ES6Store = configureStore({
   reducer: {reducer},
 })
 
-class ES6Main extends Component{    
-    constructor() {
-        super();
-        this.data = { 
-            Features: getFeatures(),       // [{Name}]
-            FeaturesES5: getFeaturesES5() ,   // [{Name, Example}]
-            FeaturesES6: getFeaturesES6(),    // [{Name, Example}]
-            ScopeFeatures: getScopeFeatures(),  // [{FeatureName, Name, Description}]
-        };
-        this.state = ES6Store.getState().reducer;
-    }
-    useEffect = () => {
-        // this.mFeature = useSelector((state) => state.Feature);
-        // console.log(`ES6Main`, this.mFeature)
-        // return () => {
-        //     this.mFeature
-        // };
-    }
-
-    render(){
-        console.log(ES6Store)
-        console.log(ES6Store.getState().reducer)
-        
-        const {Features, ScopeFeatures} = this.data;
-        const navFeatures = Features.map(s => {
-            return {
-                Name: s.Name, 
-                ScopeFeatures: ScopeFeatures
-                                .filter(sf => sf.FeatureName == s.Name)
-                                .map(sf => sf.Name)
-            }
-        })
-        return(
-            <>
-                <Head />
-                <NavLeft Features={navFeatures} />
-                <Content CurrentFeature={this.state}/>
-            </>
-        )
-    }
+function ES6Main() {
+    const Features = getFeatures()
+    const ScopeFeatures = getScopeFeatures()
+    const FeaturesES5 = getFeaturesES5()
+    const FeaturesES6 = getFeaturesES6()
+    const mFeature = useSelector((state) => state.reducer)
+    useEffect(() => {
+         console.log(`ES6Main`, mFeature)
+    })
+    
+    const stlFlex = {display: 'flex', padding: '27px'}
+    const stlArtcl = {border: '1px solid #e9e9e9', flexGrow: '1', padding: '9px'};
+    return(
+        <main style={stlFlex}>
+            <NavLeft Features={Features.map(s => {
+                return {
+                    Name: s.Name, 
+                    ScopeFeatures: ScopeFeatures
+                                    .filter(sf => sf.FeatureName == s.Name)
+                                    .map(sf => sf.Name)
+                }
+            })} />
+            <article style={stlArtcl}>
+                <Head Description={ScopeFeatures.filter(s => {
+                    return s.FeatureName == mFeature.FeatureName && s.Name == mFeature.ScopeFeatureName
+                })}/>
+                <Content 
+                    MFeatureES5={FeaturesES5.filter(s => {
+                        return s.Name == mFeature.ScopeFeatureName
+                    })}
+                    MFeatureES6={FeaturesES6.filter(s => {
+                        return s.Name == mFeature.ScopeFeatureName
+                    })}
+                />
+            </article>
+        </main>
+    )
 }
-class Head extends Component{
-    render(){
-        return(
-            <section></section>
-        )
-    }
+function Head(props){
+    const mFeature = useSelector((state) => state.reducer)
+    
+    return(
+        <section>
+            <strong>{mFeature.FeatureName}</strong>
+            <p>{mFeature.ScopeFeatureName}</p>
+            <p>{props.Description.map(d => d.Description)}</p>
+        </section>
+    )
 }
 class NavLeft extends Component{
     render(){
+        const stl = {padding: '12px 18px 9px 0', minWidth: '309px', maxHeight: 'calc(100vh - 150px)', overflowY: 'scroll'}
         const {Features} = this.props;
         return(
-            <nav>
+            <aside style={stl}>
                 {Features.map((sf, i) => 
                     <NavItem Feature={sf} key={sf.Name + i}/>
                 )}
-            </nav>
+            </aside>
         )
     }
 }
 class Content extends Component{
     
     render(){
-        const stl = {border: '2px solid black'}
-        const {FeatureName, ScopeFeatureName} = this.props.CurrentFeature
+        
+        const stlGrid = {display: 'grid', gridTemplateColumns: 'auto auto', columnGap: '15px'}
+        const lstFES5 = this.props.MFeatureES5;
+        const lstFES6 = this.props.MFeatureES6;
         return(
-            <main style={stl}>
-                <div>{FeatureName}</div>
-                <div>{ScopeFeatureName}</div>
-                <ContentESx />
-            </main>
+            <section>
+                <div style={stlGrid}>
+                    <ContentESx Features={lstFES6} title="ECMAScript6"/>
+                    <ContentESx Features={lstFES5} title="ECMAScript5"/>
+                </div>
+            </section>
         )
     }
 }
 class NavItem extends Component{
     onclkShowContent = (scopeName) => {
         const {Name} = this.props.Feature;
-
         ES6Store.dispatch(setFeatureName(Name))
         ES6Store.dispatch(setScopeFeatureName(scopeName))
-      console.log(`onclkShowContent`, ES6Store.getState().reducer)
-      
     }
     render(){
         const {Name, ScopeFeatures} = this.props.Feature;
@@ -123,13 +126,31 @@ class NavItem extends Component{
     }
 }
 class ContentESx extends Component{
-  
+    constructor(props) {
+       super(props);
+       this.textArea = React.createRef();
+    }
+    componentDidMount = () => {
+        let txtA = this.textArea.current;
+        txtA.style.height = `${txtA.scrollHeight+9}px`
+    }
+    componentDidUpdate = () => {
+        let txtA = this.textArea.current;
+        txtA.style.height = `${txtA.scrollHeight+9}px`
+    }
     render(){
-        const {FeatureName, ScopeFeatureName } = this.props;
+        const {Features, title} = this.props;
+        const stlTxtArea = {width: '100%', minHeight: '96px', resize: 'none', padding: '15px 6px'}
         return(
             <article>
-                <div>{FeatureName}</div>
-                <div>{ScopeFeatureName}</div>
+                <div>{title}</div>
+                <textarea disabled style={stlTxtArea} 
+                    ref={this.textArea}
+                    value={Features.map(f => {
+                        const exmp = f.Example;
+                        return exmp
+                    })}>                    
+                </textarea>
             </article>
         )
     }
@@ -140,180 +161,4 @@ export class ES6Features extends Component {
             <Provider store={ES6Store}><ES6Main /></Provider>
         )
     }
-}
-function getFeatures(){
-    return [
-        {Name: `Constants`},
-        {Name: `Scoping`},
-        {Name: `Arrow Functions`},
-        //{Name: `Extended Parameter Handling`},
-    ]
-}
-function getFeaturesES5(){
-    return [
-        {
-            Name: `Constants`, 
-            Example: `Object.defineProperty(typeof global === "object" ? global : window, "PI", {
-                value:        3.141593,
-                enumerable:   true,
-                writable:     false,
-                configurable: false
-            })
-            PI > 3.0;`
-        },
-        {
-            Name: `Block-Scoped Variables`,
-            Example: `var i, x, y;
-            for (i = 0; i < a.length; i++) {
-                x = a[i];
-                …
-            }
-            for (i = 0; i < b.length; i++) {
-                y = b[i];
-                …
-            }            
-            var callbacks = [];
-            for (var i = 0; i <= 2; i++) {
-                (function (i) {
-                    callbacks[i] = function() { return i * 2; };
-                })(i);
-            }
-            callbacks[0]() === 0;
-            callbacks[1]() === 2;
-            callbacks[2]() === 4;`
-        },
-        {
-            Name: `Block-Scoped Functions`,
-            Example: `//  only in ES5 with the help of block-scope emulating
-            //  function scopes and function expressions
-            (function () {
-                var foo = function () { return 1; }
-                foo() === 1;
-                (function () {
-                    var foo = function () { return 2; }
-                    foo() === 2;
-                })();
-                foo() === 1;
-            })();`
-        },
-        {
-            Name: `Expression Bodies`,
-            Example: `odds  = evens.map(function (v) { return v + 1; });
-            pairs = evens.map(function (v) { return { even: v, odd: v + 1 }; });
-            nums  = evens.map(function (v, i) { return v + i; });`
-        },
-        {
-            Name: `Statement Bodies`,
-            Example: `nums.forEach(function (v) {
-                if (v % 5 === 0)
-                    fives.push(v);
-             });`
-        },
-        {
-            Name: `Lexical this`,
-            Example: `//  variant 1
-            var self = this;
-            this.nums.forEach(function (v) {
-                if (v % 5 === 0)
-                    self.fives.push(v);
-            });            
-            //  variant 2
-            this.nums.forEach(function (v) {
-                if (v % 5 === 0)
-                    this.fives.push(v);
-            }, this);            
-            //  variant 3 (since ECMAScript 5.1 only)
-            this.nums.forEach(function (v) {
-                if (v % 5 === 0)
-                    this.fives.push(v);
-            }.bind(this));`
-        }
-    ]
-}
-function getFeaturesES6(){
-    return [
-        {
-            Name: `Constants`, 
-            Example: `const PI = 3.141593
-            PI > 3.0`
-        },
-        {
-            Name: `Block-Scoped Variables`,
-            Example: `for (let i = 0; i < a.length; i++) {
-                let x = a[i]
-                …
-            }
-            for (let i = 0; i < b.length; i++) {
-                let y = b[i]
-                …
-            }            
-            let callbacks = []
-            for (let i = 0; i <= 2; i++) {
-                callbacks[i] = function () { return i * 2 }
-            }
-            callbacks[0]() === 0
-            callbacks[1]() === 2
-            callbacks[2]() === 4`
-        },
-        {
-            Name: `Block-Scoped Functions`,
-            Example: `{
-                function foo () { return 1 }
-                foo() === 1
-                {
-                    function foo () { return 2 }
-                    foo() === 2
-                }
-                foo() === 1
-            }`
-        },
-        {
-            Name: `Expression Bodies`,
-            Example: `odds  = evens.map(v => v + 1)
-            pairs = evens.map(v => ({ even: v, odd: v + 1 }))
-            nums  = evens.map((v, i) => v + i)`
-        },
-        {
-            Name: `Statement Bodies`,
-            Example: `nums.forEach(v => {
-                if (v % 5 === 0)
-                    fives.push(v)
-             })`
-        },
-        {
-            Name: `Lexical this`,
-            Example: `this.nums.forEach((v) => {
-                if (v % 5 === 0)
-                    this.fives.push(v)
-            })`
-        }
-    ]
-}
-function getScopeFeatures(){
-    return [
-        {
-            FeatureName: `Constants`, Name: `Constants`, 
-            Description: `Support for constants (also known as "immutable variables"), i.e., variables which cannot be re-assigned new content. Notice: this only makes the variable itself immutable, not its assigned content (for instance, in case the content is an object, this means the object itself can still be altered).`
-        },
-        {
-            FeatureName: `Scoping`, Name: `Block-Scoped Variables`, 
-            Description: `Block-scoped variables (and constants) without hoisting.`
-        },
-        {
-            FeatureName: `Scoping`, Name: `Block-Scoped Functions`, 
-            Description: `Block-scoped function definitions.`
-        },
-        {
-            FeatureName: `Arrow Functions`, Name: `Expression Bodies`, 
-            Description: `More expressive closure syntax.`
-        },
-        {
-            FeatureName: `Arrow Functions`, Name: `Statement Bodies`, 
-            Description: `More expressive closure syntax.`
-        },
-        {
-            FeatureName: `Arrow Functions`, Name: `Lexical this`, 
-            Description: `More intuitive handling of current object context.`
-        },
-    ]
 }
