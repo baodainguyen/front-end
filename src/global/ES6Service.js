@@ -21,104 +21,102 @@ export function getFeaturesES5(){
         {
             Name: `Block-Scoped Variables`,
             Example: `var i, x, y;
-            for (i = 0; i < a.length; i++) {
-                x = a[i];
-                …
-            }
-            for (i = 0; i < b.length; i++) {
-                y = b[i];
-                …
-            }            
-            var callbacks = [];
-            for (var i = 0; i <= 2; i++) {
-                (function (i) {
-                    callbacks[i] = function() { return i * 2; };
-                })(i);
-            }
-            callbacks[0]() === 0;
-            callbacks[1]() === 2;
-            callbacks[2]() === 4;`
+for (i = 0; i < a.length; i++) {
+    x = a[i];
+    …
+}
+for (i = 0; i < b.length; i++) {
+    y = b[i];
+    …
+}            
+var callbacks = [];
+for (var i = 0; i <= 2; i++) {
+    (function (i) {
+        callbacks[i] = function() { return i * 2; };
+    })(i);
+}
+callbacks[0]() === 0;
+callbacks[1]() === 2;
+callbacks[2]() === 4;`
         },
         {
             Name: `Block-Scoped Functions`,
             Example: `//  only in ES5 with the help of block-scope emulating
-            //  function scopes and function expressions
-            (function () {
-                var foo = function () { return 1; }
-                foo() === 1;
-                (function () {
-                    var foo = function () { return 2; }
-                    foo() === 2;
-                })();
-                foo() === 1;
-            })();`
+//  function scopes and function expressions
+(function () {
+    var foo = function () { return 1; }
+    foo() === 1;
+    (function () {
+        var foo = function () { return 2; }
+        foo() === 2;
+    })();
+    foo() === 1;
+})();`
         },
         {
             Name: `Expression Bodies`,
             Example: `odds  = evens.map(function (v) { return v + 1; });
-            pairs = evens.map(function (v) { return { even: v, odd: v + 1 }; });
-            nums  = evens.map(function (v, i) { return v + i; });`
+pairs = evens.map(function (v) { return { even: v, odd: v + 1 }; });
+nums  = evens.map(function (v, i) { return v + i; });`
         },
         {
             Name: `Statement Bodies`,
             Example: `nums.forEach(function (v) {
-                if (v % 5 === 0)
-                    fives.push(v);
-             });`
+    if (v % 5 === 0)
+        fives.push(v);
+});`
         },
         {
             Name: `Lexical this`,
             Example: `//  variant 1
-            var self = this;
-            this.nums.forEach(function (v) {
-                if (v % 5 === 0)
-                    self.fives.push(v);
-            });            
-            //  variant 2
-            this.nums.forEach(function (v) {
-                if (v % 5 === 0)
-                    this.fives.push(v);
-            }, this);            
-            //  variant 3 (since ECMAScript 5.1 only)
-            this.nums.forEach(function (v) {
-                if (v % 5 === 0)
-                    this.fives.push(v);
-            }.bind(this));`
+var self = this;
+this.nums.forEach(function (v) {
+    if (v % 5 === 0)
+        self.fives.push(v);
+});            
+//  variant 2
+this.nums.forEach(function (v) {
+    if (v % 5 === 0)
+        this.fives.push(v);
+}, this);            
+//  variant 3 (since ECMAScript 5.1 only)
+this.nums.forEach(function (v) {
+    if (v % 5 === 0)
+        this.fives.push(v);
+}.bind(this));`
         },
         {
             Name: `Default Parameter Values`,
             Example: `function f (x, y, z) {
-                if (y === undefined)
-                    y = 7;
-                if (z === undefined)
-                    z = 42;
-                return x + y + z;
-            };
-            f(1) === 50;`
+    if (y === undefined)
+        y = 7;
+    if (z === undefined)
+        z = 42;
+    return x + y + z;
+};
+f(1) === 50;`
         },
         {
             Name: `Rest Parameter`,
-            Example: `function f (x, y) { \nvar a = Array.prototype.slice.call(arguments, 2); \nreturn (x + y) * a.length; \n}; \nf(1, 2, "hello", true, 7) === 9;`
+            Example: `function f (x, y) { \n    var a = Array.prototype.slice.call(arguments, 2); \n    return (x + y) * a.length; \n}; \nf(1, 2, "hello", true, 7) === 9;`
         },
         {
             Name: `Spread Operator`,
             Example: `var params = [ "hello", true, 7 ];
-            var other = [ 1, 2 ].concat(params); // [ 1, 2, "hello", true, 7 ]
-            
-            function f (x, y) {
-                var a = Array.prototype.slice.call(arguments, 2);
-                return (x + y) * a.length;
-            };
-            f.apply(undefined, [ 1, 2 ].concat(params)) === 9;
-            
-            var str = "foo";
-            var chars = str.split(""); // [ "f", "o", "o" ]`
+var other = [ 1, 2 ].concat(params); // [ 1, 2, "hello", true, 7 ]            
+function f (x, y) {
+    var a = Array.prototype.slice.call(arguments, 2);
+    return (x + y) * a.length;
+};
+f.apply(undefined, [ 1, 2 ].concat(params)) === 9;            
+var str = "foo";
+var chars = str.split(""); // [ "f", "o", "o" ]`
         },
         {
             Name: `String Interpolation`,
             Example: `var customer = { name: "Foo" };
-            var card = { amount: 7, product: "Bar", unitprice: 42 };
-            var message = "Hello " + customer.name + ",\\n" +
+var card = { amount: 7, product: "Bar", unitprice: 42 };
+var message = "Hello " + customer.name + ",\\n" +
             "want to buy " + card.amount + " " + card.product + " for\\n" +
             "a total of " + (card.amount * card.unitprice) + " bucks?";`
         },
@@ -137,32 +135,32 @@ export function getFeaturesES5(){
         {
             Name: `Unicode String & RegExp Literal`,
             Example: `"𠮷".length === 2;
-            "𠮷".match(/(?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF][\uD800-\uDBFF][\uDC00-\uDFFF][\uD800-\uDBFF](?![\uDC00-\uDFFF])(?:[^\uD800-\uDBFF]^)[\uDC00-\uDFFF])/)[0].length === 2;
-            "𠮷" === "\uD842\uDFB7";
-            //  no equivalent in ES5
-            //  no equivalent in ES5
-            //  no equivalent in ES5`
+"𠮷".match(/(?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF][\uD800-\uDBFF][\uDC00-\uDFFF][\uD800-\uDBFF](?![\uDC00-\uDFFF])(?:[^\uD800-\uDBFF]^)[\uDC00-\uDFFF])/)[0].length === 2;
+"𠮷" === "\uD842\uDFB7";
+//  no equivalent in ES5
+//  no equivalent in ES5
+//  no equivalent in ES5`
         },
         {
             Name: `Regular Expression Sticky Matching`,
             Example: `var parser = function (input, match) {
-                for (var i, found, inputTmp = input; inputTmp !== ""; ) {
-                    for (i = 0; i < match.length; i++) {
-                        if ((found = match[i].pattern.exec(inputTmp)) !== null) {
-                            match[i].action(found);
-                            inputTmp = inputTmp.substr(found[0].length);
-                            break;
-                        }
-                    }
-                }
-            } \nvar report = function (match) {
-                console.log(JSON.stringify(match));
-            }; \nparser("Foo 1 Bar 7 Baz 42", [
-                { pattern: /^Foo\s+(\d+)/, action: function (match) { report(match); } },
-                { pattern: /^Bar\s+(\d+)/, action: function (match) { report(match); } },
-                { pattern: /^Baz\s+(\d+)/, action: function (match) { report(match); } },
-                { pattern: /^\s*/,         action: function (match) {}                 }
-            ]);`
+    for (var i, found, inputTmp = input; inputTmp !== ""; ) {
+        for (i = 0; i < match.length; i++) {
+            if ((found = match[i].pattern.exec(inputTmp)) !== null) {
+                match[i].action(found);
+                inputTmp = inputTmp.substr(found[0].length);
+                break;
+            }
+        }
+    }
+} \nvar report = function (match) {
+    console.log(JSON.stringify(match));
+}; \nparser("Foo 1 Bar 7 Baz 42", [
+    { pattern: /^Foo\s+(\d+)/, action: function (match) { report(match); } },
+    { pattern: /^Bar\s+(\d+)/, action: function (match) { report(match); } },
+    { pattern: /^Baz\s+(\d+)/, action: function (match) { report(match); } },
+    { pattern: /^\s*/,         action: function (match) {}                 }
+]);`
         },
         {
             Name: `Property Shorthand`,
@@ -170,15 +168,15 @@ export function getFeaturesES5(){
         },
         {
             Name: `Computed Property Names`,
-            Example: `var obj = { \nfoo: "bar" \n}; \nobj[ "baz" + quux() ] = 42;`
+            Example: `var obj = { \n    foo: "bar" \n}; \nobj[ "baz" + quux() ] = 42;`
         },
         {
             Name: `Method Properties`,
-            Example: `obj = { \nfoo: function (a, b) {
-                    …
-                }, \nbar: function (x, y) {
-                    …
-                }, \n//  quux: no equivalent in ES5 \n};`
+            Example: `obj = { \n    foo: function (a, b) {
+        …
+    }, \n   bar: function (x, y) {
+        …
+    }, \n//  quux: no equivalent in ES5 \n};`
         },
         {
             Name: `Array Matching`,
@@ -195,74 +193,71 @@ export function getFeaturesES6(){
         {
             Name: `Block-Scoped Variables`,
             Example: `for (let i = 0; i < a.length; i++) {
-                let x = a[i]
-                …
-            }
-            for (let i = 0; i < b.length; i++) {
-                let y = b[i]
-                …
-            }            
-            let callbacks = []
-            for (let i = 0; i <= 2; i++) {
-                callbacks[i] = function () { return i * 2 }
-            }
-            callbacks[0]() === 0
-            callbacks[1]() === 2
-            callbacks[2]() === 4`
+let x = a[i]
+   …
+}
+for (let i = 0; i < b.length; i++) {
+    let y = b[i]
+    …
+}            
+let callbacks = []
+for (let i = 0; i <= 2; i++) {
+    callbacks[i] = function () { return i * 2 }
+}
+callbacks[0]() === 0
+callbacks[1]() === 2
+callbacks[2]() === 4`
         },
         {
             Name: `Block-Scoped Functions`,
             Example: `{
-                function foo () { return 1 }
-                foo() === 1
-                {
-                    function foo () { return 2 }
-                    foo() === 2
-                }
-                foo() === 1
-            }`
+    function foo () { return 1 }
+    foo() === 1 {
+        function foo () { return 2 }
+        foo() === 2
+    }
+    foo() === 1
+}`
         },
         {
             Name: `Expression Bodies`,
-            Example: `odds  = evens.map(v => v + 1)
-            pairs = evens.map(v => ({ even: v, odd: v + 1 }))
-            nums  = evens.map((v, i) => v + i)`
+            Example: `odds = evens.map(v => v + 1)
+pairs = evens.map(v => ({ even: v, odd: v + 1 }))
+nums  = evens.map((v, i) => v + i)`
         },
         {
             Name: `Statement Bodies`,
             Example: `nums.forEach(v => {
-                if (v % 5 === 0)
-                    fives.push(v)
-             })`
+    if (v % 5 === 0)
+        fives.push(v)
+})`
         },
         {
             Name: `Lexical this`,
-            Example: `this.nums.forEach((v) => { \nif (v % 5 === 0)\nthis.fives.push(v) \n})`
+            Example: `this.nums.forEach((v) => { \n if (v % 5 === 0)\n  this.fives.push(v) \n})`
         },
         {
             Name: `Default Parameter Values`,
-            Example: `function f (x, y = 7, z = 42) { \nreturn x + y + z \n} \nf(1) === 50`
+            Example: `function f (x, y = 7, z = 42) { \n    return x + y + z \n} \nf(1) === 50`
         },
         {
             Name: `Rest Parameter`,
-            Example: `function f (x, y, ...a) { \nreturn (x + y) * a.length \n} \nf(1, 2, "hello", true, 7) === 9`
+            Example: `function f (x, y, ...a) { \n  return (x + y) * a.length \n} \nf(1, 2, "hello", true, 7) === 9`
         },
         {
             Name: `Spread Operator`,
             Example: `var params = [ "hello", true, 7 ] \nvar other = [ 1, 2, ...params ] // [ 1, 2, "hello", true, 7 ]
-            
-            function f (x, y, ...a) {
-                return (x + y) * a.length
-            }
-            f(1, 2, ...params) === 9
-            
-            var str = "foo" \nvar chars = [ ...str ] // [ "f", "o", "o" ]`
+function f (x, y, ...a) {
+    return (x + y) * a.length
+}
+f(1, 2, ...params) === 9
+var str = "foo" \nvar chars = [ ...str ] // [ "f", "o", "o" ]`
         },
         {
             Name: `String Interpolation`,
             Example: `var customer = \{ name: "Foo" \}
-            var card = \{ amount: 7, product: "Bar", unitprice: 42 \}
-            var message = \`Hello \$\{customer.name\},
+var card = \{ amount: 7, product: "Bar", unitprice: 42 \}
+var message = \`Hello \$\{customer.name\},
             want to buy \$\{card.amount\} \$\{card.product\} for
             a total of \$\{card.amount * card.unitprice\} bucks?\``
         },
@@ -273,50 +268,50 @@ export function getFeaturesES6(){
         {
             Name: `Raw String Access`,
             Example: `function quux (strings, ...values) {
-                strings[0] === "foo\\n"
-                strings[1] === "bar"
-                strings.raw[0] === "foo\\n"
-                strings.raw[1] === "bar"
-                values[0] === 42
-            }
-            quux\`foo\\n\$\{ 42 \}bar\` \nString.raw\`foo\n\$\{ 42 \}bar\` === "foo\\n42bar"`
+    strings[0] === "foo\\n"
+    strings[1] === "bar"
+    strings.raw[0] === "foo\\n"
+    strings.raw[1] === "bar"
+    values[0] === 42
+}
+quux\`foo\\n\$\{ 42 \}bar\` \nString.raw\`foo\n\$\{ 42 \}bar\` === "foo\\n42bar"`
         },
         {
             Name: `Binary & Octal Literal`,
             Example: `0b111110111 === 503
-            0o767 === 503`
+0o767 === 503`
         },
         {
             Name: `Unicode String & RegExp Literal`,
             Example: `"𠮷".length === 2
-            "𠮷".match(/./u)[0].length === 2
-            "𠮷" === "\uD842\uDFB7"
-            "𠮷" === "\u{20BB7}"
-            "𠮷".codePointAt(0) == 0x20BB7
-            for (let codepoint of "𠮷") console.log(codepoint)`
+"𠮷".match(/./u)[0].length === 2
+"𠮷" === "\uD842\uDFB7"
+"𠮷" === "\u{20BB7}"
+"𠮷".codePointAt(0) == 0x20BB7
+for (let codepoint of "𠮷") console.log(codepoint)`
         },
         {
             Name: `Regular Expression Sticky Matching`,
             Example: `let parser = (input, match) => {
-                for (let pos = 0, lastPos = input.length; pos < lastPos; ) {
-                    for (let i = 0; i < match.length; i++) {
-                        match[i].pattern.lastIndex = pos
-                        let found
-                        if ((found = match[i].pattern.exec(input)) !== null) {
-                            match[i].action(found)
-                            pos = match[i].pattern.lastIndex
-                            break
-                        }
-                    }
-                }
-            } \nlet report = (match) => {
-                console.log(JSON.stringify(match))
-            } \nparser("Foo 1 Bar 7 Baz 42", [
-                { pattern: /Foo\s+(\d+)/y, action: (match) => report(match) },
-                { pattern: /Bar\s+(\d+)/y, action: (match) => report(match) },
-                { pattern: /Baz\s+(\d+)/y, action: (match) => report(match) },
-                { pattern: /\s*/y,         action: (match) => {}            }
-            ])`
+    for (let pos = 0, lastPos = input.length; pos < lastPos; ) {
+        for (let i = 0; i < match.length; i++) {
+            match[i].pattern.lastIndex = pos
+            let found
+            if ((found = match[i].pattern.exec(input)) !== null) {
+                match[i].action(found)
+                pos = match[i].pattern.lastIndex
+                break
+            }
+        }
+    }
+} \nlet report = (match) => {
+    console.log(JSON.stringify(match))
+} \nparser("Foo 1 Bar 7 Baz 42", [
+    { pattern: /Foo\s+(\d+)/y, action: (match) => report(match) },
+    { pattern: /Bar\s+(\d+)/y, action: (match) => report(match) },
+    { pattern: /Baz\s+(\d+)/y, action: (match) => report(match) },
+    { pattern: /\s*/y,         action: (match) => {}            }
+])`
         },
         {
             Name: `Property Shorthand`,
@@ -324,17 +319,17 @@ export function getFeaturesES6(){
         },
         {
             Name: `Computed Property Names`,
-            Example: `let obj = { \nfoo: "bar", \n[ "baz" + quux() ]: 42 \n}`
+            Example: `let obj = { \n    foo: "bar", \n  [ "baz" + quux() ]: 42 \n}`
         },
         {
             Name: `Method Properties`,
-            Example: `obj = { \nfoo (a, b) {
-                    …
-                }, \nbar (x, y) {
-                    …
-                }, \n*quux (x, y) {
-                    …
-                } \n}`
+            Example: `obj = { \n    foo (a, b) {
+        …
+    }, \n   bar (x, y) {
+        …
+    }, \n   *quux (x, y) {
+        …
+    } \n}`
         },
         {
             Name: `Array Matching`,

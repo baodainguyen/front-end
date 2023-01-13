@@ -87,10 +87,8 @@ class NavLeft extends Component{
         )
     }
 }
-class Content extends Component{
-    
-    render(){
-        
+class Content extends Component{    
+    render(){        
         const stlGrid = {display: 'grid', gridTemplateColumns: 'auto auto', columnGap: '15px'}
         const lstFES5 = this.props.MFeatureES5;
         const lstFES6 = this.props.MFeatureES6;
@@ -131,12 +129,12 @@ class ContentESx extends Component{
        this.textArea = React.createRef();
     }
     componentDidMount = () => {
-        let txtA = this.textArea.current;
-        txtA.style.height = `${txtA.scrollHeight+9}px`
+       let txtA = this.textArea.current;
+       txtA.style.height = `${txtA.scrollHeight+9}px`
     }
     componentDidUpdate = () => {
-        let txtA = this.textArea.current;
-        txtA.style.height = `${txtA.scrollHeight+9}px`
+       let txtA = this.textArea.current;
+       txtA.style.height = `${txtA.scrollHeight+9}px`
     }
     render(){
         const {Features, title} = this.props;
@@ -144,6 +142,12 @@ class ContentESx extends Component{
         return(
             <article>
                 <div>{title}</div>
+                {/* <pre>
+                    <code>{Features.map(f => {
+                        const exmp = f.Example;
+                        return exmp
+                    })}</code>
+                </pre> */}
                 <textarea disabled style={stlTxtArea} 
                     ref={this.textArea}
                     value={Features.map(f => {
