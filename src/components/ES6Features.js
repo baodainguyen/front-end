@@ -3,7 +3,10 @@ import { useSelector  } from 'react-redux'
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 import {getFeatures, getFeaturesES5, getFeaturesES6, getScopeFeatures} from '../global/ES6Service'
-
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import '../../node_modules/highlight.js/styles/rainbow.css'
+hljs.registerLanguage('javascript', javascript);
 const featureSlice = createSlice({
     name: 'Feature',
     initialState: {
@@ -124,37 +127,25 @@ class NavItem extends Component{
     }
 }
 class ContentESx extends Component{
-    constructor(props) {
-       super(props);
-       this.textArea = React.createRef();
-    }
-    componentDidMount = () => {
-       let txtA = this.textArea.current;
-       txtA.style.height = `${txtA.scrollHeight+9}px`
-    }
-    componentDidUpdate = () => {
-       let txtA = this.textArea.current;
-       txtA.style.height = `${txtA.scrollHeight+9}px`
+    componentWillmount = () => {
+        hljs.highlightAll()
     }
     render(){
         const {Features, title} = this.props;
-        const stlTxtArea = {width: '100%', minHeight: '96px', resize: 'none', padding: '15px 6px'}
+        const stlArtcl = {backgroundColor: `#474949`}
+        const stlHeadW = {backgroundColor: `#383838`}
+        const stylHead = {width: `145px`, color: 'white', padding: '6px'}
+        let htmlH = ``
+        Features.forEach(f => {
+            htmlH += hljs.highlight(f.Example, {language: 'javascript'}).value
+        })
+        const hMarkup =  {__html: htmlH};
         return(
-            <article>
-                <div>{title}</div>
-                {/* <pre>
-                    <code>{Features.map(f => {
-                        const exmp = f.Example;
-                        return exmp
-                    })}</code>
-                </pre> */}
-                <textarea disabled style={stlTxtArea} 
-                    ref={this.textArea}
-                    value={Features.map(f => {
-                        const exmp = f.Example;
-                        return exmp
-                    })}>                    
-                </textarea>
+            <article style={stlArtcl}>
+                <div style={stlHeadW}><div 
+                    style={Object.assign(stylHead, stlArtcl)}>{title}</div></div>
+                <pre><code className="hljs language-typescript" 
+                    dangerouslySetInnerHTML={hMarkup} /></pre>
             </article>
         )
     }

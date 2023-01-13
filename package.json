@@ -24,6 +24,7 @@
     "col-slider": "^1.1.1",
     "firebase": "^9.4.1",
     "firebase-admin": "^10.0.0",
+    "highlight.js": "^11.7.0",
     "lodash": "^4.17.21",
     "node-sass": "^6.0.1",
     "postcss": "^7.0.39",
