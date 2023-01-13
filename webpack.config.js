@@ -18,8 +18,9 @@ module.exports = {
   },
   mode: 'development',
   output: {
-    path: path.join(__dirname, '/public'),
+    //path: path.join(__dirname, '/public'),
     // filename: 'index_bundle.js', // single file
+    path: path.resolve(__dirname, '/public'),
     filename: '[name].bundle.js',   // multiple files
     publicPath: '/'
   },
