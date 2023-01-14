@@ -7,7 +7,7 @@ import { NavLink } from './global/Services';
 import { Navigator } from '../src/components/BootstrapElements';
 import { SubMenu, MainMenu, Contact } from './components/Pages';
 import { Home } from './components/Home';
-import { Ecma } from './components/Ecma';
+import { Ecma } from './pages/home';
 import { ES6Features } from './components/ES6Features';
 import { TutorialCheatSheet } from './components/Tutorials';
 import { Resume } from './components/Resume';
