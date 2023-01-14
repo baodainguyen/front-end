@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {AdvancedSearch, NavMenu, 
-    StreamingNow, PopularThisWeek, TopTopic, 
+import {AdvancedSearch, NavMenu, NavUser,
+    StreamingNow, Presentation, TopTopic, 
     Categories, SpecialOffers} from './Components'
-import './botstrap.min.css';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
+import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.css'
 import './main.scss';
 
 export class Ecma extends Component {
@@ -47,7 +48,7 @@ export class Ecma extends Component {
           <div className="d-grid d-grid-lst mb-4">
             <div className="card bg-warning rounded-lg box-h111">
               <div className="card-body text-center d-flex flex-column pl-1 pr-1">
-                <div className="card-title flex-grow-1"><i className="fas fa-cog"></i></div>
+                <div className="card-title flex-grow-1"><i className="bi bi-gear fs-3" /></div>
                 <div className="card-text"><strong>1800</strong>
                   <p>points</p>
                 </div>
@@ -55,7 +56,9 @@ export class Ecma extends Component {
             </div>
             <div className="card bg-warning rounded-lg box-h111">
               <div className="card-body text-center d-flex flex-column pl-1 pr-1">
-                <div className="card-title flex-grow-1"><i className="far fa-comment-dots"></i></div>
+                <div className="card-title flex-grow-1">
+                  <i className="bi bi-award fs-3"></i>
+                </div>
                 <div className="card-text"><strong>55%</strong>
                   <p>complete</p>
                 </div>
@@ -77,13 +80,14 @@ export class Ecma extends Component {
       <div className="row">
         <div className="dnb-per-1-2 col-xl-8 col-lg-8 col-md-12 col-wrap">
           <div className="mb-4 mt-n9">
+            <NavUser />
             <StreamingNow />
-            <PopularThisWeek />
+            <Presentation />
           </div>
           <TopTopic />
         </div>
-        <div className="dnb-per-1-3 col-xl-4 col-lg-4 col-md-12 col-wrap mt-0">
-          <div className="mt-5">
+        <div className="dnb-per-1-3 col-xl-4 col-lg-4 col-md-12 col-wrap mt-n5">
+          <div className="mt-4">
             <Categories />
             <SpecialOffers />
           </div>

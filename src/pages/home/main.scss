@@ -30,8 +30,6 @@ $h111: $h99 + 50;
 .d-grid-1st { & > .card:first-child { grid-column: 1 / span 2; grid-row: 1} }
 .d-grid-lst { grid-gap: 20px;
   & > .card:last-child { grid-column: 1 / span 2; } }
-.rounded {border-radius: 12px !important;}
-.rounded-lg {border-radius: 18px !important}
 .bg-img-ui {
   background-image: url('https://i.pinimg.com/564x/29/98/2b/29982bb0fe1c03d95c11d0144be79938.jpg');
   background-repeat: no-repeat; background-size:cover;
@@ -39,8 +37,7 @@ $h111: $h99 + 50;
 .pos-abs {position:absolute;}
 .pos-rel {position:relative;}
 #dnb-body > .dnb-viewmobile-1 {margin-top: -39px;}
-$mt9: 84px !important;
-.mt-9 {margin-top: $mt9;}
+$mt9: 108px !important;
 .mt-n9 { margin-top: -$mt9; }
 @media screen and (max-width: 992px) {
   .mt-n9 {margin-top: 0 !important}

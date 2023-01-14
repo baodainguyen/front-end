@@ -1,6 +1,6 @@
 @import "../../node_modules/bootstrap/scss/functions";
 $enable-negative-margins: true;
-$primary: #4ab5f4;
+$primary: #0194f3;
 $secondary: #6ebe00;
 $light: #f3faff;
 $dark: #2c303a;
@@ -37,9 +37,9 @@ $utilities: map-merge(
                         map-merge(
                             map-get(map-get($utilities, "rounded"), "values"),
                             (
-                                4: 1.2rem,
-                                lg: 1.5rem,
-                                xl: 1.8rem,
+                                4: 1.1rem,
+                                lg: 1.2rem,
+                                xl: 1.5rem,
                             )
                         ),
                 )
