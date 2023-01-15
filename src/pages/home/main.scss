@@ -37,6 +37,12 @@ $h111: $h99 + 50;
 .pos-abs {position:absolute;}
 .pos-rel {position:relative;}
 #dnb-body > .dnb-viewmobile-1 {margin-top: -39px;}
+.dnb-bg-app-container {display:inline-block;position: relative;}
+.dnb-bg-app-container .dnb-bg-app {
+  position: absolute;
+  left: 50%;top: 50%; transform: translate(-50%, -50%);  
+  display: inline-block;width: 75%;height: 75%;
+}
 $mt9: 108px !important;
 .mt-n9 { margin-top: -$mt9; }
 @media screen and (max-width: 992px) {

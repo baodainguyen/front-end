@@ -50,18 +50,36 @@ export class NavMenu extends Component {
   }
 }
 export class NavUser extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = { navIndex: -1 };
+  }
+  selectMenu = (i) => {
+    const { navIndex } = this.state;
+    if (navIndex === i) this.setState(prevState => ({ navIndex: -1 }))
+    else this.setState(prevState => ({ navIndex: i }))
+  }
   render() {
+    const { navIndex } = this.state
+    let subMenu = <></>;
+    switch (navIndex) {
+      case 0: subMenu = <EcmaSubMenuListApp />;
+        break;
+      default:
+        break;
+    }
+    const icDwnlApp = navIndex == 0 ? <i className="bi bi-chevron-down ms-1" /> :
+      <i className="bi bi-dash-lg ms-1" />
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-white ps-0">
           <ul className="navbar-nav">
-            <li className="nav-item active">
-              <NavLink className="nav-link ps-0" to="/">
-                <i className="bi bi-app"></i>
-                <span className='ms-1'>Download App</span>
-                <i className="bi bi-chevron-down ms-1"></i>
-              </NavLink>
+            <li className="nav-item"
+              onClick={() => this.selectMenu(0)}>
+              <a className={`nav-link ps-0 ${navIndex == 0 ? 'active' : ''}`}>
+                <span>Download App</span>
+                {icDwnlApp}
+              </a>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/">
@@ -73,10 +91,11 @@ export class NavUser extends Component {
                 Saved
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link disabled" to="/">
+            <li className="nav-item"
+              onClick={() => this.selectMenu(3)}>
+              <a className={`nav-link ${navIndex == 3 ? 'active' : ''}`}>
                 Book yours
-              </NavLink>
+              </a>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link disabled" to="/">
@@ -91,25 +110,44 @@ export class NavUser extends Component {
             </li>
           </ul>
         </nav>
-        <EcmaSubMenu />
+        {subMenu}
       </>
     )
   }
 }
-export class EcmaSubMenu extends Component {
+class EcmaSubMenuListApp extends Component {
   render() {
-    const stlImg = { width: '46px', height: '46px', cursor: 'pointer' };
+    const stlApp = { width: '46px', height: '46px' }
+    const stlImg = { cursor: 'pointer' };
+    const stlIcon = { fontSize: '24px', color: 'white', textAlign: 'center' }
     return (
       <div>
         <h6>List App</h6>
         <div className="mb-3">
-          <img className="rounded-3 m-2" src="https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg"
-            style={stlImg} crossOrigin="anonymous" />
+          <AppIcon >
+            <i className="bi bi-apple dnb-bg-app" style={stlIcon} />
+          </AppIcon>
+          <AppIcon>
+            <i className="bi bi-android2 dnb-bg-app" style={stlIcon} />
+          </AppIcon>
           <img className="rounded-3 m-2" src="https://live.staticflickr.com/65535/51725347106_0a289e0761.jpg"
-            style={stlImg} crossOrigin="anonymous" />
-          <img className="rounded-3 m-2" src="https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg"
-            style={stlImg} crossOrigin="anonymous" /></div>
+            style={Object.assign(stlImg, stlApp)} crossOrigin="anonymous" />
+        </div>
       </div>
+    )
+  }
+}
+class AppIcon extends Component {
+  render() {
+    const stlApp = { width: '46px', height: '46px' }
+    const bgApp = 'rgba(8,154,239,1)'
+    const path = `M 15 15 C 30 0 67.5 0 75 0 C 82.5 0 120 0 135 15 C 150 30 150 52.5 150 75 C 150 97.5 150 120 135 135 C 120 150 97.5 150 75 150 C 52.5 150 30 150 15 135 C 0 120 0 97.5 0 75 C 0 52.5 0 30 15 15`
+    const { children } = this.props;
+    return (
+      <a className="dnb-bg-app-container me-2" style={stlApp}>
+        {children}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><path d={path} fill={bgApp} /></svg>
+      </a>
     )
   }
 }
