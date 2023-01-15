@@ -15,6 +15,10 @@ module.exports = {
     shared: 'lodash',
     cheatsheet: './src/js-tags/cheatsheet.js',
     bootstrapjs: './node_modules/bootstrap/dist/js/bootstrap.min.js',
+    pagehome: {
+      import: './src/pages/home/index.js',
+      dependOn: 'shared'
+    },
   },
   mode: 'development',
   output: {
