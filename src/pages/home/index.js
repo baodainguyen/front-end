@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {AdvancedSearch, NavMenu, NavUser,
-    StreamingNow, Presentation, TopTopic, 
+    Presentation, TopTopic, 
     Categories, SpecialOffers} from './Components'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.css'
@@ -9,10 +9,10 @@ import './main.scss';
 export class Ecma extends Component {
   componentDidMount() {
       const mainNav = document.querySelector(`#dnbApp > nav.sticky-top:first-child`);
-      mainNav.style.display = 'none'
+      mainNav.style.dispsay = 'none'
   }
     render(){
-        const stlA1 = {width:'44px',height:'44px'};
+        const stlA1 = {width:'60px',height:'60px'};
         return(            
 <div className="container-fluid">
   <div className="row dnb-mobile-sticky-top" id="dnb-header">
@@ -35,8 +35,9 @@ export class Ecma extends Component {
       <div className="dnb-mobile-sticky">
         <NavMenu />
         <div>
-          <div className="card flex-row align-items-center bg-light rounded-lg pt-3 pb-3 pl-3 mb-5 minw200">
-            <img className="rounded" src="https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg" 
+          <div className="card flex-row align-items-center bg-light rounded-3 border-0 ps-3 mb-5 minw200">
+            <img className="rounded-3 dnb-img-cover" 
+            src="https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg" 
             alt="avatar" 
             style={stlA1} crossOrigin="anonymous"/>
             <div className="card-body pt-0 pb-0"><strong className="card-title m-0">Updated course</strong>
@@ -47,7 +48,7 @@ export class Ecma extends Component {
         <div>
           <div className="d-grid d-grid-lst mb-4">
             <div className="card bg-warning rounded-lg box-h111">
-              <div className="card-body text-center d-flex flex-column pl-1 pr-1">
+              <div className="card-body text-center d-flex flex-column ps-1 pe-1">
                 <div className="card-title flex-grow-1"><i className="bi bi-gear fs-3" /></div>
                 <div className="card-text"><strong>1800</strong>
                   <p>points</p>
@@ -55,12 +56,12 @@ export class Ecma extends Component {
               </div>
             </div>
             <div className="card bg-warning rounded-lg box-h111">
-              <div className="card-body text-center d-flex flex-column pl-1 pr-1">
+              <div className="card-body text-center d-flex flex-column ps-1 pe-1">
                 <div className="card-title flex-grow-1">
                   <i className="bi bi-award fs-3"></i>
                 </div>
                 <div className="card-text"><strong>55%</strong>
-                  <p>complete</p>
+                  <p>compsete</p>
                 </div>
               </div>
             </div>
@@ -81,7 +82,6 @@ export class Ecma extends Component {
         <div className="dnb-per-1-2 col-xl-8 col-lg-8 col-md-12 col-wrap">
           <div className="mb-4 mt-n9">
             <NavUser />
-            <StreamingNow />
             <Presentation />
           </div>
           <TopTopic />

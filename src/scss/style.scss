@@ -87,22 +87,11 @@ $container-max-widths: map-merge(
 
 @import "./SF-Pro.scss";
 
-.fontNotoSans {
-    font-family: "Noto Sans";
-}
-.fontSFProD {
-    font-family: "SF Pro Display";
-}
-.fontSFProT {
-    font-family: "SF Pro Text";
-}
-
-.img-thumbnail {
-    max-width: 180px;
-}
-.bg-dark-o3 {
-    background-color: rgba(44, 48, 58, 0.3);
-}
+.fontNotoSans {font-family: "Noto Sans";}
+.fontSFProD {font-family: "SF Pro Display";}
+.fontSFProT {font-family: "SF Pro Text";}
+.img-thumbnail {max-width: 180px;}
+.bg-dark-o3 {background-color: rgba(44, 48, 58, 0.3);}
 .glide__slides .dnb-glide-item {
     min-height: 360px;
     max-height: 360px;
@@ -152,7 +141,6 @@ $container-max-widths: map-merge(
         }
     }
 }
-
 .display {
     &-xl {
         font: {
@@ -161,7 +149,6 @@ $container-max-widths: map-merge(
         }
     }
 }
-
 #dnbApp .navbar.sticky-top {
     z-index: $zindex-sticky;
 }
@@ -198,11 +185,17 @@ $container-max-widths: map-merge(
 .form-control {
     min-width: 248px;
 }
-
 .h4.card-title.h5 {
     font-size: $h4-font-size;
 }
 .modal-title[id^="dnb-modal-component"] > .text-muted.card-subtitle {
     margin-bottom: 0 !important;
     margin-top: 3px;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.dnb-scrollbar-w0::-webkit-scrollbar {display: none;}  
+/* Hide scrollbar for IE, Edge and Firefox */
+.dnb-scrollbar-w0 {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
