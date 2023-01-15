@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import { Nav } from 'react-bootstrap';
+import { NavLink } from "react-router-dom";
 
 export class AdvancedSearch extends Component {
   render() {
@@ -25,18 +24,26 @@ export class NavMenu extends Component {
     return (
       <nav className="navbar bg-light navbar-light rounded-lg mb-3">
         <ul className="navbar-nav">
-          <li className="nav-item active"><Nav.Link as={Link} to="/" href="#home">
-            <i className="bi bi-house-fill ms-3 text-primary"></i><strong className="ms-2">Home</strong>
-          </Nav.Link></li>
-          <li className="nav-item"><Nav.Link as={Link} to="/" href="#">
-            <i className="bi bi-search ms-3"></i><strong className="ms-2">Discover</strong>
-          </Nav.Link></li>
-          <li className="nav-item"><Nav.Link as={Link} to="/" href="#">
-            <i className="bi bi-chat-dots ms-3"></i><strong className="ms-2">Message</strong>
-          </Nav.Link></li>
-          <li className="nav-item"><Nav.Link as={Link} to="/" href="#">
-            <i className="bi bi-gear ms-3"></i><strong className="ms-2">Settings</strong>
-          </Nav.Link></li>
+          <li className="nav-item active">
+            <NavLink className="nav-link" to="/">
+              <i className="bi bi-house-fill ms-3 text-primary"></i><strong className="ms-2">Home</strong>
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/">
+              <i className="bi bi-search ms-3"></i><strong className="ms-2">Discover</strong>
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/">
+              <i className="bi bi-chat-dots ms-3"></i><strong className="ms-2">Message</strong>
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/">
+              <i className="bi bi-gear ms-3"></i><strong className="ms-2">Settings</strong>
+            </NavLink>
+          </li>
         </ul>
       </nav>
     )
@@ -50,33 +57,33 @@ export class NavUser extends Component {
         <nav className="navbar navbar-expand-lg navbar-light bg-white ps-0">
           <ul className="navbar-nav">
             <li className="nav-item active">
-              <Nav.Link as={Link} to="/" href="#home" className='ps-0'>
+              <NavLink className="nav-link ps-0" to="/">
                 <i className="bi bi-app"></i>
                 <span className='ms-1'>Download App</span>
                 <i className="bi bi-chevron-down ms-1"></i>
-              </Nav.Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Nav.Link as={Link} to="/" href="#home">
+              <NavLink className="nav-link" to="/">
                 Talk with us
-              </Nav.Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Nav.Link as={Link} to="/" href="#home">
+              <NavLink className="nav-link" to="/">
                 Saved
-              </Nav.Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Nav.Link as={Link} to="/" href="#home" className="disabled">
+              <NavLink className="nav-link disabled" to="/">
                 Book yours
-              </Nav.Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Nav.Link as={Link} to="/" href="#home" className="disabled">
+              <NavLink className="nav-link disabled" to="/">
                 <i className="bi bi-person-circle"></i>
                 <span className='ms-1'>Sign in </span>
                 <i className="bi bi-chevron-down"></i>
-              </Nav.Link>
+              </NavLink>
             </li>
             <li className="nav-item">
               <button className="btn btn-primary text-white rounded font-weight-bold pe-3 ps-3 ms-2 disabled"
