@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
+import { SliderV } from './SliderV'
 
 export class AdvancedSearch extends Component {
   render() {
@@ -158,6 +159,13 @@ export class Presentation extends Component {
     return (
       <div>
         <h2>Presentation</h2>
+        <SliderV >
+          <div>Slide 1</div>
+          <div>Slide 2</div>
+          <div>Slide 3</div>
+          <div>Slide 4</div>
+          <div>Slide 5</div>
+        </SliderV>
         <div className="dnb-wrap">
           <div className="dnb-slide-bound" style={stlOvY}>
             <div className="dnb-slide-wrap" style={{ overflowX: 'auto' }}>
@@ -197,6 +205,7 @@ export class Presentation extends Component {
     )
   }
 }
+
 export class TopTopic extends Component {
   render() {
     return (

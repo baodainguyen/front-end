@@ -1,0 +1,63 @@
+.dnb-slider-v {
+    overflow-y: auto;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dnb-sliderv-items>div {
+    cursor: pointer;
+    min-width: 402px;
+    height: 300px;
+}
+
+.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(2),
+.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(7) {
+    background: #FFCF47;
+}
+
+.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(1),
+.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(6) {
+    background: #7ADCEF;
+}
+
+.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(3) {
+    background: #F97C68;
+}
+
+.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(4) {
+    background: #a78df5;
+}
+
+.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(5) {
+    background: #ff8686;
+}
+
+.dnbslider-control {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.up,
+.down {
+    background-size: 22px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.up {
+    background-image: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_up_48px-256.png);
+}
+
+.down {
+    top: 50px;
+    background-image: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_down_48px-256.png);
+}
+
+.up:active,
+.down:active {
+    transform: scale(0.8);
+}

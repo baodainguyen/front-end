@@ -15,15 +15,13 @@ module.exports = {
     shared: 'lodash',
     cheatsheet: './src/js-tags/cheatsheet.js',
     bootstrapjs: './node_modules/bootstrap/dist/js/bootstrap.min.js',
-    //pagehome: './src/pages/home/index.js',
+    pagehome: './src/pages/home/index.js',
   },
   mode: 'development',
   output: {
-    //path: path.join(__dirname, '/public'),
-    // filename: 'index_bundle.js', // single file
     path: path.resolve(__dirname, '/public'),
     filename: '[name].bundle.js',   // multiple files
-    publicPath: '/',
+    clean: true,
   },
   optimization: {
     runtimeChunk: 'single',
