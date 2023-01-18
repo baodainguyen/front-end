@@ -1,44 +1,44 @@
+.dnb-slider-container {
+    background-color: #121a2d;
+    position: relative
+}
+
+.dnb-slider-title {
+    position: absolute;
+    color: white;
+    top: 4px;
+    left: 11px;
+}
+
 .dnb-slider-v {
     overflow-y: auto;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
 
-.dnb-sliderv-items>div {
+.dnb-sliderv-items {
+    height: 100%;
+}
+
+.dnb-sliderv-items>.dnb-sliderv-item {
     cursor: pointer;
     min-width: 402px;
-    height: 300px;
-}
-
-.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(2),
-.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(7) {
-    background: #FFCF47;
-}
-
-.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(1),
-.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(6) {
-    background: #7ADCEF;
-}
-
-.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(3) {
-    background: #F97C68;
-}
-
-.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(4) {
-    background: #a78df5;
-}
-
-.dnb-slider-v .dnb-sliderv-items .dnb-sliderv-item:nth-child(5) {
-    background: #ff8686;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .dnbslider-control {
     display: block;
-    width: 40px;
-    height: 40px;
+    cursor: pointer;
     background: #fff;
-    border-radius: 20px;
+    background-size: contain;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
     z-index: 2;
+}
+
+.dnbslider-control.dnbslider-active {
+    background-color: #7ADCEF;
 }
 
 .up,
@@ -46,8 +46,8 @@
     background-size: 22px;
     background-position: center;
     background-repeat: no-repeat;
-    cursor: pointer;
 }
+
 .up {
     background-image: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_up_48px-256.png);
 }
@@ -57,7 +57,6 @@
     background-image: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_down_48px-256.png);
 }
 
-.up:active,
-.down:active {
+.dnbslider-control:active {
     transform: scale(0.8);
 }

@@ -1,16 +1,56 @@
-import React, { Children, Component, cloneElement } from 'react';
+import React, { Children, Component, cloneElement } from 'react'
+import { getSlider } from '../../service/base'
+import { getAverageRGB } from '../../global/Globals'
 import './slider.scss'
 
-export class SliderV extends Component {
+export class ViewSliderV extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            index: 0, width: 420, height: 300
-        }
+        this.state = { ListSlider: [] }
+    }
+    componentDidMount = () => {
+        getSlider().then(lst => {
+            this.setState({ ListSlider: lst }); //[{title, img, icon}]
+        })
+    }
+    getAvgBg = (e) => {
+        const parent = e.parentElement
+        const { r, g, b } = getAverageRGB(e)
+        parent.style.backgroundColor = `rgb(${r},${g},${b})`
+        e.remove()
+    }
+    render() {
+        const { ListSlider } = this.state
+        return (
+            <>
+                <SliderV>
+                    {ListSlider.map((item, i) => {
+                        const { title, img, icon } = item
+                        const stl = { backgroundImage: `url("${img}")` }
+                        return <div icon={icon} title={title}
+                            style={stl}
+                            key={`slider-item-${i + 1}`}>
+                            <img className="d-none"
+                                src={img}
+                                onLoad={e => { this.getAvgBg(e.target) }}
+                                crossOrigin="anonymous" />
+                        </div>
+                    })}
+                </SliderV>
+            </>
+        )
+    }
+}
+
+class SliderV extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { index: 0 }
         this.slider = React.createRef()
+        this.configSlider = { width: 624, height: 447 }
     }
     runScroll = (idx) => {
-        const { height } = this.state
+        const { height } = this.configSlider
         this.slider.current.scrollTo({
             top: height * idx,
             behavior: 'smooth'
@@ -28,7 +68,7 @@ export class SliderV extends Component {
         this.setUnObserver();
         let idx = this.state.index
         idx = this.computeIndex(idx, true);
-        this.runScroll(idx)        
+        this.runScroll(idx)
     }
     scrollDown = (e) => {
         let idx = this.state.index
@@ -36,70 +76,91 @@ export class SliderV extends Component {
         this.runScroll(idx)
     }
     componentDidMount = () => {
-        const root = this.slider.current;
+        const percentView = 0.15
+        const root = this.slider.current
         const options = {
             root: root,
-            rootMargin: '0px',
-            threshold: 0.25
+            threshold: percentView
         }
         let callback = (entries, observer) => {
             entries.forEach((entry) => {
-                if (entry.intersectionRatio >= 0.25) {
-                    // focus
+                if (entry.intersectionRatio >= percentView) { // focus
                     const target = entry.target
                     const idx = parseInt(target.getAttribute('slideindex'))
                     this.runScroll(idx)
                 }
                 //else console.log(entry)
                 // target element:
-                //   entry.boundingClientRect
-                //   entry.intersectionRect
-                //   entry.isIntersecting
-                //   entry.rootBounds
-                //   entry.time
+                //entry.boundingClientRect,entry.intersectionRect,entry.isIntersecting,entry.rootBounds,entry.time
             })
         }
         this.observer = new IntersectionObserver(callback, options)
     }
+    componentWillUnmount = () => {
+        if (this.observer) this.observer.disconnect();
+    }
+    componentDidUpdate = () => { console.log(`componentDidUpdate`) }
     setObserver = () => {
-        if(typeof this.observer == 'undefined') return;
+        if (typeof this.observer == 'undefined') return;
         const root = this.slider.current
         root.querySelectorAll(`.dnb-sliderv-item`).forEach(item => {
             this.observer.observe(item)
         })
     }
     setUnObserver = () => {
-        if(typeof this.observer == 'undefined') return;
+        if (typeof this.observer == 'undefined') return;
         const root = this.slider.current
         root.querySelectorAll(`.dnb-sliderv-item`).forEach(item => {
             this.observer.unobserve(item)
         })
     }
     modifyChildren = (child, i) => {
-        const prpCls = typeof child.props.className == 'string' ? `${child.props.className} ` : '';
+        const { height } = this.configSlider
+        const style = Object.assign({ height: `${height}px` }, child.props.style)
+        const prpCls = typeof child.props.className == 'string' ? `${child.props.className} ` : ''
         const className = `${prpCls}dnb-sliderv-item`
-        const slideindex = `${i}`;
-        const props = { className, slideindex }
-        return cloneElement(child, props);
+        const slideindex = `${i}`
+        const props = { className, slideindex, style }
+        return cloneElement(child, props)
     }
     render() {
-        const styl = { display: 'flex' }
-        const { width, height } = this.state;
+        const { children } = this.props;
+        const stylContainer = { width: `675px`, height: `483px`}
+        const { width, height } = this.configSlider;
+        const { index } = this.state;
         const stlSlide = { width: `${width}px`, height: `${height}px` }
+        const stylNavIcon = { width: `32px`, height: `32px` }
         return (
-            <div style={styl}>
-                <div className="dnb-slider-v dnb-scrollbar-w0" ref={this.slider}
+            <div className='d-flex rounded-4 dnb-slider-container' style={stylContainer}>
+                {children.map((child, i) => {
+                    const {title} = child.props
+                    if(i == index)
+                        return <span className='dnb-slider-title'>{title}</span>
+                })}
+                <div className="dnb-slider-v dnb-scrollbar-w0 rounded-3 align-self-end mb-2 ms-2"
+                    ref={this.slider}
                     onMouseOver={(e) => this.setObserver()}
                     onMouseOut={e => this.setUnObserver()}
                     style={stlSlide}>
                     <div className="dnb-sliderv-items">
-                        {Children.map(this.props.children, (child, i) =>
+                        {Children.map(children, (child, i) =>
                             this.modifyChildren(child, i))}
                     </div>
                 </div>
-                <div>
-                    <a id="up" className="dnbslider-control up" onClick={(e) => this.scrollUp(e)}></a>
-                    <a id="down" className="dnbslider-control down" onClick={(e) => this.scrollDown(e)}></a>
+                <div className="ms-1 mt-5">
+                    <a id="up" className="dnbslider-control up rounded-3 mt-1"
+                        onClick={(e) => this.scrollUp(e)} style={stylNavIcon} />
+                    {children.map((child, i) => {
+                        const icon = child.props.icon
+                        const stlIcon = Object.assign({ backgroundImage: `url("${icon}")` }, stylNavIcon)
+                        let cls = `dnbslider-control rounded-3 text-center pt-2 mt-1 text-decoration-none`
+                        if (i == index) { cls += ` dnbslider-active` }
+                        return <a className={cls} style={stlIcon}
+                            key={`sliderv-item-${i + 1}`}
+                            onClick={(e) => this.runScroll(i)}>{i + 1}</a>
+                    })}
+                    <a id="down" className="dnbslider-control down rounded-3 mt-1"
+                        onClick={(e) => this.scrollDown(e)} style={stylNavIcon} />
                 </div>
             </div>
         )
