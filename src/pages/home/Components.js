@@ -159,7 +159,16 @@ export class Presentation extends Component {
     return (
       <div>
         <h2>Presentation</h2>
-        <ViewSliderV />
+        <div className='dnb-wrap d-flex mb-3'>
+          <div className='flex-fill pe-3'>
+            <PresentCard />
+            <PresentCard />
+            <PresentCard />
+            <PresentCard />
+            <PresentCard />
+          </div>
+          <ViewSliderV />
+        </div>
         <div className="dnb-wrap">
           <div className="dnb-slide-bound" style={stlOvY}>
             <div className="dnb-slide-wrap" style={{ overflowX: 'auto' }}>
@@ -199,7 +208,20 @@ export class Presentation extends Component {
     )
   }
 }
-
+class PresentCard extends Component {
+  render() {
+    return (
+      <div className="card rounded-lg minw200 box-h99 bg-img-ui text-white mb-3">
+        <div className="card-body">
+          <div className="card-title mb-0"><strong>PresentCard</strong></div>
+          <div className="card-text mb-0">
+            Lorem Ipsum is simply dummy text of
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
 export class TopTopic extends Component {
   render() {
     return (

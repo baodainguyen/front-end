@@ -48,6 +48,29 @@ class SliderV extends Component {
         this.state = { index: 0 }
         this.slider = React.createRef()
         this.configSlider = { width: 624, height: 447 }
+        this.taskTimeout = null
+    }
+    onScrolling = (e) => {
+        if(this.taskTimeout !== null) {
+            clearTimeout(this.taskTimeout);
+            this.taskTimeout = null
+        }
+        this.taskTimeout = setTimeout(this.checkScrollTop, 69);
+    }
+    checkScrollTop = ()=> {
+        const { height } = this.configSlider
+        const sTop = this.slider.current.scrollTop
+        let num = sTop / height
+        const num1 = num % 1
+        let idx = -1;
+        if(num1 < 0.18 || (0.33 < num1 && num1 < 0.57)) {
+            idx = Math.floor(num)
+        } else {
+            idx = Math.ceil(num)
+        }
+        this.runScroll(idx)
+       // console.log(`time out scrolling`, sTop, height)
+      //  console.log(num, num1)
     }
     runScroll = (idx) => {
         const { height } = this.configSlider
@@ -65,7 +88,6 @@ class SliderV extends Component {
         return index
     }
     scrollUp = (e) => {
-        this.setUnObserver();
         let idx = this.state.index
         idx = this.computeIndex(idx, true);
         this.runScroll(idx)
@@ -75,44 +97,14 @@ class SliderV extends Component {
         idx = this.computeIndex(idx, false)
         this.runScroll(idx)
     }
-    componentDidMount = () => {
-        const percentView = 0.15
-        const root = this.slider.current
-        const options = {
-            root: root,
-            threshold: percentView
-        }
-        let callback = (entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.intersectionRatio >= percentView) { // focus
-                    const target = entry.target
-                    const idx = parseInt(target.getAttribute('slideindex'))
-                    this.runScroll(idx)
-                }
-                //else console.log(entry)
-                // target element:
-                //entry.boundingClientRect,entry.intersectionRect,entry.isIntersecting,entry.rootBounds,entry.time
-            })
-        }
-        this.observer = new IntersectionObserver(callback, options)
-    }
-    componentWillUnmount = () => {
-        if (this.observer) this.observer.disconnect();
-    }
     componentDidUpdate = () => { console.log(`componentDidUpdate`) }
-    setObserver = () => {
-        if (typeof this.observer == 'undefined') return;
+    onMouseWheel = () => {
         const root = this.slider.current
-        root.querySelectorAll(`.dnb-sliderv-item`).forEach(item => {
-            this.observer.observe(item)
-        })
+        root.addEventListener('scroll', this.onScrolling)
     }
-    setUnObserver = () => {
-        if (typeof this.observer == 'undefined') return;
+    offMouseWheel = () => {
         const root = this.slider.current
-        root.querySelectorAll(`.dnb-sliderv-item`).forEach(item => {
-            this.observer.unobserve(item)
-        })
+        root.removeEventListener('scroll', this.onScrolling)
     }
     modifyChildren = (child, i) => {
         const { height } = this.configSlider
@@ -139,8 +131,8 @@ class SliderV extends Component {
                 })}
                 <div className="dnb-slider-v dnb-scrollbar-w0 rounded-3 align-self-end mb-2 ms-2"
                     ref={this.slider}
-                    onMouseOver={(e) => this.setObserver()}
-                    onMouseOut={e => this.setUnObserver()}
+                    onMouseOver={(e) => this.onMouseWheel()}
+                    onMouseOut={e => this.offMouseWheel()}
                     style={stlSlide}>
                     <div className="dnb-sliderv-items">
                         {Children.map(children, (child, i) =>
