@@ -48,29 +48,6 @@ class SliderV extends Component {
         this.state = { index: 0 }
         this.slider = React.createRef()
         this.configSlider = { width: 624, height: 447 }
-        this.taskTimeout = null
-    }
-    onScrolling = (e) => {
-        if(this.taskTimeout !== null) {
-            clearTimeout(this.taskTimeout);
-            this.taskTimeout = null
-        }
-        this.taskTimeout = setTimeout(this.checkScrollTop, 69);
-    }
-    checkScrollTop = ()=> {
-        const { height } = this.configSlider
-        const sTop = this.slider.current.scrollTop
-        let num = sTop / height
-        const num1 = num % 1
-        let idx = -1;
-        if(num1 < 0.18 || (0.33 < num1 && num1 < 0.57)) {
-            idx = Math.floor(num)
-        } else {
-            idx = Math.ceil(num)
-        }
-        this.runScroll(idx)
-       // console.log(`time out scrolling`, sTop, height)
-      //  console.log(num, num1)
     }
     runScroll = (idx) => {
         const { height } = this.configSlider
@@ -98,13 +75,37 @@ class SliderV extends Component {
         this.runScroll(idx)
     }
     componentDidUpdate = () => { console.log(`componentDidUpdate`) }
-    onMouseWheel = () => {
+    componentDidMount = () =>{
+        const percentView = 0.15
         const root = this.slider.current
-        root.addEventListener('scroll', this.onScrolling)
+        const options = {
+            root: root, threshold: percentView
+        }
+        let callback = (entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.intersectionRatio >= percentView) { // focus
+                    const target = entry.target
+                    const idx = parseInt(target.getAttribute('slideindex'))
+                    this.runScroll(idx)
+                }
+                //else console.log(entry)
+            })
+        }
+        this.observer = new IntersectionObserver(callback, options)
     }
-    offMouseWheel = () => {
+    setObserver = () => {
+        if (!this.observer instanceof IntersectionObserver) return;
         const root = this.slider.current
-        root.removeEventListener('scroll', this.onScrolling)
+        root.querySelectorAll(`.dnb-sliderv-item`).forEach(item => {
+            this.observer.observe(item)
+        })
+    }
+    setUnObserver = () => {
+        if (!this.observer instanceof IntersectionObserver) return;
+        const root = this.slider.current
+        root.querySelectorAll(`.dnb-sliderv-item`).forEach(item => {
+            this.observer.unobserve(item)
+        })
     }
     modifyChildren = (child, i) => {
         const { height } = this.configSlider
@@ -131,8 +132,10 @@ class SliderV extends Component {
                 })}
                 <div className="dnb-slider-v dnb-scrollbar-w0 rounded-3 align-self-end mb-2 ms-2"
                     ref={this.slider}
-                    onMouseOver={(e) => this.onMouseWheel()}
-                    onMouseOut={e => this.offMouseWheel()}
+                    onMouseOver={(e) => this.setObserver()}
+                    onTouchStart={(e) => this.setObserver()}
+                    onMouseOut={e => this.setUnObserver()}
+                    onTouchEnd={e => this.setUnObserver()}
                     style={stlSlide}>
                     <div className="dnb-sliderv-items">
                         {Children.map(children, (child, i) =>
