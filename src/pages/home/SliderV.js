@@ -52,8 +52,7 @@ class SliderV extends Component {
     runScroll = (idx) => {
         const { height } = this.configSlider
         this.slider.current.scrollTo({
-            top: height * idx,
-            behavior: 'smooth'
+            top: height * idx, behavior: 'smooth'
         })
         this.setState(prevSt => ({ index: idx }))
     }
