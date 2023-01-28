@@ -49,12 +49,17 @@ class SliderV extends Component {
         this.slider = React.createRef()
         this.configSlider = { width: 624, height: 447 }
     }
-    runScroll = (idx) => {
+    runScroll = (idx, isObserver) => {
+        if (!isObserver) this.setUnObserver()
         const { height } = this.configSlider
         this.slider.current.scrollTo({
             top: height * idx, behavior: 'smooth'
         })
-        this.setState(prevSt => ({ index: idx }))
+        const { children } = this.props
+        setTimeout(() => {
+            if (!isObserver) this.setObserver()
+            this.setState(prevSt => ({ index: idx }))
+        }, children.length * 234)
     }
     computeIndex = (index, isUp) => {
         const { children } = this.props
@@ -66,15 +71,18 @@ class SliderV extends Component {
     scrollUp = (e) => {
         let idx = this.state.index
         idx = this.computeIndex(idx, true);
-        this.runScroll(idx)
+        this.runScroll(idx) // button
     }
     scrollDown = (e) => {
         let idx = this.state.index
         idx = this.computeIndex(idx, false)
-        this.runScroll(idx)
+        this.runScroll(idx) // button
     }
-    componentDidUpdate = () => { console.log(`componentDidUpdate`) }
-    componentDidMount = () =>{
+    componentDidUpdate = () => {
+        console.log(`componentDidUpdate`)
+        this.setObserver()
+    }
+    componentDidMount = () => {
         const percentView = 0.15
         const root = this.slider.current
         const options = {
@@ -85,9 +93,8 @@ class SliderV extends Component {
                 if (entry.intersectionRatio >= percentView) { // focus
                     const target = entry.target
                     const idx = parseInt(target.getAttribute('slideindex'))
-                    this.runScroll(idx)
-                }
-                //else console.log(entry)
+                    this.runScroll(idx, true)
+                } //else console.log(entry)
             })
         }
         this.observer = new IntersectionObserver(callback, options)
@@ -117,7 +124,7 @@ class SliderV extends Component {
     }
     render() {
         const { children } = this.props;
-        const stylContainer = { width: `675px`, height: `483px`}
+        const stylContainer = { width: `675px`, height: `483px` }
         const { width, height } = this.configSlider;
         const { index } = this.state;
         const stlSlide = { width: `${width}px`, height: `${height}px` }
@@ -125,16 +132,12 @@ class SliderV extends Component {
         return (
             <div className='d-flex rounded-4 dnb-slider-container' style={stylContainer}>
                 {children.map((child, i) => {
-                    const {title} = child.props
-                    if(i == index)
+                    const { title } = child.props
+                    if (i == index)
                         return <span className='dnb-slider-title'>{title}</span>
                 })}
                 <div className="dnb-slider-v dnb-scrollbar-w0 rounded-3 align-self-end mb-2 ms-2"
                     ref={this.slider}
-                    onMouseOver={(e) => this.setObserver()}
-                    onTouchStart={(e) => this.setObserver()}
-                    onMouseOut={e => this.setUnObserver()}
-                    onTouchEnd={e => this.setUnObserver()}
                     style={stlSlide}>
                     <div className="dnb-sliderv-items">
                         {Children.map(children, (child, i) =>

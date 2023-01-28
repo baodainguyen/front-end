@@ -32,3 +32,5 @@
     9. Yes for all next instructions -> Firebase initialization complete!
 8. Type ``` npm run build ```
 9. Finally ``` firebase deploy ```
+10. if firebase login/deploy has some errors: "CategoryInfo          : SecurityError: (:) [], PSSecurityException"
+    * Run PowerShell as Admin: ``` set-executionpolicy remotesigned ```
