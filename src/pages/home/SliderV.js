@@ -124,10 +124,10 @@ class SliderV extends Component {
     }
     render() {
         const { children } = this.props;
-        const stylContainer = { width: `675px`, height: `483px` }
+        const stylContainer = { width: `100%`, height: `483px` }
         const { width, height } = this.configSlider;
         const { index } = this.state;
-        const stlSlide = { width: `${width}px`, height: `${height}px` }
+        const stlSlide = { width: `100%`, height: `${height}px` }
         const stylNavIcon = { width: `32px`, height: `32px` }
         return (
             <div className='d-flex rounded-4 dnb-slider-container' style={stylContainer}>
@@ -144,7 +144,7 @@ class SliderV extends Component {
                             this.modifyChildren(child, i))}
                     </div>
                 </div>
-                <div className="ms-1 mt-5">
+                <div className="dnb-sliderv-buttons ms-1 mt-5">
                     <a id="up" className="dnbslider-control up rounded-3 mt-1"
                         onClick={(e) => this.scrollUp(e)} style={stylNavIcon} />
                     {children.map((child, i) => {

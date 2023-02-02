@@ -7,11 +7,11 @@ import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.css'
 import './main.scss';
 
 export class Ecma extends Component {
-  componentDidMount() {
-      const mainNav = document.querySelector(`#dnbApp > nav.sticky-top:first-child`);
-      mainNav.style.dispsay = 'none'
+  componentDidMount = () => {
+      const mainNav = document.querySelector(`#dnbApp .navbar.sticky-top`);
+      mainNav.style.display = 'none'
   }
-    render(){
+  render(){
         const stlA1 = {width:'60px',height:'60px'};
         return(            
 <div className="container-fluid">
@@ -80,7 +80,7 @@ export class Ecma extends Component {
     <div className="dnb-per-3-4 col-xl-10 col-lg-9 col-md-8 col-12 col-wrap">
       <div className="row">
         <div className="dnb-per-1-2 col-xl-8 col-lg-8 col-md-12 col-wrap">
-          <div className="mb-4 mt-n9">
+          <div className="dnb-subnav-present mb-4 mt-n9">
             <NavUser />
             <Presentation />
           </div>

@@ -73,7 +73,7 @@ export class NavUser extends Component {
       <i className="bi bi-dash-lg ms-1" />
     return (
       <>
-        <nav className="navbar navbar-expand-lg navbar-light bg-white ps-0">
+        <nav className="dnb-submenu-container navbar navbar-expand-lg navbar-light bg-white ps-0">
           <ul className="navbar-nav">
             <li className="nav-item"
               onClick={() => this.selectMenu(0)}>
@@ -159,8 +159,8 @@ export class Presentation extends Component {
     return (
       <div>
         <h2>Presentation</h2>
-        <div className='dnb-wrap d-flex mb-3'>
-          <div className='flex-fill pe-3'>
+        <div className='dnb-wrap d-flex mb-3 dnb-flex-mobile'>
+          <div className='dnb-present-card flex-fill pe-3'>
             <PresentCard />
             <PresentCard />
             <PresentCard />

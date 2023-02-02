@@ -1,8 +1,9 @@
 .dnb-slider-container {
     background-color: #121a2d;
-    position: relative
+    position: relative;
+    max-width: 675px;
 }
-
+.dnb-slider-v.dnb-scrollbar-w0 {max-width: 624px;}
 .dnb-slider-title {
     position: absolute;
     color: white;
@@ -59,4 +60,10 @@
 
 .dnbslider-control:active {
     transform: scale(0.8);
+}
+@media screen and (max-width: 992px) {
+nav.dnb-submenu-container {display: none !important;}
+}
+@media screen and (max-width: 820px) {
+    .dnb-sliderv-buttons {margin-right: 3px;}
 }
