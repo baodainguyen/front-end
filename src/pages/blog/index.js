@@ -26,7 +26,7 @@ function BlogMain() {
             {
                 Article.Index > -1 ? <DataContext articlename={Article.Name} /> : ''
             }
-            <DataList articlename={Article.Name} articleindex={Article.Index} />
+            <DataList />
         </main>
     )
 }

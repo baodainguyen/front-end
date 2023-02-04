@@ -8,9 +8,9 @@ $itemPadding: 6px;
     position: relative;
 
     $boderImg: 9px;
-
+$contextW: 39%;
     .dnb-blog-datacontext {
-        width: 39%;
+        width: $contextW;
         min-width: 570px;
         background-color: #f7f7f7;
         border-radius: $boderImg;
@@ -18,32 +18,34 @@ $itemPadding: 6px;
         padding: $itemPadding;
     }
 
-    $dLWidth: 61%;
+    $dLWidth: 100% - $contextW;
     $iSize: 51px;
     $borderBtn: 12px;
     $spaceE: 6px;
 
     .dnb-blog-indication-down {
         display: inline-block;
-        background-color: #8d8d8d61;
-        width: $iSize;
-        height: $iSize;
+        background-image: linear-gradient(#ffffff00, white);
+        background-color: transparent;
+        width: 100%;
+        height: 12px;
         position: absolute;
-        left: calc(100% - $iSize - $spaceE);
+        left: 0;
         bottom: 0px;
-        border-radius: $borderBtn;
         cursor: pointer;
     }
 
     .dnb-blog-datalist {
         padding-bottom: $itemPadding;
+        padding-right: 12px;
+        padding-left: 12px;
     }
 
     .dnb-blog-datacontext+.dnb-blog-datalist {
         width: $dLWidth;
 
         .dnb-blog-indication-down {
-            left: calc($dLWidth - $iSize - $spaceE);
+            width: $dLWidth;
         }
     }
 
@@ -115,13 +117,13 @@ $itemPadding: 6px;
 
 .dnb-blog-indication-down span {
     position: absolute;
-    top: 0;
+    top: -9px;
     left: 50%;
-    width: 24px;
-    height: 24px;
+    width: 15px;
+    height: 15px;
     margin-left: -12px;
-    border-left: 1px solid #fff;
-    border-bottom: 1px solid #fff;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
     -webkit-animation: sdb05 1.5s infinite;
     animation: sdb05 1.5s infinite;
     box-sizing: border-box;
