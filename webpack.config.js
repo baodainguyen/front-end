@@ -4,18 +4,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   // entry: './src/main.js',    // single file
   entry: {                      // multiple files
-    index: {
-      import: './src/main.js',
-      dependOn: 'shared',
-    },
-    another: {
-      import: './src/another-module.js',
-      dependOn: 'shared',
-    },
+    //bootstrapjs: './node_modules/bootstrap/dist/js/bootstrap.min.js',
     shared: 'lodash',
+    another: {
+        import: './node_modules/bootstrap/dist/js/bootstrap.min.js',
+        dependOn: 'shared',
+    },
     cheatsheet: './src/js-tags/cheatsheet.js',
-    bootstrapjs: './node_modules/bootstrap/dist/js/bootstrap.min.js',
     pagehome: './src/pages/home/index.js',
+    pageblog: './src/pages/blog/index.js',
+    index: {
+        import: './src/main.js',
+        dependOn: 'shared',
+    },
   },
   mode: 'development',
   output: {

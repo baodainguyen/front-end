@@ -3,14 +3,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        cheatsheet: './src/js-tags/cheatsheet.js',
-        bootstrapjs: './node_modules/bootstrap/dist/js/bootstrap.min.js',
-        pagehome: './src/pages/home/index.js',
+        //bootstrapjs: './node_modules/bootstrap/dist/js/bootstrap.min.js',
+        shared: 'lodash',
         another: {
-            import: './src/another-module.js',
+            import: './node_modules/bootstrap/dist/js/bootstrap.min.js',
             dependOn: 'shared',
         },
-        shared: 'lodash',
+        cheatsheet: './src/js-tags/cheatsheet.js',
+        pagehome: './src/pages/home/index.js',
+        pageblog: './src/pages/blog/index.js',
         index: {
             import: './src/main.js',
             dependOn: 'shared',

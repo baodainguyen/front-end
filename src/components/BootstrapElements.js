@@ -10,7 +10,8 @@ export class Navigator extends Component {
         const _navs = this.props.list;
 
         return (
-            <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top" className="fontNotoSans">
+            <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top" 
+            className="fontNotoSans dnb-navtop">
                 <Container>
                     <Navbar.Brand as={Link} to="/" href="#home">
                         <img style={{ display: 'inline-block', width: '66px' }} src={Logo} /></Navbar.Brand>

@@ -8,6 +8,7 @@ import { Navigator } from '../src/components/BootstrapElements';
 import { SubMenu, MainMenu, Contact } from './components/Pages';
 import { Home } from './components/Home';
 import { Ecma } from './pages/home';
+import { Blog } from './pages/blog';
 import { ES6Features } from './components/ES6Features';
 import { TutorialCheatSheet } from './components/Tutorials';
 import { Resume } from './components/Resume';
@@ -20,10 +21,10 @@ export default class App extends Component {
     }
     componentDidMount() {
         NavLink.get().then(_navs => {
-            _navs.unshift({title: 'ES6Features'})
-            _navs.unshift({title: 'Main'})
+            _navs.unshift({ title: 'ES6Features' })
+            _navs.unshift({ title: 'Main' })
             this.setState({ navs: _navs });
-        });        
+        });
     }
 
     render() {
@@ -45,8 +46,9 @@ class BodyPage extends Component {
         return (
             <Routes>
                 <Route exact path="/" element={<Home />} />
-                {_navs.map((item) => {
-                    return getPageFromNav(item);
+                <Route exact path="/blog" element={<Blog />} />
+                {_navs.map((item, i) => {
+                    return getPageFromNav(item, i);
 
                 })}
                 {/*<Route path="/TutorialCheatSheet" element={<TutorialCheatSheet />} />
@@ -57,11 +59,14 @@ class BodyPage extends Component {
         );
     }
 }
-function getPageFromNav(item) {
-    const sub1 = !!item.sub1 ? <Route exact path={`/${removeSpace(item.sub1)}`} element={getPageFromSubMenu(item.sub1)} /> : <></>;
-    const sub2 = !!item.sub2 ? <Route exact path={`/${removeSpace(item.sub2)}`} element={getPageFromSubMenu(item.sub2)} /> : <></>;
+function getPageFromNav(item, index) {
+    const sub1 = !!item.sub1 ? <Route exact path={`/${removeSpace(item.sub1)}`}
+        element={getPageFromSubMenu(item.sub1)} /> : <></>;
+    const sub2 = !!item.sub2 ? <Route exact path={`/${removeSpace(item.sub2)}`}
+        element={getPageFromSubMenu(item.sub2)} /> : <></>;
     return <>
-        <Route exact path={`/${item.title}`} element={getPageFromMainMenu(item.title)} />
+        <Route exact path={`/${item.title}`}
+            element={getPageFromMainMenu(item.title)} />
         {sub1}
         {sub2}
     </>
