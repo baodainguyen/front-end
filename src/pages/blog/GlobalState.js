@@ -1,7 +1,72 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
+
+const featureSlice = createSlice({
+    name: 'BlogArticle',
+    initialState: {
+        Name: '',
+        Index: -1,
+        ListData: [],   //[{title, auth, img}]
+        WidthDList: 0,
+        ListDataWidth: [],
+        ListDataOriginWs: [],
+        ListContext: [],    // ['string']
+    },
+    reducers: {
+        setArticleCurrent: (state, action) => {
+            const { name, index } = action.payload
+            state.Name = name
+            state.Index = index
+        },
+        setListContext: (state, action) => {
+            const { ListContext } = state
+            const { index, context } = action.payload
+            if (index > -1 && context) {
+                ListContext.splice(index, 1, context)
+            }
+        },
+        setListData: (state, action) => {
+            const lstData = action.payload
+            if (!Array.isArray(lstData)) return
+            const { ListData, ListContext } = state
+            ListData.splice(0)
+            ListContext.splice(0)
+            lstData.forEach(d => {
+                ListData.push(d)
+                ListContext.push('')
+            })
+        },
+        setWidthDataLst: (state, action) => {
+            const w = action.payload - 24   // .dnb-blog-datalist padding-right and left:12px
+            if (state.WidthDList == w) return
+            state.WidthDList = w
+            setListDataWidth.call(state)
+        },
+        setListDataOriginWs: (state, action) => {
+            const { index, width } = action.payload
+            const { ListDataOriginWs } = state
+            const lstIndex = ListDataOriginWs.map(o => o.index)
+            const i = lstIndex.indexOf(index)
+            if (i > -1) {
+                ListDataOriginWs.splice(i, 1, { index, width })
+            } else {
+                ListDataOriginWs.push({ index, width })
+            }
+            setListDataWidth.call(state)
+        },
+    },
+})
+const { actions, reducer } = featureSlice
+
+export const { setArticleCurrent, setWidthDataLst,
+    setListDataOriginWs, setListData, setListContext } = actions
+
+export const BlogArticle = configureStore({
+    reducer: { reducer },
+})
+
 function setListDataWidth() {
-    const { ListDataWidth, ListDataOriginWs, WidthDList, ListDataSize } = this
-    if (ListDataSize != ListDataOriginWs.length) return
+    const { ListDataWidth, ListDataOriginWs, WidthDList, ListData } = this
+    if (ListData.length != ListDataOriginWs.length) return
     ListDataOriginWs.sort((a, b) => a.index - b.index)
     ListDataWidth.splice(0)
     const maxW = 561989
@@ -32,50 +97,3 @@ function setListDataWidth() {
         }
     }
 }
-const featureSlice = createSlice({
-    name: 'BlogArticle',
-    initialState: {
-        Name: '',
-        Index: -1,
-        ListDataSize: 0,
-        WidthDList: 0,
-        ListDataWidth: [],
-        ListDataOriginWs: []
-    },
-    reducers: {
-        setArticleName: (state, action) => {
-            state.Name = action.payload
-        },
-        setIndex: (state, action) => {
-            state.Index = action.payload
-        },
-        setListDataSize: (state, action) => {
-            state.ListDataSize = action.payload
-        },
-        setWidthDataLst: (state, action) => {
-            const w = action.payload - 24   // .dnb-blog-datalist padding-right and left:12px
-            if (state.WidthDList == w) return
-            state.WidthDList = w
-            setListDataWidth.call(state)
-        },
-        setListDataOriginWs: (state, action) => {
-            const { index, width } = action.payload
-            const { ListDataOriginWs, ListDataSize } = state
-            const lstIndex = ListDataOriginWs.map(o => o.index)
-            const i = lstIndex.indexOf(index)
-            if (i > -1) {
-                ListDataOriginWs.splice(i, 1, { index, width })
-            } else {
-                ListDataOriginWs.push({ index, width })
-            }
-            setListDataWidth.call(state)
-        },
-    },
-})
-const { actions, reducer } = featureSlice
-
-export const { setArticleName, setIndex, setWidthDataLst, setListDataOriginWs, setListDataSize } = actions
-
-export const BlogArticle = configureStore({
-    reducer: { reducer },
-})

@@ -50,8 +50,8 @@ export function getBlogData() {
                 img: `https://live.staticflickr.com/65535/51728456656_7e4105ffc0.jpg`
             },
             {
-                title: `Introduction to Data Structures and Algorithms | 2`,
-                auth: `Studytonight`,
+                title: `A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.`,
+                auth: `Dainb`,
                 img: `https://live.staticflickr.com/65535/51761145941_091d74543c.jpg`
             },
             {
@@ -85,5 +85,327 @@ export function getBlogData() {
                 img: `https://live.staticflickr.com/65535/51743911796_d96b75c90c.jpg`
             }
         ])
+    })
+}
+export function getBlogArticle(name) {
+const lstD = [
+    {
+        title: `Data Structures`,
+        context: `Introduction
+        Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites, with jsDelivr and a template starter page.
+        
+        On this page
+        Quick start
+        CSS
+        JS
+        Bundle
+        Separate
+        Modules
+        Components
+        Starter template
+        Important globals
+        HTML5 doctype
+        Responsive meta tag
+        Box-sizing
+        Reboot
+        Community
+        Quick start
+        Looking to quickly add Bootstrap to your project? Use jsDelivr, a free open source CDN. Using a package manager or need to download the source files? Head to the downloads page.
+        
+        CSS
+        Copy-paste the stylesheet <link> into your <head> before all other stylesheets to load our CSS.`,
+    },
+    {
+        title: `Difference between Linear and Non-linear Data Structures - GeeksforGeeks`,
+        context: `With the above snippet, nested elements—including generated content via ::before and ::after—will all inherit the specified box-sizing for that .selector-for-some-widget.
+
+        Learn more about box model and sizing at CSS Tricks.
+        
+        Reboot
+        For improved cross-browser rendering, we use Reboot to correct inconsistencies across browsers and devices while providing slightly more opinionated resets to common HTML elements.
+        
+        Community
+        Stay up to date on the development of Bootstrap and reach out to the community with these helpful resources.
+        
+        Read and subscribe to The Official Bootstrap Blog.
+        Chat with fellow Bootstrappers in IRC. On the irc.libera.chat server, in the #bootstrap channel.
+        Implementation help may be found at Stack Overflow (tagged bootstrap-5).
+        Developers should use the keyword bootstrap on packages that modify or add to the functionality of Bootstrap when distributing through npm or similar delivery mechanisms for maximum discoverability.
+        You can also follow @getbootstrap on Twitter for the latest gossip and awesome music videos.`
+    },
+    {
+        title: `What Are Data Structures? {Classification & Types} | phoenixNAP KB`,
+        context: `Download
+        Download Bootstrap to get the compiled CSS and JavaScript, source code, or include it with your favorite package managers like npm, RubyGems, and more.
+        
+        On this page
+        Compiled CSS and JS
+        Source files
+        Examples
+        CDN via jsDelivr
+        Package managers
+        npm
+        yarn
+        RubyGems
+        Composer
+        NuGet
+        Compiled CSS and JS
+        Download ready-to-use compiled code for Bootstrap v5.0.2 to easily drop into your project, which includes:
+        
+        Compiled and minified CSS bundles (see CSS files comparison)
+        Compiled and minified JavaScript plugins (see JS files comparison)
+        This doesn’t include documentation, source files, or any optional JavaScript dependencies like Popper.`
+    },
+    {
+        title: `What is the Classification of Data Structure with Diagram`,
+        context: `Source files
+        Compile Bootstrap with your own asset pipeline by downloading our source Sass, JavaScript, and documentation files. This option requires some additional tooling:
+        
+        Sass compiler for compiling Sass source files into CSS files
+        Autoprefixer for CSS vendor prefixing
+        Should you require our full set of build tools, they are included for developing Bootstrap and its docs, but they’re likely unsuitable for your own purposes.`
+    },
+    {
+        title: `Introduction to Data Structures and Algorithms | Studytonight`,
+        context: `Package managers
+        Pull in Bootstrap’s source files into nearly any project with some of the most popular package managers. No matter the package manager, Bootstrap will require a Sass compiler and Autoprefixer for a setup that matches our official compiled versions.
+        
+        npm
+        Install Bootstrap in your Node.js powered apps with the npm package:
+        
+        Copy
+        npm install bootstrap
+        const bootstrap = require('bootstrap') or import bootstrap from 'bootstrap' will load all of Bootstrap’s plugins onto a bootstrap object. The bootstrap module itself exports all of our plugins. You can manually load Bootstrap’s plugins individually by loading the /js/dist/*.js files under the package’s top-level directory.
+        
+        Bootstrap’s package.json contains some additional metadata under the following keys:
+        
+        sass - path to Bootstrap’s main Sass source file
+        style - path to Bootstrap’s non-minified CSS that’s been precompiled using the default settings (no customization)
+        Get started with Bootstrap via npm with our starter project! Head to the twbs/bootstrap-npm-starter template repository to see how to build and customize Bootstrap in your own npm project. Includes Sass compiler, Autoprefixer, Stylelint, PurgeCSS, and Bootstrap Icons.
+        yarn
+        Install Bootstrap in your Node.js powered apps with the yarn package:
+        
+        Copy
+        yarn add bootstrap
+        RubyGems
+        Install Bootstrap in your Ruby apps using Bundler (recommended) and RubyGems by adding the following line to your Gemfile:
+        
+        Copy
+        gem 'bootstrap', '~> 5.0.2'
+        Alternatively, if you’re not using Bundler, you can install the gem by running this command:
+        
+        Copy
+        gem install bootstrap -v 5.0.2
+        See the gem’s README for further details.
+        
+        Composer
+        You can also install and manage Bootstrap’s Sass and JavaScript using Composer:
+        
+        Copy
+        composer require twbs/bootstrap:5.0.2
+        NuGet
+        If you develop in .NET, you can also install and manage Bootstrap’s CSS or Sass and JavaScript using NuGet:
+        
+        Copy
+        Install-Package bootstrap
+        Copy
+        Install-Package bootstrap.sass`
+    },
+    {
+        title: `A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.`,
+        context: `Contents
+        Discover what’s included in Bootstrap, including our precompiled and source code flavors.
+        
+        On this page
+        Precompiled Bootstrap
+        CSS files
+        JS files
+        Bootstrap source code
+        Precompiled Bootstrap
+        Once downloaded, unzip the compressed folder and you’ll see something like this:
+        
+        Copy
+        bootstrap/
+        ├── css/
+        │   ├── bootstrap-grid.css
+        │   ├── bootstrap-grid.css.map
+        │   ├── bootstrap-grid.min.css
+        │   ├── bootstrap-grid.min.css.map
+        │   ├── bootstrap-grid.rtl.css
+        │   ├── bootstrap-grid.rtl.css.map
+        │   ├── bootstrap-grid.rtl.min.css
+        │   ├── bootstrap-grid.rtl.min.css.map
+        │   ├── bootstrap-reboot.css
+        │   ├── bootstrap-reboot.css.map
+        │   ├── bootstrap-reboot.min.css
+        │   ├── bootstrap-reboot.min.css.map
+        │   ├── bootstrap-reboot.rtl.css
+        │   ├── bootstrap-reboot.rtl.css.map
+        │   ├── bootstrap-reboot.rtl.min.css
+        │   ├── bootstrap-reboot.rtl.min.css.map
+        │   ├── bootstrap-utilities.css
+        │   ├── bootstrap-utilities.css.map
+        │   ├── bootstrap-utilities.min.css
+        │   ├── bootstrap-utilities.min.css.map
+        │   ├── bootstrap-utilities.rtl.css
+        │   ├── bootstrap-utilities.rtl.css.map
+        │   ├── bootstrap-utilities.rtl.min.css
+        │   ├── bootstrap-utilities.rtl.min.css.map
+        │   ├── bootstrap.css
+        │   ├── bootstrap.css.map
+        │   ├── bootstrap.min.css
+        │   ├── bootstrap.min.css.map
+        │   ├── bootstrap.rtl.css
+        │   ├── bootstrap.rtl.css.map
+        │   ├── bootstrap.rtl.min.css
+        │   └── bootstrap.rtl.min.css.map
+        └── js/
+            ├── bootstrap.bundle.js
+            ├── bootstrap.bundle.js.map
+            ├── bootstrap.bundle.min.js
+            ├── bootstrap.bundle.min.js.map
+            ├── bootstrap.esm.js
+            ├── bootstrap.esm.js.map
+            ├── bootstrap.esm.min.js
+            ├── bootstrap.esm.min.js.map
+            ├── bootstrap.js
+            ├── bootstrap.js.map
+            ├── bootstrap.min.js
+            └── bootstrap.min.js.map
+        This is the most basic form of Bootstrap: precompiled files for quick drop-in usage in nearly any web project. We provide compiled CSS and JS (bootstrap.*), as well as compiled and minified CSS and JS (bootstrap.min.*). source maps (bootstrap.*.map) are available for use with certain browsers' developer tools. Bundled JS files (bootstrap.bundle.js and minified bootstrap.bundle.min.js) include Popper.`
+    },
+    {
+        title: `Introduction to Data Structures and Algorithms | 8`,
+        context: `CSS files
+        Bootstrap includes a handful of options for including some or all of our compiled CSS.
+        
+        CSS files	Layout	Content	Components	Utilities
+        bootstrap.css
+        bootstrap.rtl.css
+        bootstrap.min.css
+        bootstrap.rtl.min.css
+        Included	Included	Included	Included
+        bootstrap-grid.css
+        bootstrap-grid.rtl.css
+        bootstrap-grid.min.css
+        bootstrap-grid.rtl.min.css
+        Only grid system	—	—	Only flex utilities
+        bootstrap-utilities.css
+        bootstrap-utilities.rtl.css
+        bootstrap-utilities.min.css
+        bootstrap-utilities.rtl.min.css
+        —	—	—	Included
+        bootstrap-reboot.css
+        bootstrap-reboot.rtl.css
+        bootstrap-reboot.min.css
+        bootstrap-reboot.rtl.min.css
+        —	Only Reboot	—	—
+        JS files
+        Similarly, we have options for including some or all of our compiled JavaScript.
+        
+        JS files	Popper
+        bootstrap.bundle.js
+        bootstrap.bundle.min.js
+        Included
+        bootstrap.js
+        bootstrap.min.js
+        —
+        Bootstrap source code
+        The Bootstrap source code download includes the precompiled CSS and JavaScript assets, along with source Sass, JavaScript, and documentation. More specifically, it includes the following and more:
+        
+        Copy
+        bootstrap/
+        ├── dist/
+        │   ├── css/
+        │   └── js/
+        ├── site/
+        │   └──content/
+        │      └── docs/
+        │          └── 5.0/
+        │              └── examples/
+        ├── js/
+        └── scss/
+        The scss/ and js/ are the source code for our CSS and JavaScript. The dist/ folder includes everything listed in the precompiled download section above. The site/docs/ folder includes the source code for our documentation, and examples/ of Bootstrap usage. Beyond that, any other included file provides support for packages, license information, and development.`
+    },
+    {
+        title: `Introduction to Data Structures and Algorithms | 3`,
+        context: `Customize
+        Learn how to theme, customize, and extend Bootstrap with Sass, a boatload of global options, an expansive color system, and more.
+        
+        Sass
+        Utilize our source Sass files to take advantage of variables, maps, mixins, and functions.
+        Options
+        Customize Bootstrap with built-in variables to easily toggle global CSS preferences.
+        Color
+        Learn about and customize the color systems that support the entire toolkit.
+        Components
+        Learn how we build nearly all our components responsively and with base and modifier classes.
+        CSS variables
+        Use Bootstrap's CSS custom properties for fast and forward-looking design and development.
+        Optimize
+        Keep your projects lean, responsive, and maintainable so you can deliver the best experience.`
+    },
+    {
+        title: `Introduction to Data Structures and Algorithms | 5`,
+        context: `Overview
+        There are multiple ways to customize Bootstrap. Your best path can depend on your project, the complexity of your build tools, the version of Bootstrap you’re using, browser support, and more.
+        
+        Our two preferred methods are:
+        
+        Using Bootstrap via package manager so you can use and extend our source files.
+        Using Bootstrap’s compiled distribution files or jsDelivr so you can add onto or override Bootstrap’s styles.
+        While we cannot go into details here on how to use every package manager, we can give some guidance on using Bootstrap with your own Sass compiler.
+        
+        For those who want to use the distribution files, review the getting started page for how to include those files and an example HTML page. From there, consult the docs for the layout, components, and behaviors you’d like to use.
+        
+        As you familiarize yourself with Bootstrap, continue exploring this section for more details on how to utilize our global options, making use of and changing our color system, how we build our components, how to use our growing list of CSS custom properties, and how to optimize your code when building with Bootstrap.`
+    },
+    {
+        title: `Introduction to Data Structures and Algorithms | 7`,
+        context: `CSPs and embedded SVGs
+        Several Bootstrap components include embedded SVGs in our CSS to style components consistently and easily across browsers and devices. For organizations with more strict CSP configurations, we’ve documented all instances of our embedded SVGs (all of which are applied via background-image) so you can more thoroughly review your options.
+        
+        Accordion
+        Close button (used in alerts and modals)
+        Form checkboxes and radio buttons
+        Form switches
+        Form validation icons
+        Select menus
+        Carousel controls
+        Navbar toggle buttons
+        Based on community conversation, some options for addressing this in your own codebase include replacing the URLs with locally hosted assets, removing the images and using inline images (not possible in all components), and modifying your CSP. Our recommendation is to carefully review your own security policies and decide on the best path forward, if necessary.`
+    },
+    {
+        title: `Introduction to Data Structures and Algorithms | 9`,
+        context: `Breakpoints
+        Breakpoints are customizable widths that determine how your responsive layout behaves across device or viewport sizes in Bootstrap.
+        
+        On this page
+        Core concepts
+        Available breakpoints
+        Media queries
+        Min-width
+        Max-width
+        Single breakpoint
+        Between breakpoints
+        Core concepts
+        Breakpoints are the building blocks of responsive design. Use them to control when your layout can be adapted at a particular viewport or device size.
+        
+        Use media queries to architect your CSS by breakpoint. Media queries are a feature of CSS that allow you to conditionally apply styles based on a set of browser and operating system parameters. We most commonly use min-width in our media queries.
+        
+        Mobile first, responsive design is the goal. Bootstrap’s CSS aims to apply the bare minimum of styles to make a layout work at the smallest breakpoint, and then layers on styles to adjust that design for larger devices. This optimizes your CSS, improves rendering time, and provides a great experience for your visitors.`
+    },
+    {
+        title: `End game`,
+        context: `Media queries
+        Since Bootstrap is developed to be mobile first, we use a handful of media queries to create sensible breakpoints for our layouts and interfaces. These breakpoints are mostly based on minimum viewport widths and allow us to scale up elements as the viewport changes.
+        
+        Min-width
+        Bootstrap primarily uses the following media query ranges—or breakpoints—in our source Sass files for our layout, grid system, and components.`
+    }
+]
+const art = lstD.find(a => a.title == name)
+    return new Promise(res => {
+        res(art)
     })
 }

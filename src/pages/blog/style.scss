@@ -8,14 +8,34 @@ $itemPadding: 6px;
     position: relative;
 
     $boderImg: 9px;
-$contextW: 39%;
+    $contextW: 39%;
+
     .dnb-blog-datacontext {
         width: $contextW;
         min-width: 570px;
         background-color: #f7f7f7;
         border-radius: $boderImg;
         margin-top: $itemMargin + $itemPadding;
-        padding: $itemPadding;
+        padding: 0;
+
+        .dnb-dcontext-title-container,
+        .dnb-dcontext-content {
+            padding: $itemPadding;
+        }
+    }
+
+    $closeW: 30px;
+
+    .dnb-dcontext-close {
+        fill: #70757a;
+        background: transparent;
+        height: $closeW;
+        width: $closeW;
+
+        &:hover {
+            fill: #000;
+            cursor: pointer;
+        }
     }
 
     $dLWidth: 100% - $contextW;
