@@ -20,10 +20,6 @@ export class DataContext extends Component {
         const { r, g, b } = getAverageRGB(e)
         parent.style.backgroundColor = `rgb(${r},${g},${b})`
     }
-    componentDidUpdate = () => {
-        console.log(`DataContext updated`)
-
-    }
     reMarkHtml(content) {
         const lstTxt = content.split(`<pr`)
         let htmlMark = ''

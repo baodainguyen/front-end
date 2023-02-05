@@ -182,3 +182,12 @@ $transFY: 9px;
         opacity: 0;
     }
 }
+
+@media screen and (max-width: 905px) {
+    .dnb-blog-container {
+
+        .dnb-blog-datacontext {
+            width: 100%;
+        }
+    }
+}

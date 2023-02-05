@@ -3,6 +3,7 @@ import { getBlogData } from '../../service/base'
 import { getAverageRGB } from '../../global/Globals'
 import { useSelector } from 'react-redux'
 import { BlogArticle, setArticleCurrent, setListDataOriginWs, setWidthDataLst, setListData } from './GlobalState'
+import { DataContextProvider } from '.'
 
 export class DataList extends Component {
     constructor(props) {
@@ -47,6 +48,7 @@ export class DataList extends Component {
         const target = this.srollContainer.current
         this.checkButtonIndicationDown(target)
         this.onDataListResize(target)
+        console.log(`datalist updated`)
     }
     onDataListResize(e) {
         if (!e.target) {
@@ -61,21 +63,43 @@ export class DataList extends Component {
     componentWillUnmount = () => {
         window.removeEventListener('resize', this.onDataListResize);
     }
+    renderItem(item, i) {
+        const { title, auth, img } = item
+        return <ItemProvider
+            title={title}
+            auth={auth}
+            img={img}
+            index={i}
+            key={`blog-article_${i}`} />
+    }
     render() {
-        const { listarticle } = this.props
+        const { listarticle, ismobile, index } = this.props
+        const display = !ismobile ? <>{
+            listarticle.map((item, i) => {
+                return this.renderItem(item, i)
+            })
+        }</> : <>
+            {
+                listarticle.map((item, i) => {
+                    if (i <= index) {
+                        return this.renderItem(item, i)
+                    }
+                })
+            }
+            {index > -1 ? <DataContextProvider /> : ''}
+            {
+                listarticle.map((item, i) => {
+                    if (i > index) {
+                        return this.renderItem(item, i)
+                    }
+                })
+            }
+        </>
         return (
             <section className='dnb-blog-datalist dnb-max-vh dnb-scrollbar-w0'
                 ref={this.srollContainer}
                 onScroll={(e) => { this.handleScroll(e) }}>
-                {listarticle.map((item, i) => {
-                    const { title, auth, img } = item
-                    return <ItemProvider
-                        title={title}
-                        auth={auth}
-                        img={img}
-                        index={i}
-                        key={`blog-article_${i}`} />
-                })}
+                {display}
                 <div className='dnb-blog-indication-down'
                     onClick={() => { this.scrollToBottom() }}>
                     <span></span>
@@ -86,6 +110,7 @@ export class DataList extends Component {
 }
 function ItemProvider(props) {
     const ArticleStore = useSelector((state) => state.reducer)
+
     return (
         <DataItem
             isactive={props.index == ArticleStore.Index && ArticleStore.Name == props.title}
@@ -149,9 +174,6 @@ class DataItem extends Component {
             index = indx
             BlogArticle.dispatch(setArticleCurrent({ name, index }))
         }
-    }
-    componentDidUpdate = () => {
-        console.log(`DataItem updated`)
     }
     render() {
         //const { width, height } = this.state

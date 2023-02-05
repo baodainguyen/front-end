@@ -79,7 +79,6 @@ class SliderV extends Component {
         this.runScroll(idx) // button
     }
     componentDidUpdate = () => {
-        console.log(`componentDidUpdate`)
         this.setObserver()
     }
     componentDidMount = () => {
