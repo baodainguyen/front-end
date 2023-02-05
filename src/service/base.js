@@ -174,9 +174,10 @@ const lstD = [
         Install Bootstrap in your Node.js powered apps with the npm package:
         
         Copy
-        npm install bootstrap
-        const bootstrap = require('bootstrap') or import bootstrap from 'bootstrap' will load all of Bootstrap’s plugins onto a bootstrap object. The bootstrap module itself exports all of our plugins. You can manually load Bootstrap’s plugins individually by loading the /js/dist/*.js files under the package’s top-level directory.
-        
+        <prcode>npm install bootstrap
+const bootstrap = require('bootstrap') 
+or import bootstrap from 'bootstrap'</prcode>
+will load all of Bootstrap’s plugins onto a bootstrap object. The bootstrap module itself exports all of our plugins. You can manually load Bootstrap’s plugins individually by loading the /js/dist/*.js files under the package’s top-level directory.
         Bootstrap’s package.json contains some additional metadata under the following keys:
         
         sass - path to Bootstrap’s main Sass source file
@@ -186,30 +187,30 @@ const lstD = [
         Install Bootstrap in your Node.js powered apps with the yarn package:
         
         Copy
-        yarn add bootstrap
+        <prcode>yarn add bootstrap</prcode>
         RubyGems
         Install Bootstrap in your Ruby apps using Bundler (recommended) and RubyGems by adding the following line to your Gemfile:
         
         Copy
-        gem 'bootstrap', '~> 5.0.2'
+        <prcode>gem 'bootstrap', '~> 5.0.2'</prcode>
         Alternatively, if you’re not using Bundler, you can install the gem by running this command:
         
         Copy
-        gem install bootstrap -v 5.0.2
+        <prcode>gem install bootstrap -v 5.0.2</prcode>
         See the gem’s README for further details.
         
         Composer
         You can also install and manage Bootstrap’s Sass and JavaScript using Composer:
         
         Copy
-        composer require twbs/bootstrap:5.0.2
+        <prcode>composer require twbs/bootstrap:5.0.2</prcode>
         NuGet
         If you develop in .NET, you can also install and manage Bootstrap’s CSS or Sass and JavaScript using NuGet:
         
         Copy
-        Install-Package bootstrap
+        <prcode>Install-Package bootstrap</prcode>
         Copy
-        Install-Package bootstrap.sass`
+        <prcode>Install-Package bootstrap.sass</prcode>`
     },
     {
         title: `A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.`,
