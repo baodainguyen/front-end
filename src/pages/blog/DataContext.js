@@ -34,7 +34,7 @@ export class DataContext extends Component {
         parent.style.backgroundColor = `rgb(${r},${g},${b})`
     }
     reMarkHtml(content) {
-        const lstTxt = content.split(`<pr`)
+        const lstTxt = content.replaceAll("\\n", "\n").split(`<pr`)
         let htmlMark = ''
         lstTxt.forEach(txt => {
             if (txt.startsWith(`code>`)) {

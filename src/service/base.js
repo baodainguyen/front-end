@@ -1,18 +1,29 @@
 import { collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-const firebaseApp = initializeApp({ apiKey: 'AIzaSyBEt6yngDEuwTHLZmR0GECQfUD9xNFKEwo', authDomain: 'front-end-2021.firebaseapp.com', projectId: 'front-end-2021' });
+initializeApp({ apiKey: 'AIzaSyBEt6yngDEuwTHLZmR0GECQfUD9xNFKEwo', authDomain: 'front-end-2021.firebaseapp.com', projectId: 'front-end-2021' });
 const db = getFirestore();
 
-async function getCollection(collecName){
+async function getCollection(collecName) {
     const querySnapshot = await getDocs(collection(db, collecName))
     return new Promise(resolve => {
-        var lst = [];
+        var lst = []
         querySnapshot.forEach((doc) => {
-            lst.push(doc.data());
+            lst.push(doc.data())
         });
-        resolve(lst);
+        resolve(lst)
     })
+}
+async function getDocument(collecName, docName) {
+    const ind = doc(db, collecName, docName)
+    const _document = await getDoc(ind)
+    return new Promise((resolve, reject) => {
+        if (_document.exists()) {
+            resolve(_document.data())
+        } else {
+            reject()
+        }
+    });
 }
 
 export function getSlider() {
@@ -20,122 +31,67 @@ export function getSlider() {
 }
 
 export function getBlogData() {
-
-    return new Promise(res => {
-        res(
-        [
-            {
-                title: `Data Structures`,
-                auth: `GeeksforGeeks`,
-                img: `https://live.staticflickr.com/65535/51720551677_ed3bcf1a62.jpg`
-            },
-            {
-                title: `Difference between Linear and Non-linear Data Structures - GeeksforGeeks`,
-                auth: `GeeksforGeeks`,
-                img: `https://live.staticflickr.com/65535/51725115042_1678f7a23f.jpg`
-            },
-            {
-                title: `What Are Data Structures? {Classification & Types} | phoenixNAP KB`,
-                auth: `phoenixNAP`,
-                img: `https://phoenixnap.com/kb/wp-content/uploads/2022/10/data-structures-types-classification.png`
-            },
-            {
-                title: `What is the Classification of Data Structure with Diagram`,
-                auth: `Tutorialscan`,
-                img: `https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg`
-            },
-            {
-                title: `Introduction to Data Structures and Algorithms | Studytonight`,
-                auth: `Studytonight`,
-                img: `https://live.staticflickr.com/65535/51728456656_7e4105ffc0.jpg`
-            },
-            {
-                title: `A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.`,
-                auth: `Dainb`,
-                img: `https://live.staticflickr.com/65535/51761145941_091d74543c.jpg`
-            },
-            {
-                title: `Introduction to Data Structures and Algorithms | 8`,
-                auth: `Studytonight`,
-                img: `https://live.staticflickr.com/65535/51725347106_0a289e0761.jpg`
-            },
-            {
-                title: `Introduction to Data Structures and Algorithms | 3`,
-                auth: `Studytonight`,
-                img: `https://live.staticflickr.com/65535/51722748656_25256ece4a.jpg`
-            },
-            {
-                title: `Introduction to Data Structures and Algorithms | 5`,
-                auth: `Studytonight`,
-                img: `https://live.staticflickr.com/65535/51722742296_3a27c6cfd0.jpg`
-            },
-            {
-                title: `Introduction to Data Structures and Algorithms | 7`,
-                auth: `Studytonight`,
-                img: `https://live.staticflickr.com/65535/51699992153_d166c33ac6.jpg`
-            },
-            {
-                title: `Introduction to Data Structures and Algorithms | 9`,
-                auth: `Studytonight`,
-                img: `https://live.staticflickr.com/65535/51700325044_fd76c51d8f.jpg`
-            },
-            {
-                title: `End game`,
-                auth: `Studytonight`,
-                img: `https://live.staticflickr.com/65535/51743911796_d96b75c90c.jpg`
-            }
-        ])
+    const hardCode = [
+        {
+            title: `What Are Data Structures? {Classification & Types} | phoenixNAP KB`,
+            auth: `phoenixNAP`,
+            img: `https://phoenixnap.com/kb/wp-content/uploads/2022/10/data-structures-types-classification.png`
+        },
+        {
+            title: `What is the Classification of Data Structure with Diagram`,
+            auth: `Tutorialscan`,
+            img: `https://live.staticflickr.com/65535/51726236650_a390837dfb.jpg`
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | Studytonight`,
+            auth: `Studytonight`,
+            img: `https://live.staticflickr.com/65535/51728456656_7e4105ffc0.jpg`
+        },
+        {
+            title: `A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.`,
+            auth: `Dainb`,
+            img: `https://live.staticflickr.com/65535/51761145941_091d74543c.jpg`
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | 8`,
+            auth: `Studytonight`,
+            img: `https://live.staticflickr.com/65535/51725347106_0a289e0761.jpg`
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | 3`,
+            auth: `Studytonight`,
+            img: `https://live.staticflickr.com/65535/51722748656_25256ece4a.jpg`
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | 5`,
+            auth: `Studytonight`,
+            img: `https://live.staticflickr.com/65535/51722742296_3a27c6cfd0.jpg`
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | 7`,
+            auth: `Studytonight`,
+            img: `https://live.staticflickr.com/65535/51699992153_d166c33ac6.jpg`
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | 9`,
+            auth: `Studytonight`,
+            img: `https://live.staticflickr.com/65535/51700325044_fd76c51d8f.jpg`
+        },
+        {
+            title: `End game`,
+            auth: `Studytonight`,
+            img: `https://live.staticflickr.com/65535/51743911796_d96b75c90c.jpg`
+        }
+    ]
+    return getCollection(`blog_list_data`).then(lst => {
+        return lst.concat(hardCode)
     })
 }
-export function getBlogArticle(name) {
-const lstD = [
-    {
-        title: `Data Structures`,
-        context: `Introduction
-        Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites, with jsDelivr and a template starter page.
-        
-        On this page
-        Quick start
-        CSS
-        JS
-        Bundle
-        Separate
-        Modules
-        Components
-        Starter template
-        Important globals
-        HTML5 doctype
-        Responsive meta tag
-        Box-sizing
-        Reboot
-        Community
-        Quick start
-        Looking to quickly add Bootstrap to your project? Use jsDelivr, a free open source CDN. Using a package manager or need to download the source files? Head to the downloads page.
-        
-        CSS
-        Copy-paste the stylesheet <link> into your <head> before all other stylesheets to load our CSS.`,
-    },
-    {
-        title: `Difference between Linear and Non-linear Data Structures - GeeksforGeeks`,
-        context: `With the above snippet, nested elements—including generated content via ::before and ::after—will all inherit the specified box-sizing for that .selector-for-some-widget.
-
-        Learn more about box model and sizing at CSS Tricks.
-        
-        Reboot
-        For improved cross-browser rendering, we use Reboot to correct inconsistencies across browsers and devices while providing slightly more opinionated resets to common HTML elements.
-        
-        Community
-        Stay up to date on the development of Bootstrap and reach out to the community with these helpful resources.
-        
-        Read and subscribe to The Official Bootstrap Blog.
-        Chat with fellow Bootstrappers in IRC. On the irc.libera.chat server, in the #bootstrap channel.
-        Implementation help may be found at Stack Overflow (tagged bootstrap-5).
-        Developers should use the keyword bootstrap on packages that modify or add to the functionality of Bootstrap when distributing through npm or similar delivery mechanisms for maximum discoverability.
-        You can also follow @getbootstrap on Twitter for the latest gossip and awesome music videos.`
-    },
-    {
-        title: `What Are Data Structures? {Classification & Types} | phoenixNAP KB`,
-        context: `Download
+export async function getBlogArticle(name) {
+    const lstD = [
+        {
+            title: `What Are Data Structures? {Classification & Types} | phoenixNAP KB`,
+            context: `Download
         Download Bootstrap to get the compiled CSS and JavaScript, source code, or include it with your favorite package managers like npm, RubyGems, and more.
         
         On this page
@@ -155,19 +111,19 @@ const lstD = [
         Compiled and minified CSS bundles (see CSS files comparison)
         Compiled and minified JavaScript plugins (see JS files comparison)
         This doesn’t include documentation, source files, or any optional JavaScript dependencies like Popper.`
-    },
-    {
-        title: `What is the Classification of Data Structure with Diagram`,
-        context: `Source files
+        },
+        {
+            title: `What is the Classification of Data Structure with Diagram`,
+            context: `Source files
         Compile Bootstrap with your own asset pipeline by downloading our source Sass, JavaScript, and documentation files. This option requires some additional tooling:
         
         Sass compiler for compiling Sass source files into CSS files
         Autoprefixer for CSS vendor prefixing
         Should you require our full set of build tools, they are included for developing Bootstrap and its docs, but they’re likely unsuitable for your own purposes.`
-    },
-    {
-        title: `Introduction to Data Structures and Algorithms | Studytonight`,
-        context: `Package managers
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | Studytonight`,
+            context: `Package managers
         Pull in Bootstrap’s source files into nearly any project with some of the most popular package managers. No matter the package manager, Bootstrap will require a Sass compiler and Autoprefixer for a setup that matches our official compiled versions.
         
         npm
@@ -211,10 +167,10 @@ will load all of Bootstrap’s plugins onto a bootstrap object. The bootstrap mo
         <prcode>Install-Package bootstrap</prcode>
         Copy
         <prcode>Install-Package bootstrap.sass</prcode>`
-    },
-    {
-        title: `A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.`,
-        context: `Contents
+        },
+        {
+            title: `A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.`,
+            context: `Contents
         Discover what’s included in Bootstrap, including our precompiled and source code flavors.
         
         On this page
@@ -274,10 +230,10 @@ will load all of Bootstrap’s plugins onto a bootstrap object. The bootstrap mo
             ├── bootstrap.min.js
             └── bootstrap.min.js.map
         This is the most basic form of Bootstrap: precompiled files for quick drop-in usage in nearly any web project. We provide compiled CSS and JS (bootstrap.*), as well as compiled and minified CSS and JS (bootstrap.min.*). source maps (bootstrap.*.map) are available for use with certain browsers' developer tools. Bundled JS files (bootstrap.bundle.js and minified bootstrap.bundle.min.js) include Popper.`
-    },
-    {
-        title: `Introduction to Data Structures and Algorithms | 8`,
-        context: `CSS files
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | 8`,
+            context: `CSS files
         Bootstrap includes a handful of options for including some or all of our compiled CSS.
         
         CSS files	Layout	Content	Components	Utilities
@@ -327,10 +283,10 @@ will load all of Bootstrap’s plugins onto a bootstrap object. The bootstrap mo
         ├── js/
         └── scss/
         The scss/ and js/ are the source code for our CSS and JavaScript. The dist/ folder includes everything listed in the precompiled download section above. The site/docs/ folder includes the source code for our documentation, and examples/ of Bootstrap usage. Beyond that, any other included file provides support for packages, license information, and development.`
-    },
-    {
-        title: `Introduction to Data Structures and Algorithms | 3`,
-        context: `Customize
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | 3`,
+            context: `Customize
         Learn how to theme, customize, and extend Bootstrap with Sass, a boatload of global options, an expansive color system, and more.
         
         Sass
@@ -345,10 +301,10 @@ will load all of Bootstrap’s plugins onto a bootstrap object. The bootstrap mo
         Use Bootstrap's CSS custom properties for fast and forward-looking design and development.
         Optimize
         Keep your projects lean, responsive, and maintainable so you can deliver the best experience.`
-    },
-    {
-        title: `Introduction to Data Structures and Algorithms | 5`,
-        context: `Overview
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | 5`,
+            context: `Overview
         There are multiple ways to customize Bootstrap. Your best path can depend on your project, the complexity of your build tools, the version of Bootstrap you’re using, browser support, and more.
         
         Our two preferred methods are:
@@ -360,10 +316,10 @@ will load all of Bootstrap’s plugins onto a bootstrap object. The bootstrap mo
         For those who want to use the distribution files, review the getting started page for how to include those files and an example HTML page. From there, consult the docs for the layout, components, and behaviors you’d like to use.
         
         As you familiarize yourself with Bootstrap, continue exploring this section for more details on how to utilize our global options, making use of and changing our color system, how we build our components, how to use our growing list of CSS custom properties, and how to optimize your code when building with Bootstrap.`
-    },
-    {
-        title: `Introduction to Data Structures and Algorithms | 7`,
-        context: `CSPs and embedded SVGs
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | 7`,
+            context: `CSPs and embedded SVGs
         Several Bootstrap components include embedded SVGs in our CSS to style components consistently and easily across browsers and devices. For organizations with more strict CSP configurations, we’ve documented all instances of our embedded SVGs (all of which are applied via background-image) so you can more thoroughly review your options.
         
         Accordion
@@ -375,10 +331,10 @@ will load all of Bootstrap’s plugins onto a bootstrap object. The bootstrap mo
         Carousel controls
         Navbar toggle buttons
         Based on community conversation, some options for addressing this in your own codebase include replacing the URLs with locally hosted assets, removing the images and using inline images (not possible in all components), and modifying your CSP. Our recommendation is to carefully review your own security policies and decide on the best path forward, if necessary.`
-    },
-    {
-        title: `Introduction to Data Structures and Algorithms | 9`,
-        context: `Breakpoints
+        },
+        {
+            title: `Introduction to Data Structures and Algorithms | 9`,
+            context: `Breakpoints
         Breakpoints are customizable widths that determine how your responsive layout behaves across device or viewport sizes in Bootstrap.
         
         On this page
@@ -395,18 +351,22 @@ will load all of Bootstrap’s plugins onto a bootstrap object. The bootstrap mo
         Use media queries to architect your CSS by breakpoint. Media queries are a feature of CSS that allow you to conditionally apply styles based on a set of browser and operating system parameters. We most commonly use min-width in our media queries.
         
         Mobile first, responsive design is the goal. Bootstrap’s CSS aims to apply the bare minimum of styles to make a layout work at the smallest breakpoint, and then layers on styles to adjust that design for larger devices. This optimizes your CSS, improves rendering time, and provides a great experience for your visitors.`
-    },
-    {
-        title: `End game`,
-        context: `Media queries
+        },
+        {
+            title: `End game`,
+            context: `Media queries
         Since Bootstrap is developed to be mobile first, we use a handful of media queries to create sensible breakpoints for our layouts and interfaces. These breakpoints are mostly based on minimum viewport widths and allow us to scale up elements as the viewport changes.
         
         Min-width
         Bootstrap primarily uses the following media query ranges—or breakpoints—in our source Sass files for our layout, grid system, and components.`
-    }
-]
-const art = lstD.find(a => a.title == name)
-    return new Promise(res => {
-        res(art)
+        }
+    ]
+    return getDocument(`blog_list_content`, name).then(data => {
+        return data
+    }, () => {
+        const art = lstD.find(a => a.title == name)
+        return new Promise(res => {
+            res(art)
+        })
     })
 }

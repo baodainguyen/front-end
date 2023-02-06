@@ -1,7 +1,7 @@
 import { collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-const firebaseApp = initializeApp({ apiKey: 'AIzaSyBEt6yngDEuwTHLZmR0GECQfUD9xNFKEwo', authDomain: 'front-end-2021.firebaseapp.com', projectId: 'front-end-2021' });
+initializeApp({ apiKey: 'AIzaSyBEt6yngDEuwTHLZmR0GECQfUD9xNFKEwo', authDomain: 'front-end-2021.firebaseapp.com', projectId: 'front-end-2021' });
 const db = getFirestore();
 
 export function RunServices() {
