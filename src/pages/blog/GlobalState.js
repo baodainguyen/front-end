@@ -8,6 +8,7 @@ const featureSlice = createSlice({
         ListData: [],   //[{title, auth, img}]
         WidthDList: 0,
         ListDataWidth: [],
+        ListIndexLastCol: [],
         ListDataOriginWs: [],
         ListContext: [],    // ['string']
     },
@@ -65,10 +66,11 @@ export const BlogArticle = configureStore({
 })
 
 function setListDataWidth() {
-    const { ListDataWidth, ListDataOriginWs, WidthDList, ListData } = this
+    const { ListDataWidth, ListDataOriginWs, WidthDList, ListData, ListIndexLastCol } = this
     if (ListData.length != ListDataOriginWs.length) return
     ListDataOriginWs.sort((a, b) => a.index - b.index)
     ListDataWidth.splice(0)
+    ListIndexLastCol.splice(0)
     const maxW = 561989
     let tW = 0, minW = maxW, minI = -1
     for (let i = 0, j = i + 1, len = ListDataOriginWs.length; i < len && j < len; i++) {
@@ -86,6 +88,7 @@ function setListDataWidth() {
             const itemMin = ListDataOriginWs[minI]
             const newMinW = itemMin.width + dW
             ListDataWidth[minI].width = newMinW
+            ListIndexLastCol.push(i)
             tW = 0
             minW = maxW
             minI = -1

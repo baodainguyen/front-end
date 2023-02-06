@@ -8,6 +8,19 @@ import { BlogArticle, setArticleCurrent } from './GlobalState';
 export class DataContext extends Component {
     onCloseContent() {
         const name = '', index = -1
+        const preIndx = BlogArticle.getState().reducer.Index
+        setTimeout(() => {
+            const dList = document.querySelector(`.dnb-blog-datalist`)
+            if(dList) {
+                const lstItem = dList.querySelectorAll(`.dnb-ditem-container`)
+                if(lstItem.length > preIndx){
+                    const item = lstItem[preIndx]
+                    dList.scrollTo({
+                        top: item.offsetTop - 12, behavior: 'smooth'
+                    })
+                }                
+            }
+        }, 357)
         BlogArticle.dispatch(setArticleCurrent({ name, index }))
     }
     componentWillmount = () => {

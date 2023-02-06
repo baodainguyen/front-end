@@ -17,12 +17,11 @@ export class Blog extends Component {
     }
 }
 function BlogMain() {
-    const ArticleStore = useSelector((state) => state.reducer)
+    const { Index } = useSelector((state) => state.reducer)
     const [width] = useWindowSize()
     useEffect(() => {
-        //console.log(`BlogOverview`, ArticleStore)
+        //console.log(`BlogOverview`, Index)
         //  window.scrollTo(0, 0)
-        const { Index } = ArticleStore
         const dList = document.querySelector(`.dnb-blog-datalist`)
         if (dList) {
             const dContext = dList.querySelector(`.dnb-blog-datacontext`)
@@ -30,7 +29,7 @@ function BlogMain() {
                 if (-1 < Index) {
                     if (width < 906) {
                         dList.scrollTo({
-                            top: dContext.offsetTop, behavior: 'smooth'
+                            top: dContext.offsetTop - 12
                         })
                         dContext.style.maxHeight = 'initial'
                     } else {
@@ -46,7 +45,7 @@ function BlogMain() {
     return (
         <main className='dnb-blog-container'>
             {
-                ArticleStore.Index > -1 && width >= 906 ? <DataContextProvider /> : ''
+                Index > -1 && width >= 906 ? <DataContextProvider /> : ''
             }
             <DataListProvider />
         </main>
@@ -54,16 +53,14 @@ function BlogMain() {
 }
 
 export function DataContextProvider() {
-    const ArticleStore = useSelector((state) => state.reducer)
+    const { Name, Index, ListContext, ListData } = useSelector((state) => state.reducer)
     const [content, setContent] = useState('');
     function getArticle() {
-        const { Name, Index, ListData } = ArticleStore
         const artc = ListData.find((d, i) => d.title == Name && i == Index)
         return artc
     }
 
     useEffect(() => {
-        const { Name, Index, ListContext } = ArticleStore
         let content = ListContext[Index]
         if (content) {
             setContent(content)
@@ -83,14 +80,15 @@ export function DataContextProvider() {
     )
 }
 function DataListProvider() {
-    const ArticleStore = useSelector((state) => state.reducer)
+    const { Index, ListData, ListIndexLastCol } = useSelector((state) => state.reducer)
     const [width, height] = useWindowSize()
-    useEffect(() => {
-
-    })
+    // useEffect(() => { console.log(ListIndexLastCol,ListData) })
     return (
-        <DataList ismobile={width < 906} index={ArticleStore.Index}
-            listarticle={ArticleStore.ListData} />
+        <DataList
+            ismobile={width < 906}
+            index={Index}
+            lstindexlastcol={ListIndexLastCol}
+            listarticle={ListData} />
     )
 }
 function useWindowSize() {

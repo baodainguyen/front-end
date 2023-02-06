@@ -48,7 +48,6 @@ export class DataList extends Component {
         const target = this.srollContainer.current
         this.checkButtonIndicationDown(target)
         this.onDataListResize(target)
-        console.log(`datalist updated`)
     }
     onDataListResize(e) {
         if (!e.target) {
@@ -72,34 +71,34 @@ export class DataList extends Component {
             index={i}
             key={`blog-article_${i}`} />
     }
+    getLastIndex() {
+        const { index, lstindexlastcol, listarticle } = this.props
+        if(!lstindexlastcol.length) return listarticle.length
+        const idx = lstindexlastcol.find(i => i >= index)
+        if (idx) return idx
+    }
     render() {
-        const { listarticle, ismobile, index } = this.props
-        const display = !ismobile ? <>{
-            listarticle.map((item, i) => {
-                return this.renderItem(item, i)
-            })
-        }</> : <>
-            {
-                listarticle.map((item, i) => {
-                    if (i <= index) {
-                        return this.renderItem(item, i)
-                    }
-                })
-            }
-            {index > -1 ? <DataContextProvider /> : ''}
-            {
-                listarticle.map((item, i) => {
-                    if (i > index) {
-                        return this.renderItem(item, i)
-                    }
-                })
-            }
-        </>
+        const { listarticle, ismobile, index,lstindexlastcol } = this.props
+        const idx = ismobile ? this.getLastIndex() : listarticle.length
         return (
             <section className='dnb-blog-datalist dnb-max-vh dnb-scrollbar-w0'
                 ref={this.srollContainer}
                 onScroll={(e) => { this.handleScroll(e) }}>
-                {display}
+                {
+                    listarticle.map((item, i) => {
+                        if (i <= idx) {
+                            return this.renderItem(item, i)
+                        }
+                    })
+                }
+                {index > -1 && ismobile ? <DataContextProvider /> : ''}
+                {
+                    listarticle.map((item, i) => {
+                        if (i > idx) {
+                            return this.renderItem(item, i)
+                        }
+                    })
+                }
                 <div className='dnb-blog-indication-down'
                     onClick={() => { this.scrollToBottom() }}>
                     <span></span>
@@ -109,19 +108,22 @@ export class DataList extends Component {
     }
 }
 function ItemProvider(props) {
-    const ArticleStore = useSelector((state) => state.reducer)
-
+    const { Index, Name, ListDataWidth } = useSelector((state) => state.reducer)
     return (
         <DataItem
-            isactive={props.index == ArticleStore.Index && ArticleStore.Name == props.title}
+            isactive={props.index == Index && Name == props.title}
             title={props.title}
             auth={props.auth}
             img={props.img}
             index={props.index}
-            listwidth={ArticleStore.ListDataWidth} />
+            listwidth={ListDataWidth} />
     )
 }
 class DataItem extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { width: 450 }
+    }
     onImgLoaded(e) {
         const { offsetWidth, offsetHeight, parentElement } = e
         const rto = offsetHeight != 0 ? offsetWidth / offsetHeight : 1
@@ -130,7 +132,7 @@ class DataItem extends Component {
         const { r, g, b } = getAverageRGB(e)
         parent.style.backgroundColor = `rgb(${r},${g},${b})`
         e.style.display = 'none'
-        //e.remove()
+        e.remove()
 
         this.computeSize(parent, rto)
     }
@@ -154,14 +156,7 @@ class DataItem extends Component {
         }
         this.setDataListOriginWidth(wCompute)
         if (wCompute) {
-            this.setStyleContainer(parent, wCompute)
-        }
-    }
-    setStyleContainer(imgParent, width) {
-        const container = imgParent.closest(`.dnb-ditem-container`)
-        if (container) {
-            container.style.width = `${width}px`
-            container.style.maxWidth = `${width}px`
+            this.setState({ width: wCompute })
         }
     }
     onSelectItem(title, indx) {
@@ -175,15 +170,24 @@ class DataItem extends Component {
             BlogArticle.dispatch(setArticleCurrent({ name, index }))
         }
     }
-    render() {
-        //const { width, height } = this.state
-        let width = 450;
-        const height = 300
-        const { title, auth, img, index, isactive, listwidth } = this.props
+    componentDidUpdate = () => {
+        const { index, listwidth } = this.props
+        const { width } = this.state
         if (listwidth.length) {
             const iW = listwidth.find(x => x.index == index)
-            if (iW) width = iW.width - 6
+            if (iW) {
+                const w = iW.width - 6
+                if (width != w) {
+                    this.setState({ width: w })
+                    console.log(`aaaaa`, index)
+                }
+            }
         }
+    }
+    render() {
+        const { width } = this.state
+        const height = 300
+        const { title, auth, img, index, isactive } = this.props
         const styl = {
             width: `${width}px`, height: `${height}px`,
             maxWidth: `${width}px`, maxHeight: `${height}px`
