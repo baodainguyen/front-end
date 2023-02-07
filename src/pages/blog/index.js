@@ -1,8 +1,7 @@
 import React, { Component, useEffect, useState, useLayoutEffect } from 'react'
 import { DataList } from './Components'
 import { DataContext } from './DataContext'
-import { Provider } from 'react-redux'
-import { useSelector } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { BlogArticle, setListContext } from './GlobalState'
 import { getBlogArticle } from '../../service/base'
 import './style.scss'
@@ -18,7 +17,7 @@ export class Blog extends Component {
 }
 function BlogMain() {
     const { Index } = useSelector((state) => state.reducer)
-    const [width] = useWindowSize()
+    const [width, height] = useWindowSize()
     useEffect(() => {
         //console.log(`BlogOverview`, Index)
         //  window.scrollTo(0, 0)
@@ -80,15 +79,10 @@ export function DataContextProvider() {
     )
 }
 function DataListProvider() {
-    const { Index, ListData, ListIndexLastCol } = useSelector((state) => state.reducer)
-    const [width, height] = useWindowSize()
-    // useEffect(() => { console.log(ListIndexLastCol,ListData) })
+    const { Index } = useSelector((state) => state.reducer)    
+    // useEffect(() => { console.log(ListData) })
     return (
-        <DataList
-            ismobile={width < 906}
-            index={Index}
-            lstindexlastcol={ListIndexLastCol}
-            listarticle={ListData} />
+        <DataList index={Index} />
     )
 }
 function useWindowSize() {
