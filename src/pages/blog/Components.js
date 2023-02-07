@@ -73,12 +73,13 @@ export class DataList extends Component {
     }
     getLastIndex() {
         const { index, lstindexlastcol, listarticle } = this.props
-        if(!lstindexlastcol.length) return listarticle.length
+        if (!lstindexlastcol.length) return listarticle.length
+        if (lstindexlastcol.length == listarticle.length) return index - 1
         const idx = lstindexlastcol.find(i => i >= index)
         if (idx) return idx
     }
     render() {
-        const { listarticle, ismobile, index,lstindexlastcol } = this.props
+        const { listarticle, ismobile, index } = this.props
         const idx = ismobile ? this.getLastIndex() : listarticle.length
         return (
             <section className='dnb-blog-datalist dnb-max-vh dnb-scrollbar-w0'

@@ -188,6 +188,19 @@ $transFY: 9px;
 
         .dnb-blog-datacontext {
             width: 100%;
+            min-width: 100%;
+
+            .dnb-dcontext-present {
+                img {
+                    width: -webkit-fill-available;
+                }
+            }
         }
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .dnb-blog-datacontext+.dnb-ditem-container {
+        display: none;
     }
 }
