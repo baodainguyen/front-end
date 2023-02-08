@@ -168,7 +168,8 @@ class ColSection03 extends Component {
                 <Container><h3 className="fw-bold">{title}</h3></Container>
                 <Row className="gx-0">
                     {cards.map((card, i) => {
-                        return <ColSection03SideBg isLeft={i % 2 == 0} card={card} height={`${height}px`} />
+                        return <ColSection03SideBg key={card + i}
+                        isLeft={i % 2 == 0} card={card} height={`${height}px`} />
                     })}
                 </Row>
                 <Container style={{ marginTop: `-${height - sub}px`, minHeight: `${height - sub}px`, maxHeight: `${height - sub}px` }}>

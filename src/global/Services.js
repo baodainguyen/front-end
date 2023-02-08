@@ -26,16 +26,6 @@ export function RunServices() {
             }
         });
     }
-    async function getNavigator() {
-        const querySnapshot = await getDocs(collection(db, "navigator"));
-        return new Promise(resolve => {
-            var navs = [];
-            querySnapshot.forEach((doc) => {
-                navs.push(doc.data());
-            });
-            resolve(navs);
-        });
-    }
     async function getPreviewImages() {
         const queryImgs = await getDocs(collection(db, "home", "section01", 'images'));
         return new Promise(resolve => {
@@ -93,7 +83,6 @@ export function RunServices() {
     }
 
     return {
-        getNavigator: getNavigator,
         getPreviewImages: getPreviewImages,
         getSection01: getSection01,
         getSection02: getSection02,
@@ -192,26 +181,3 @@ export const DataSection01 = {
         return new Promise(r => { });   // don't run then function
     }
 }
-
-export const NavLink = {
-    Navs: [],
-    get: async function () {
-        if (this.Navs.length < 1) {
-            const _navs = await RunServices().getNavigator();
-            this.Navs = _navs;
-            return _navs;
-        }
-        return new Promise(r => { });
-    },
-    getRoute: function () {
-        var _rL = [];
-        this.Navs.filter(i => {
-            if (i.title) _rL.push(removeSpace(i.title));
-            if (i.sub1) _rL.push(removeSpace(i.sub1));
-            if (i.sub2) _rL.push(removeSpace(i.sub2));
-            return true;
-        });
-        return _rL;
-    }
-}
-

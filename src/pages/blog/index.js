@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState, useLayoutEffect } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import { DataList } from './Components'
 import { DataContext } from './DataContext'
 import { Provider, useSelector } from 'react-redux'
@@ -7,6 +7,10 @@ import { getBlogArticle } from '../../service/base'
 import './style.scss'
 
 export class Blog extends Component {
+    componentDidMount = () => {
+        const mainNav = document.querySelector(`#dnbApp .navbar.sticky-top`);
+        mainNav.style.display = ''
+    }
     render() {
         return (
             <Provider store={BlogArticle}>
@@ -16,17 +20,15 @@ export class Blog extends Component {
     }
 }
 function BlogMain() {
-    const { Index } = useSelector((state) => state.reducer)
-    const [width, height] = useWindowSize()
+    const { Index, WidthDList } = useSelector((state) => state.reducer)
     useEffect(() => {
-        //console.log(`BlogOverview`, Index)
         //  window.scrollTo(0, 0)
         const dList = document.querySelector(`.dnb-blog-datalist`)
         if (dList) {
             const dContext = dList.querySelector(`.dnb-blog-datacontext`)
             if (dContext) {
                 if (-1 < Index) {
-                    if (width < 906) {
+                    if (WidthDList + 24 < 906) {
                         dList.scrollTo({
                             top: dContext.offsetTop - 12
                         })
@@ -44,7 +46,7 @@ function BlogMain() {
     return (
         <main className='dnb-blog-container'>
             {
-                Index > -1 && width >= 906 ? <DataContextProvider /> : ''
+                Index > -1 && WidthDList + 24 >= 906 ? <DataContextProvider /> : ''
             }
             <DataListProvider />
         </main>
@@ -79,21 +81,9 @@ export function DataContextProvider() {
     )
 }
 function DataListProvider() {
-    const { Index } = useSelector((state) => state.reducer)    
+    const { Index } = useSelector((state) => state.reducer)
     // useEffect(() => { console.log(ListData) })
     return (
         <DataList index={Index} />
     )
-}
-function useWindowSize() {
-    const [size, setSize] = useState([0, 0])
-    useLayoutEffect(() => {
-        function updateSize() {
-            setSize([window.innerWidth, window.innerHeight])
-        }
-        window.addEventListener('resize', updateSize)
-        updateSize()
-        return () => window.removeEventListener('resize', updateSize)
-    }, [])
-    return size
 }

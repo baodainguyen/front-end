@@ -9,7 +9,6 @@ module.exports = {
             import: './node_modules/bootstrap/dist/js/bootstrap.min.js',
             dependOn: 'shared',
         },
-        cheatsheet: './src/js-tags/cheatsheet.js',
         pagehome: './src/pages/home/index.js',
         pageblog: './src/pages/blog/index.js',
         index: {

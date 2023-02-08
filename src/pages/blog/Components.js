@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { getBlogData } from '../../service/base'
 import { getAverageRGB } from '../../global/Globals'
 import { useSelector } from 'react-redux'
-import { BlogArticle, setArticleCurrent, setListDataOriginWs, setWidthDataLst, setListData } from './GlobalState'
+import {
+    BlogArticle, setArticleCurrent, setListDataOriginWs,
+    setWidthDataLst, setListData
+} from './GlobalState'
 import { DataContextProvider } from '.'
 
 export class DataList extends Component {
@@ -76,11 +79,11 @@ export class DataList extends Component {
         const ismobile = WidthDList + 24 < 906
         let idx = index
         if (!ListIndexLastCol.length) idx = ListData.length
-        else if(ListIndexLastCol.length == ListData.length) {
+        else if (ListIndexLastCol.length == ListData.length) {
             idx = index - 1
         } else {
             idx = ListIndexLastCol.find(i => i >= index)
-            if(!idx) idx = index
+            if (!idx) idx = index
         }
         return <>
             {
@@ -102,7 +105,7 @@ export class DataList extends Component {
     }
     render() {
         const { index } = this.props
-        
+
         return (
             <section className='dnb-blog-datalist dnb-max-vh dnb-scrollbar-w0'
                 ref={this.srollContainer}

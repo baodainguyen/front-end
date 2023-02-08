@@ -1,41 +1,45 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import { Navbar, Container, Nav, Card, Modal } from 'react-bootstrap';
-import { Logo } from '../global/Files';
+import { NavLink } from "react-router-dom";
+import { Card, Modal } from 'react-bootstrap';
 import { removeSpace } from '../global/Globals';
 
 export class Navigator extends Component {
 
     render() {
-        const _navs = this.props.list;
+        const { listmenu } = this.props;
 
         return (
-            <Navbar collapseOnSelect bg="light" variant="light" expand="lg" sticky="top" 
-            className="fontNotoSans dnb-navtop">
-                <Container>
-                    <Navbar.Brand as={Link} to="/" href="#home">
-                        <img style={{ display: 'inline-block', width: '66px' }} src={Logo} /></Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto"> </Nav>
-                        <Nav>
-                            {/* <Nav.Link as={Link} to="/" href="#home">Home</Nav.Link> */}
-                            {_navs.map((item) => {
-                                const hasSub = !!item.sub1 || !!item.sub2;
-                                if (hasSub) {
-                                    return <div className="dnb-link-group" key={item.title}>
-                                        <Nav.Link as={Link} to={`/${item.title}`} href={`#${removeSpace(item.title)}`}>{item.title}</Nav.Link>
-                                        {!!item.sub1 ? <Nav.Link as={Link} to={`/${removeSpace(item.sub1)}`} href={`#${removeSpace(item.sub1)}`}>{item.sub1}</Nav.Link> : <></>}
-                                        {!!item.sub2 ? <Nav.Link as={Link} to={`/${removeSpace(item.sub2)}`} href={`#${removeSpace(item.sub2)}`}>{item.sub2}</Nav.Link> : <></>}
+            <nav className="navbar fontNotoSans dnb-navtop navbar-expand-md navbar-light bg-light sticky-top">
+                <div className='container-fluid dnb-navigator'>
+                    <NavLink className='dnb-logo' to="/">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><path d="M 15 15 C 30 0 67.5 0 75 0 C 82.5 0 120 0 135 15 C 150 30 150 52.5 150 75 C 150 97.5 150 120 135 135 C 120 150 97.5 150 75 150 C 52.5 150 30 150 15 135 C 0 120 0 97.5 0 75 C 0 52.5 0 30 15 15" fill="rgba(8,154,239,1)"></path></svg>
+                    </NavLink>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#responsive-navbar-nav"
+                        aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="responsive-navbar-nav" className='navbar-collapse collapse'>
+                        <div className='nav'>
+                            {listmenu.map((item, ii) => {
+                                const { subs } = item
+                                const keyMain = removeSpace(item.title) + ii
+                                if (Array.isArray(subs) && subs.length) {
+                                    return <div className="dnb-link-group" key={keyMain}>
+                                        <NavLink className='nav-link' to={`/${removeSpace(item.title)}`}>{item.title}</NavLink>
+                                        {subs.map((sub, i) => {
+                                            const keySub = keyMain + removeSpace(sub) + i
+                                            return <NavLink className='nav-link' to={`/${removeSpace(sub)}`}
+                                                key={keySub}>{sub}</NavLink>
+                                        })}
                                     </div>
                                 } else {
-                                    return <Nav.Link as={Link} key={item.title} to={`/${removeSpace(item.title)}`} href={`#${removeSpace(item.title)}`}>{item.title}</Nav.Link>;
+                                    return <NavLink className='nav-link' key={keyMain} to={`/${removeSpace(item.title)}`}>{item.title}</NavLink>
                                 }
                             })}
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         );
     }
 }

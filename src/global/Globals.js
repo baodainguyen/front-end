@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-
 export const CookieKey = {
     Id: '_id'
 }
@@ -101,35 +99,4 @@ export function getRgba (rgbString, a) {   // rgb(123,456,789)
     var x = rgbString.replace('rgb', 'rgba');
     x = x.replace(')', `,${a})`);
     return x;
-}
-
-export function CheatSheetJs() {
-
-    useEffect(() => {
-        const script = document.createElement('script');
-
-        script.src = "cheatsheet.bundle.js";
-        script.async = true;
-
-        document.body.appendChild(script);
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []) // empty dependency array = only called on mount and unmount
-    return (<></>);
-}
-export function BootStrapJs() {
-
-    useEffect(() => {
-        const script = document.createElement('script');
-
-        script.src = "bootstrapjs.bundle.js";
-        script.async = true;
-
-        document.body.appendChild(script);
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []) // empty dependency array = only called on mount and unmount
-    return (<></>);
 }
