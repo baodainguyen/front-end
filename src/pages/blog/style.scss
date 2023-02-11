@@ -73,6 +73,8 @@ $itemPadding: 6px;
         display: none !important;
     }
 
+    $itemH: 300px;
+
     .dnb-ditem-container {
         display: inline-block;
         overflow: hidden;
@@ -80,6 +82,8 @@ $itemPadding: 6px;
         box-sizing: border-box;
         border-radius: $borderBtn;
         padding: $itemPadding;
+        height: $itemH;
+        max-height: $itemH;
 
         &:hover {
             background-color: #f7f7f7;

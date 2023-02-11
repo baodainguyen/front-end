@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container, Button, Row, Col, Card } from 'react-bootstrap';
 import { DataSection03 } from '../global/Services';
 import { DnbCard } from './BootstrapElements';
 import { getAverageRGB, getLuminanceFrom, getRgba } from '../global/Globals';
@@ -17,32 +16,32 @@ export class Home extends Component {
     render() {
         return (
             <>
-                <Container fluid className="bg-light py-3">
-                    <Container>
+                <div className="container-fluid bg-light py-3">
+                    <div className='container'>
                         <MobileArticle />
-                    </Container>
-                </Container>
+                    </div>
+                </div>
                 <Section03 />
                 <ColSectionBase64 />
-                <Container className='py-5'>
-                    <Row>
-                        <Col md={2}>
+                <div className='container py-5'>
+                    <div className='row'>
+                        <div className='col-md-12'>
                             <h3>glidejs</h3>
                             <p>A dependency-free JavaScript ES6 slider and carousel. It’s lightweight, flexible and fast. Designed to slide. No less, no more</p>
-                        </Col>
-                        <Col md={10}><Section4 /></Col>
-                    </Row>
-                </Container>
-                <Container className='py-5'>
-                    <Row>
-                        <Col md={10}><Section5 /></Col>
-                        <Col md={2}>
+                        </div>
+                        <div className='col-md-10'><Section4 /></div>
+                    </div>
+                </div>
+                <div className='container py-5'>
+                    <div className='row'>
+                        <div className='col-md-10'><Section5 /></div>
+                        <div className='col-md-2'>
                             <h3>col-slider</h3>
                             <p>A dependency-free JavaScript ES6 slider in column style. It’s lightweight. Designed to slide.</p>
                             <a href='https://www.npmjs.com/package/col-slider'>npm package</a>
-                        </Col>
-                    </Row>
-                </Container>
+                        </div>
+                    </div>
+                </div>
                 <Footer />
             </>
         )
@@ -133,12 +132,12 @@ class Section03 extends Component {
 
         return (<>
             <ColSection03 cards={_cards01} title={title} />
-            <Container className="my-2">
-                <Row className="py-1">
+            <div className="container my-2">
+                <div className="row py-1">
                     {_head}
                     <ColSection04 cards={_cards02} />
-                </Row>
-            </Container>
+                </div>
+            </div>
         </>
         );
     }
@@ -164,22 +163,23 @@ class ColSection03 extends Component {
             sub = -450
         }
         return (
-            <Container fluid className='px-0 py-3'>
-                <Container><h3 className="fw-bold">{title}</h3></Container>
-                <Row className="gx-0">
+            <div className='container-fluid px-0 py-3'>
+                <div className='container'><h3 className="fw-bold">{title}</h3></div>
+                <div className="row gx-0">
                     {cards.map((card, i) => {
                         return <ColSection03SideBg key={card + i}
-                        isLeft={i % 2 == 0} card={card} height={`${height}px`} />
+                            isLeft={i % 2 == 0} card={card} height={`${height}px`} />
                     })}
-                </Row>
-                <Container style={{ marginTop: `-${height - sub}px`, minHeight: `${height - sub}px`, maxHeight: `${height - sub}px` }}>
-                    <Row>
+                </div>
+                <div className='container'
+                    style={{ marginTop: `-${height - sub}px`, minHeight: `${height - sub}px`, maxHeight: `${height - sub}px` }}>
+                    <div className='row'>
                         {cards.map((card, i) => {
                             return <ColSection03Side isLeft={i % 2 == 0} card={card} height={`${height - 100}px`} />
                         })}
-                    </Row>
-                </Container>
-            </Container>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
@@ -198,12 +198,12 @@ class ColSection03SideBg extends Component {
             <img src={card.img} onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous" />;
 
         return (
-            <Col md={12} lg={6} >
-                <Card className='border-0 rounded-0'
+            <div className='col-md-12 col-lg-6'>
+                <div className='card border-0 rounded-0'
                     style={{ backgroundColor: bg, minHeight: height, maxHeight: height }}>
                     <div style={{ opacity: '0' }}>{view}</div>
-                </Card>
-            </Col>
+                </div>
+            </div>
         );
     }
 }
@@ -219,33 +219,33 @@ class ColSection03Side extends Component {
         const { card, isLeft, height } = this.props;
         const { color } = this.state;
         const view = isLeft ? <>
-            <Col xs={3}>
+            <div className='col-xs-3'>
                 <h5>{card.title}</h5>
                 <p>{card.des}</p>
-            </Col>
-            <Col xs={9} className='rounded-2 overflow-hidden mb-5 pb-5'>
+            </div>
+            <div className='col-xs-9 rounded-2 overflow-hidden mb-5 pb-5'>
                 <img style={{ maxHeight: height }} className='rounded-2' src={card.img}
                     onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous" />
-            </Col>
+            </div>
         </> : <>
-            <Col xs={9} className='rounded-2 overflow-hidden text-end'>
+            <div className='col-xs-9 rounded-2 overflow-hidden text-end'>
                 <img style={{ maxHeight: height }} className='rounded-2' src={card.img}
                     onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous" />
-            </Col>
-            <Col xs={3} className='text-end'>
+            </div>
+            <div className='col-xs-3 text-end'>
                 <h5>{card.title}</h5>
                 <p>{card.des}</p>
-            </Col>
+            </div>
         </>;
 
         return (
-            <Col md={12} lg={6} >
-                <Card className='border-0 rounded-0 h-100' style={{ backgroundColor: 'transparent' }}>
-                    <Row className='g-2' style={{ color: color }}>
+            <div className='col-md-12 col-lg-6'>
+                <div className='card border-0 rounded-0 h-100' style={{ backgroundColor: 'transparent' }}>
+                    <div className='row g-2' style={{ color: color }}>
                         {view}
-                    </Row>
-                </Card>
-            </Col>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
@@ -255,13 +255,13 @@ class ColSection04 extends Component {
         return (
             <>
                 {cards.map((card, i) => {
-                    return <Col xs={12} md={6} lg={4} key={i}>
+                    return <div className='col-md-6 col-xs-12 col-lg-4' key={card.title + i}>
                         <DnbCard className="dnb-cardview shadow-sm"
                             src={card.img}
                             cap={card.title}
                             subCap={card.head}
                             text={card.des} />
-                    </Col>
+                    </div>
                 })}
             </>
         );
@@ -283,26 +283,26 @@ class ColSectionBase64 extends Component {
         const { background, color } = this.state;
 
         return (
-            <Container fluid className="my-3" style={{ backgroundColor: background }}>
-                <Container className="py-3">
-                    <Row className="gx-0">
-                        <Col lg="9" md="12">
+            <div className="container-fluid my-3" style={{ backgroundColor: background }}>
+                <div className="container py-3">
+                    <div className="row gx-0">
+                        <div className='col-md-12 col-lg-9'>
                             <img src="https://images.squarespace-cdn.com/content/v1/54fc8146e4b02a22841f4df7/1627654577989-RXF9XFY4M6BKXNUP9YB6/Art_of_Iris_Compiet_1+%2811%29.jpg"
                                 className="dhb-h48 dnb-img-cover flex-shrink-2 rounded-3 p-0 w-100"
                                 onLoad={e => { this.onLoad(e.target) }} crossOrigin="anonymous" />
-                        </Col>
-                        <Col lg="3" md="12">
+                        </div>
+                        <div className='col-md-12 col-lg-3'>
                             <div className="d-flex align-items-end">
                                 <div className="ms-3 flex-grow-1" style={{ 'color': color }}>
                                     <h1 className="fw-bold">Start explorer with <span className="d-inline-block">Open source.</span></h1>
                                     <h6>Create your free account in minutes and join the millions of businesses using Open source.</h6>
-                                    <Button variant="primary text-white">Start a Open account</Button>
+                                    <button type="button" className="btn btn-primary text-white">Start a Open account</button>
                                 </div>
                             </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </Container>
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
     }
 }

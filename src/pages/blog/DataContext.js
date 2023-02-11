@@ -3,12 +3,12 @@ import { getAverageRGB } from '../../global/Globals'
 import '../../../node_modules/highlight.js/styles/rainbow.css'
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
-import { BlogArticle, setArticleCurrent } from './GlobalState';
+import { BlogPageArticle, setArticleCurrent } from './GlobalState';
 
 export class DataContext extends Component {
     onCloseContent() {
-        const name = '', index = -1
-        const preIndx = BlogArticle.getState().reducer.Index
+        const index = -1
+        const preIndx = BlogPageArticle.getState().blog.Index  // current value
         setTimeout(() => {
             const dList = document.querySelector(`.dnb-blog-datalist`)
             if(dList) {
@@ -21,7 +21,7 @@ export class DataContext extends Component {
                 }                
             }
         }, 357)
-        BlogArticle.dispatch(setArticleCurrent({ name, index }))
+        BlogPageArticle.dispatch(setArticleCurrent({ index }))
     }
     componentWillmount = () => {
         hljs.registerLanguage('javascript', javascript);

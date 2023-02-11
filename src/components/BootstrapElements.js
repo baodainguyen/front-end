@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
-import { Card, Modal } from 'react-bootstrap';
 import { removeSpace } from '../global/Globals';
 
 export class Navigator extends Component {
@@ -55,17 +54,16 @@ export class DnbCard extends Component {
 
     render() {
         const { src, cap, subCap, text, className } = this.props;
-        const cardTitle = cap ? <Card.Title className="fontSFProD fw-bold">{cap}</Card.Title> : <></>;
-        const cardSubtitle = subCap ? <Card.Subtitle className="mb-2 text-muted">{subCap}</Card.Subtitle> : <></>;
-        const cardDescription = text ? <Card.Text>{text}</Card.Text> : <></>;
+        const cardTitle = cap ? <div className="card-title fontSFProD fw-bold">{cap}</div> : <></>;
+        const cardSubtitle = subCap ? <div className="card-subtitle mb-2 text-muted h6">{subCap}</div> : <></>;
+        const cardDescription = text ? <p className='card-text'>{text}</p> : <></>;
 
         return (
-            <Card className={`${className} w-100 mb-4 rounded-lg overflow-hidden border-0`}
+            <div className={`card ${className} w-100 mb-4 rounded-lg overflow-hidden border-0`}
                 style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover' }}>
-                <Card.Img variant="top" src={src}
-                    className="dnb-h396 rounded-1 dnb-img-cover opacity-0" />
-                <Card.ImgOverlay className="bg-dark-o3 rounded-lg" />
-                <Card.Body className="position-absolute start-50 translate-middle-x w-fm2r mb-3 rounded-4 bg-white">
+                <img src={src} className="card-img-top dnb-h396 rounded-1 dnb-img-cover opacity-0" />
+                <div className="card-img-overlay bg-dark-o3 rounded-lg" />
+                <div className="card-body position-absolute start-50 translate-middle-x w-fm2r mb-3 rounded-4 bg-white">
                     {cardTitle}
                     {cardSubtitle}
                     {cardDescription}
@@ -82,17 +80,17 @@ export class DnbCard extends Component {
                             }} />
                         </div>
                     </DnbBtnModal>
-                </Card.Body>
-            </Card>
+                </div>
+            </div>
         );
     }
 }
 
 class DnbBtnModal extends Component {
     state = {
-        id: `dnb-modal-component-${Date.now()}`,
         show: false
-    };
+    }
+    modalId = `dnb-modal-component-${Date.now()}`
     setShow = (e) => {
         this.setState({ show: true });
         e.preventDefault();
@@ -102,30 +100,30 @@ class DnbBtnModal extends Component {
     }
 
     render() {
-        const { title, children } = this.props;
+        const { title, children } = this.props
+        const { show } = this.state
+        const _id = this.modalId
         return (
             <>
                 <a className="border-0 bg-transparent p-0 text-primary text-decoration-none"
-                    onClick={this.setShow} href="">
+                    onClick={this.setShow} data-bs-toggle="modal" data-bs-target={`#${_id}-container`}>
                     Expand Image
                 </a>
-                <Modal
-                    show={this.state.show}
-                    size="xl"
-                    //fullscreen={true}
-                    centered
-                    onHide={this.setHide}
-                    dialogClassName="modal-90w"
-                    aria-labelledby={this.state.id} >
-                    <Modal.Header closeButton>
-                        <Modal.Title id={this.state.id}>
-                            {title}
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {children}
-                    </Modal.Body>
-                </Modal>
+                <div className="modal fade" tabindex="-1"
+                    id={`${_id}-container`}
+                    aria-labelledby={_id} aria-hidden="true"
+                    style={{ display: show ? 'none' : '' }}>
+                    <div className="modal-dialog modal-90w modal-xl modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <div className="modal-title h4" id={_id}>{title}</div>
+                                <button type="button" className="btn-close" aria-label="Close"
+                                    data-bs-dismiss="modal" onClick={this.setHide}></button>
+                            </div>
+                            <div className="modal-body">{children}</div>
+                        </div>
+                    </div>
+                </div>
             </>
         );
     }

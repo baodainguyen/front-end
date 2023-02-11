@@ -1,74 +1,144 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import {
+    configureStore,
+    createSlice
+} from '@reduxjs/toolkit'
 
-const featureSlice = createSlice({
-    name: 'BlogArticle',
+//https://redux.js.org/tutorials/essentials/part-4-using-data
+const blogSlice = createSlice({
+    name: 'blog',
     initialState: {
-        Name: '',
+        IsShowContext: false,
         Index: -1,
-        ListData: [],   //[{title, auth, img}]
-        WidthDList: 0,
-        ListDataWidth: [],
-        ListIndexLastCol: [],
-        ListDataOriginWs: [],
-        ListContext: [],    // ['string']
     },
     reducers: {
         setArticleCurrent: (state, action) => {
-            const { name, index } = action.payload
-            state.Name = name
+            const { index } = action.payload
             state.Index = index
         },
-        setListContext: (state, action) => {
-            const { ListContext } = state
-            const { index, context } = action.payload
-            if (index > -1 && context) {
-                ListContext.splice(index, 1, context)
-            }
+        showContext: (state, action) => {
+            state.IsShowContext = true
         },
+        hideContext: (state, action) => {
+            state.IsShowContext = false
+        },
+    }
+})
+const dataSlice = createSlice({
+    name: 'Data',
+    initialState: {
+        ListData: [],   //[{title, auth, img}]
+        Width: -1,
+        ListComputeWidth: [],   //[width]
+        ListWidth: []           // [width]
+    },
+    reducers: {
         setListData: (state, action) => {
             const lstData = action.payload
             if (!Array.isArray(lstData)) return
-            const { ListData, ListContext } = state
-            ListData.splice(0)
-            ListContext.splice(0)
             lstData.forEach(d => {
-                ListData.push(d)
-                ListContext.push('')
+                state.ListData.push(d)
+                state.ListWidth.push(450)
+                state.ListComputeWidth.push(450)
             })
         },
         setWidthDataLst: (state, action) => {
             const w = action.payload - 24   // .dnb-blog-datalist padding-right and left:12px
-            if (state.WidthDList == w) return
-            state.WidthDList = w
-            setListDataWidth.call(state)
-        },
-        setListDataOriginWs: (state, action) => {
-            const { index, width } = action.payload
-            const { ListDataOriginWs } = state
-            const lstIndex = ListDataOriginWs.map(o => o.index)
-            const i = lstIndex.indexOf(index)
-            if (i > -1) {
-                ListDataOriginWs.splice(i, 1, { index, width })
-            } else {
-                ListDataOriginWs.push({ index, width })
+            if (state.Width == w) return
+            state.Width = w
+            if (state.ListWidth.length) {
+                const lstW = getComputedListFitWith(w, state.ListWidth)
+                state.ListComputeWidth.splice(0)
+                lstW.forEach(w => state.ListComputeWidth.push(w))
             }
-            setListDataWidth.call(state)
         },
+        updateWidth: (state, action) => {
+            const {index, width} = action.payload
+            if(-1 < index && index < state.ListWidth.length) {
+                state.ListWidth.splice(index, 1, width)
+                const lstW = getComputedListFitWith(state.Width, state.ListWidth)
+                state.ListComputeWidth.splice(0)
+                lstW.forEach(w => state.ListComputeWidth.push(w))
+            }            
+        }
+    }
+})
+const contextSlice = createSlice({
+    name: 'Context',
+    initialState: [],   // [index, content: 'string']
+    reducers: {
+        setListContext: (state, action) => {
+            const { index, content } = action.payload
+            const item = state.find(c => c.index == index)
+            if (item) {
+                item.content = content
+            } else {
+                state.push({ index, content })
+            }
+        },
+    }
+})
+export const { setArticleCurrent, showContext, hideContext } = blogSlice.actions
+export const { setWidthDataLst, setListData, updateWidth } = dataSlice.actions
+export const { setListContext } = contextSlice.actions
+const customMiddleware = store => next => action => {
+    switch (action.type) {
+        case 'blog/setArticleCurrent':
+            const prevIndex = store.getState().blog.Index
+            const newIndex = action.payload.index
+            if (-1 < newIndex && prevIndex < 0) {
+                store.dispatch(showContext())
+            }
+            if (-1 < prevIndex && newIndex < 0) {
+                store.dispatch(hideContext())
+            }
+            break;
+    }
+    return next(action)
+}
+export const BlogPageArticle = configureStore({
+    reducer: {
+        blog: blogSlice.reducer,        // export blogSlice.reducer => import {blogReducer}
+        context: contextSlice.reducer,   // import {ContextReducer}
+        data: dataSlice.reducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(customMiddleware),
 })
-const { actions, reducer } = featureSlice
 
-export const { setArticleCurrent, setWidthDataLst,
-    setListDataOriginWs, setListData, setListContext } = actions
 
-export const BlogArticle = configureStore({
-    reducer: { reducer },
-})
+function getComputedListFitWith(viewWidth, listWidth) {
+    if (!Array.isArray(listWidth)) return []
+    const lstNewWidth = []
+    const maxW = 561989
+    let tW = 0, minW = maxW, minI = -1
+    for (let i = 0, j = i + 1, len = listWidth.length; i < len && j < len; i++) {
+        const widthI = listWidth[i]
+        const widthJ = listWidth[j]
+        if (widthI < minW) {
+            minW = widthI
+            minI = i
+        }
+        tW += widthI
+        const dW = viewWidth - tW
+        if (widthJ > dW) {
+            lstNewWidth.push(widthI)
+            const newMinW = lstNewWidth[minI] + dW - 6 // margin
+            lstNewWidth[minI] = newMinW
+            tW = 0
+            minW = maxW
+            minI = -1
+        } else {
+            lstNewWidth.push(widthI)
+        }
+        if (j == len - 1) {      // last item
+            lstNewWidth.push(widthJ)
+        }
+    }
+    return lstNewWidth
+}
 
 function setListDataWidth() {
-    const { ListDataWidth, ListDataOriginWs, WidthDList, ListData, ListIndexLastCol } = this
+    const { ListDataWidth, ListDataOriginWs, WidthDataList, ListData, ListIndexLastCol } = this
     if (ListData.length != ListDataOriginWs.length) return
-    ListDataOriginWs.sort((a, b) => a.index - b.index)
     ListDataWidth.splice(0)
     ListIndexLastCol.splice(0)
     const maxW = 561989
@@ -82,7 +152,7 @@ function setListDataWidth() {
             minI = i
         }
         tW += width
-        const dW = WidthDList - tW
+        const dW = WidthDataList - tW
         if (itemJ.width > dW) {
             ListDataWidth.push({ index: i, width: width })
             const itemMin = ListDataOriginWs[minI]
