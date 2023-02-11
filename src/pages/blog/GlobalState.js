@@ -46,19 +46,15 @@ const dataSlice = createSlice({
             if (state.Width == w) return
             state.Width = w
             if (state.ListWidth.length) {
-                const lstW = getComputedListFitWith(w, state.ListWidth)
-                state.ListComputeWidth.splice(0)
-                lstW.forEach(w => state.ListComputeWidth.push(w))
+                computedListFitWith.call(state, w, state.ListWidth)
             }
         },
         updateWidth: (state, action) => {
-            const {index, width} = action.payload
-            if(-1 < index && index < state.ListWidth.length) {
+            const { index, width } = action.payload
+            if (-1 < index && index < state.ListWidth.length) {
                 state.ListWidth.splice(index, 1, width)
-                const lstW = getComputedListFitWith(state.Width, state.ListWidth)
-                state.ListComputeWidth.splice(0)
-                lstW.forEach(w => state.ListComputeWidth.push(w))
-            }            
+                computedListFitWith.call(state, state.Width, state.ListWidth)
+            }
         }
     }
 })
@@ -105,9 +101,10 @@ export const BlogPageArticle = configureStore({
 })
 
 
-function getComputedListFitWith(viewWidth, listWidth) {
+function computedListFitWith(viewWidth, listWidth) {
+    const { ListComputeWidth } = this
     if (!Array.isArray(listWidth)) return []
-    const lstNewWidth = []
+    ListComputeWidth.splice(0)
     const maxW = 561989
     let tW = 0, minW = maxW, minI = -1
     for (let i = 0, j = i + 1, len = listWidth.length; i < len && j < len; i++) {
@@ -120,20 +117,19 @@ function getComputedListFitWith(viewWidth, listWidth) {
         tW += widthI
         const dW = viewWidth - tW
         if (widthJ > dW) {
-            lstNewWidth.push(widthI)
-            const newMinW = lstNewWidth[minI] + dW - 6 // margin
-            lstNewWidth[minI] = newMinW
+            ListComputeWidth.push(widthI)
+            const newMinW = ListComputeWidth[minI] + dW - 6 // margin
+            ListComputeWidth[minI] = newMinW
             tW = 0
             minW = maxW
             minI = -1
         } else {
-            lstNewWidth.push(widthI)
+            ListComputeWidth.push(widthI)
         }
         if (j == len - 1) {      // last item
-            lstNewWidth.push(widthJ)
+            ListComputeWidth.push(widthJ)
         }
     }
-    return lstNewWidth
 }
 
 function setListDataWidth() {

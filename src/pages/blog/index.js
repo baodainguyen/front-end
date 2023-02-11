@@ -44,7 +44,7 @@ function BlogMain() {
                         })
                     }
                 }
-                console.log(`Blog Main width`, dContext.offsetWidth)
+                //console.log(`Blog Main width`, dContext.offsetWidth)
             }
         }
     })
@@ -61,7 +61,7 @@ function BlogMain() {
 export class DataContextWrap extends Component {
     constructor(props) {
         super(props)
-        this.state = { content: '' }
+        this.state = { content: '...' }
     }
     getArticle() {
         const { indexactive, listdata } = this.props
@@ -91,7 +91,7 @@ export class DataContextWrap extends Component {
         this.getContent()
         const dataList = document.querySelector(`.dnb-blog-datalist`)
         const wDataList = dataList ? dataList.offsetWidth : 0
-        this.props.setWidthDataLst(wDataList - 12)
+        this.props.setWidthDataLst(wDataList - 21) // margin right: 21
     }
     componentWillUnmount = () => {
         this.props.setWidthDataLst(window.innerWidth - 24)

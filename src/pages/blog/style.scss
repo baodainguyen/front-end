@@ -17,6 +17,7 @@ $itemPadding: 6px;
         border-radius: $boderImg;
         margin-top: $itemMargin + $itemPadding;
         padding: 0;
+        margin-right: 21px;
 
         .dnb-dcontext-title-container,
         .dnb-dcontext-content {
@@ -129,7 +130,6 @@ $itemPadding: 6px;
             }
         }
 
-
     }
 
     .dnb-max-vh {
@@ -193,6 +193,7 @@ $transFY: 9px;
         .dnb-blog-datacontext {
             width: 100%;
             min-width: 100%;
+            margin-right: 0;
 
             .dnb-dcontext-present {
                 img {
