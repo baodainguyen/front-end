@@ -37,7 +37,7 @@ class DataItem extends Component {
         const { indexitem } = this.props
         const index = indexitem
         let width = newWidth + 6 // margin
-        if(width < 258) width = 258
+        if(width < 249) width = 249
         BlogPageArticle.dispatch(updateWidth({ index, width }))
     }
     getComputedWidth(parent, ratio, width0) {

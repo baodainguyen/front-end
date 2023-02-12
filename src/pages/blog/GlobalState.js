@@ -104,9 +104,10 @@ export const BlogPageArticle = configureStore({
 function computedListFitWith(viewWidth, listWidth) {
     const { ListComputeWidth } = this
     if (!Array.isArray(listWidth)) return []
+    const listLastIndexEachRow = []
     ListComputeWidth.splice(0)
     const maxW = 561989
-    let tW = 0, minW = maxW, minI = -1
+    let tW = 0, minW = maxW, minI = -1, maxI1Row = 0
     for (let i = 0, j = i + 1, len = listWidth.length; i < len && j < len; i++) {
         const widthI = listWidth[i]
         const widthJ = listWidth[j]
@@ -117,9 +118,31 @@ function computedListFitWith(viewWidth, listWidth) {
         tW += widthI
         const dW = viewWidth - tW
         if (widthJ > dW) {
+            if (maxI1Row < i) maxI1Row = i + 1 - maxI1Row
+            listLastIndexEachRow.push(i)
             ListComputeWidth.push(widthI)
-            const newMinW = ListComputeWidth[minI] + dW - 6 // margin
-            ListComputeWidth[minI] = newMinW
+            const newMinW = ListComputeWidth[minI] + dW - maxI1Row * 6
+            ListComputeWidth[minI] = newMinW < 249 ? 249 : newMinW
+            if (newMinW < 249) {
+                ListComputeWidth[minI] = 249
+                let mMinW = maxW, mMinI = -1, ttW = 0
+                for (let x = i - maxI1Row + 1; x <= i; x++) {
+                    if(mMinW > ListComputeWidth[x] && ListComputeWidth[x] > 249) {
+                        mMinW = ListComputeWidth[x]
+                        mMinI = x
+                    }
+                    ttW += ListComputeWidth[x]
+                }
+                const ddW = viewWidth - ttW - maxI1Row * 6 + 2
+                if(ddW > 0) {
+                    ListComputeWidth[mMinI] -= ddW
+                } else if(ddW < 0) {
+                    ListComputeWidth[mMinI] += ddW - 2
+                }
+            } else {
+                ListComputeWidth[minI] = newMinW
+            }
+            maxI1Row = i + 1
             tW = 0
             minW = maxW
             minI = -1
@@ -128,8 +151,10 @@ function computedListFitWith(viewWidth, listWidth) {
         }
         if (j == len - 1) {      // last item
             ListComputeWidth.push(widthJ)
+            listLastIndexEachRow.push(j)
         }
     }
+    //console.log(`listLastIndexEachRow`, listLastIndexEachRow)
 }
 
 function setListDataWidth() {

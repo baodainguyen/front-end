@@ -17,7 +17,7 @@ class DataList extends Component {
             this.props.setListData(lst) // setListWidth, setListComputeWidth
         })
         window.addEventListener('resize', this.onResize);
-        this.props.setWidthDataLst(window.innerWidth - 24)
+        this.props.setWidthDataLst(window.innerWidth)
     }
     componentWillUnmount = () => {
         window.removeEventListener('resize', this.onResize);
@@ -52,7 +52,7 @@ class DataList extends Component {
         const target = this.srollContainer.current
         this.checkButtonIndicationDown(target)
     }
-    onResize(e) {
+    onResize = (e) => {
         const target = document.querySelector(`.dnb-blog-datalist`)
         if (target) {
             this.props.setWidthDataLst(target.offsetWidth)

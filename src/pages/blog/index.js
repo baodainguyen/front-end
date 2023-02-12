@@ -91,10 +91,10 @@ export class DataContextWrap extends Component {
         this.getContent()
         const dataList = document.querySelector(`.dnb-blog-datalist`)
         const wDataList = dataList ? dataList.offsetWidth : 0
-        this.props.setWidthDataLst(wDataList - 21) // margin right: 21
+        this.props.setWidthDataLst(wDataList)
     }
     componentWillUnmount = () => {
-        this.props.setWidthDataLst(window.innerWidth - 24)
+        this.props.setWidthDataLst(window.innerWidth)
     }
     render() {
         const { content } = this.state
