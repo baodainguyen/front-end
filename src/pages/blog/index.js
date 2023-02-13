@@ -3,13 +3,13 @@ import React, {
     useEffect
 } from 'react'
 import { DataListProvider } from './DataList'
-import { DataContext } from './DataContext'
+import { DataContentView } from './DataContent'
 import { Provider, useSelector, connect } from 'react-redux'
 import { BlogPageArticle, setListContext, setWidthDataLst } from './GlobalState'
 import { getBlogArticle } from '../../service/base'
 import './style.scss'
 
-export class Blog extends Component {
+export class BlogProvider extends Component {
     componentDidMount = () => {
         const mainNav = document.querySelector(`#dnbApp .navbar.sticky-top`);
         mainNav.style.display = ''
@@ -17,12 +17,12 @@ export class Blog extends Component {
     render() {
         return (
             <Provider store={BlogPageArticle}>
-                <BlogMain />
+                <BlogContainer />
             </Provider>
         )
     }
 }
-function BlogMain() {
+function BlogContainer() {
     const { Index } = useSelector((state) => state.blog)
     const { Width } = useSelector((state) => state.data)
     useEffect(() => {
@@ -51,14 +51,14 @@ function BlogMain() {
     return (
         <main className='dnb-blog-container'>
             {
-                Index > -1 && Width + 24 >= 906 ? <DataContextProvider /> : ''
+                Index > -1 && Width + 24 >= 906 ? <DataContentProvider /> : ''
             }
             <DataListProvider />
         </main>
     )
 }
 
-export class DataContextWrap extends Component {
+class DataContentContainer extends Component {
     constructor(props) {
         super(props)
         this.state = { content: '...' }
@@ -100,7 +100,7 @@ export class DataContextWrap extends Component {
         const { content } = this.state
         return (
             <Suspense fallback={<div>Loading...</div>}>
-                <DataContext article={this.getArticle()}
+                <DataContentView article={this.getArticle()}
                     content={content} />
             </Suspense>
         )
@@ -115,4 +115,6 @@ const mapDispatchToProps = {
     setListContext,
     setWidthDataLst,
 }
-export const DataContextProvider = connect(mapStateToProps, mapDispatchToProps)(DataContextWrap)
+export const DataContentProvider = connect(
+    mapStateToProps,
+    mapDispatchToProps)(DataContentContainer)

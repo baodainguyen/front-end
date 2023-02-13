@@ -3,22 +3,22 @@ import { getAverageRGB } from '../../global/Globals'
 import '../../../node_modules/highlight.js/styles/rainbow.css'
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
-import { BlogPageArticle, setArticleCurrent } from './GlobalState';
+import { BlogPageArticle, setArticleCurrent } from './BlogState';
 
-export class DataContext extends Component {
+export class DataContentView extends Component {
     onCloseContent() {
         const index = -1
         const preIndx = BlogPageArticle.getState().blog.Index  // current value
         setTimeout(() => {
             const dList = document.querySelector(`.dnb-blog-datalist`)
-            if(dList) {
+            if (dList) {
                 const lstItem = dList.querySelectorAll(`.dnb-ditem-container`)
-                if(lstItem.length > preIndx){
+                if (lstItem.length > preIndx) {
                     const item = lstItem[preIndx]
                     dList.scrollTo({
                         top: item.offsetTop - 12, behavior: 'smooth'
                     })
-                }                
+                }
             }
         }, 357)
         BlogPageArticle.dispatch(setArticleCurrent({ index }))

@@ -7,7 +7,7 @@ import { Navigator } from '../src/components/BootstrapElements';
 import { SubMenu, Contact } from './components/Pages';
 import { Home } from './components/Home';
 import { Ecma } from './pages/home';
-import { Blog } from './pages/blog';
+import { BlogProvider } from './pages/blog';
 import { ES6Features } from './components/ES6Features';
 import { Resume } from './components/Resume';
 import './scss/style.scss';
@@ -42,7 +42,7 @@ class BodyPage extends Component {
     render() {
         return (
             <Routes>
-                <Route exact path="/" element={< Blog />} />
+                <Route exact path="/" element={< BlogProvider />} />
                 <Route exact path="/Main" element={< Ecma />} />
                 <Route exact path="/ES6-Features" element={< ES6Features />} />
                 <Route exact path="/Demo-00" element={< SubMenu />} />

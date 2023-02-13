@@ -4,7 +4,7 @@ import { ItemProvider } from './DataItem'
 import {
     setWidthDataLst, setListData
 } from './GlobalState'
-import { Blog, DataContextProvider } from '.'
+import { Blog, DataContentProvider } from '.'
 import { connect } from 'react-redux'
 
 class DataList extends Component {
@@ -91,7 +91,7 @@ class DataList extends Component {
         //             }
         //         })
         //     }
-        //     {index > -1 && ismobile ? <DataContextProvider /> : ''}
+        //     {index > -1 && ismobile ? <DataContentProvider /> : ''}
         //     {
         //         ListData.map((item, i) => {
         //             if (i > idx) {
@@ -124,4 +124,6 @@ const mapDispatchToProps = {
     setWidthDataLst,
     setListData,
 }
-export const DataListProvider = connect(mapStateToProps, mapDispatchToProps)(DataList)
+export const DataListProvider = connect(
+    mapStateToProps,
+    mapDispatchToProps)(DataList)
