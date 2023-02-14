@@ -187,6 +187,19 @@ $transFY: 9px;
     }
 }
 
+@media screen and (max-width: 992px) {
+    .dnb-link-group {
+
+        &>.nav-link {
+            display: none;
+        }
+
+        &>.nav-link:first-child {
+            display: block;
+        }
+    }
+}
+
 @media screen and (max-width: 905px) {
     .dnb-blog-container {
 

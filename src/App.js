@@ -21,7 +21,7 @@ export default class App extends Component {
                 { title: 'Tutorials', subs: ['Demo 00', 'Article1'] },
                 { title: 'Demo' },
                 { title: 'About' },
-                { title: 'Contact'},
+                { title: 'Contact' },
             ]
         };
     }

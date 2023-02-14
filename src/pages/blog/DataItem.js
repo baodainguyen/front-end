@@ -2,17 +2,16 @@ import React, { Component } from 'react'
 import { getAverageRGB } from '../../global/Globals'
 import { useSelector } from 'react-redux'
 import {
-    BlogPageArticle, setArticleCurrent, updateWidth
-} from './GlobalState'
+    BlogPageArticle,
+    setArticleCurrent, updateWidthItem,
+} from './BlogState'
 
 export function ItemProvider(props) {
     const Index = useSelector((state) => state.blog.Index)
     const listComputeWidth = useSelector((state) => state.data.ListComputeWidth)
-    const IsShowContext = useSelector((state) => state.blog.IsShowContext)
     return (
         <DataItem
             _indexactive={Index}
-            _isshowcontext={IsShowContext}
             _width={listComputeWidth[props.indexitem]}
             title={props.title}
             auth={props.auth}
@@ -29,16 +28,18 @@ class DataItem extends Component {
         parent.style.backgroundColor = `rgb(${r},${g},${b})`
         e.style.display = 'none'
         e?.remove()
-        const width = 450
-        const cWidth = this.getComputedWidth(parent, rto, width)
-        this.setDataListOriginWidth(cWidth)
-    }
-    setDataListOriginWidth(newWidth) {
+        const width0 = 450
+        const newWidth = this.getComputedWidth(parent, rto, width0)
         const { indexitem } = this.props
         const index = indexitem
         let width = newWidth + 6 // margin
-        if(width < 249) width = 249
-        BlogPageArticle.dispatch(updateWidth({ index, width }))
+        if (width < 249) width = 249
+        const viewwidth = window.innerWidth - 24
+        BlogPageArticle.dispatch(updateWidthItem({
+            index,
+            width,
+            viewwidth
+        }))
     }
     getComputedWidth(parent, ratio, width0) {
         const { offsetWidth, offsetHeight } = parent
@@ -64,8 +65,8 @@ class DataItem extends Component {
         BlogPageArticle.dispatch(setArticleCurrent({ index }))
     }
     render() {
-        const { title, auth, img, indexitem, _indexactive, _width } = this.props
-        console.log(indexitem, _width)
+        const { title, auth, img, indexitem,
+            _indexactive, _width } = this.props
         const isactive = indexitem == _indexactive
         const styl = {
             width: `${_width}px`, maxWidth: `${_width}px`

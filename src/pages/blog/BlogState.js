@@ -7,7 +7,6 @@ import {
 const blogSlice = createSlice({
     name: 'blog',
     initialState: {
-        IsShowContext: false,
         Index: -1,
     },
     reducers: {
@@ -15,21 +14,15 @@ const blogSlice = createSlice({
             const { index } = action.payload
             state.Index = index
         },
-        showContext: (state, action) => {
-            state.IsShowContext = true
-        },
-        hideContext: (state, action) => {
-            state.IsShowContext = false
-        },
     }
 })
 const dataSlice = createSlice({
     name: 'Data',
     initialState: {
         ListData: [],   //[{title, auth, img}]
-        Width: -1,
         ListComputeWidth: [],   //[width]
-        ListWidth: []           // [width]
+        ListWidth: [],           // [width]
+        ListLastIndexEachRow: [],
     },
     reducers: {
         setListData: (state, action) => {
@@ -37,23 +30,22 @@ const dataSlice = createSlice({
             if (!Array.isArray(lstData)) return
             lstData.forEach(d => {
                 state.ListData.push(d)
-                state.ListWidth.push(450)
+                state.ListWidth.push(248)
                 state.ListComputeWidth.push(450)
             })
         },
-        setWidthDataLst: (state, action) => {
-            const w = action.payload - 24   // .dnb-blog-datalist padding-right and left:12px
-            if (state.Width == w) return
-            state.Width = w
+        computeListWidth: (state, action) => {
+            const w = action.payload - 24   //.dnb-blog-datalist padding-right and left:12px
             if (state.ListWidth.length) {
                 computedListFitWith.call(state, w, state.ListWidth)
             }
         },
-        updateWidth: (state, action) => {
-            const { index, width } = action.payload
-            if (-1 < index && index < state.ListWidth.length) {
+        updateWidthItem: (state, action) => {
+            const { index, width, viewwidth } = action.payload
+            const lstW = state.ListWidth
+            if (-1 < index && index < lstW.length && lstW[index] < 249) {
                 state.ListWidth.splice(index, 1, width)
-                computedListFitWith.call(state, state.Width, state.ListWidth)
+                computedListFitWith.call(state, viewwidth, state.ListWidth)
             }
         }
     }
@@ -73,22 +65,21 @@ const contextSlice = createSlice({
         },
     }
 })
-export const { setArticleCurrent, showContext, hideContext } = blogSlice.actions
-export const { setWidthDataLst, setListData, updateWidth } = dataSlice.actions
+export const { setArticleCurrent } = blogSlice.actions
+export const { computeListWidth,
+    setListData, updateWidthItem } = dataSlice.actions
 export const { setListContext } = contextSlice.actions
 const customMiddleware = store => next => action => {
     switch (action.type) {
         case 'blog/setArticleCurrent':
-            const prevIndex = store.getState().blog.Index
-            const newIndex = action.payload.index
-            if (-1 < newIndex && prevIndex < 0) {
-                store.dispatch(showContext())
-            }
-            if (-1 < prevIndex && newIndex < 0) {
-                store.dispatch(hideContext())
-            }
-            break;
+            //const prevIndex = store.getState().blog.Index
+            //const newIndex = action.payload.index            
+            break
+        case 'Data/updateWidthItem':
+
+            break
     }
+    console.log(`middleware`, action)
     return next(action)
 }
 export const BlogPageArticle = configureStore({
@@ -100,59 +91,73 @@ export const BlogPageArticle = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(customMiddleware),
 })
 
-
 function computedListFitWith(viewWidth, listWidth) {
-    const { ListComputeWidth } = this
+    const { ListComputeWidth, ListLastIndexEachRow } = this
     if (!Array.isArray(listWidth)) return []
-    const listLastIndexEachRow = []
+    const ismoble = isMobile(viewWidth)
+    ListLastIndexEachRow.splice(0)
     ListComputeWidth.splice(0)
-    const maxW = 561989
-    let tW = 0, minW = maxW, minI = -1, maxI1Row = 0
-    for (let i = 0, j = i + 1, len = listWidth.length; i < len && j < len; i++) {
-        const widthI = listWidth[i]
-        const widthJ = listWidth[j]
-        if (widthI < minW) {
-            minW = widthI
-            minI = i
-        }
-        tW += widthI
-        const dW = viewWidth - tW
-        if (widthJ > dW) {
-            if (maxI1Row < i) maxI1Row = i + 1 - maxI1Row
-            listLastIndexEachRow.push(i)
-            ListComputeWidth.push(widthI)
-            const newMinW = ListComputeWidth[minI] + dW - maxI1Row * 6
-            ListComputeWidth[minI] = newMinW < 249 ? 249 : newMinW
-            if (newMinW < 249) {
-                ListComputeWidth[minI] = 249
-                let mMinW = maxW, mMinI = -1, ttW = 0
-                for (let x = i - maxI1Row + 1; x <= i; x++) {
-                    if(mMinW > ListComputeWidth[x] && ListComputeWidth[x] > 249) {
-                        mMinW = ListComputeWidth[x]
-                        mMinI = x
-                    }
-                    ttW += ListComputeWidth[x]
-                }
-                const ddW = viewWidth - ttW - maxI1Row * 6 + 2
-                if(ddW > 0) {
-                    ListComputeWidth[mMinI] -= ddW
-                } else if(ddW < 0) {
-                    ListComputeWidth[mMinI] += ddW - 2
-                }
-            } else {
-                ListComputeWidth[minI] = newMinW
+    if (viewWidth <= 414) {
+        listWidth.forEach((w, __i) => {
+            ListComputeWidth.push(viewWidth - 6)
+            ListLastIndexEachRow.push(__i)
+        })
+    } else {
+        const maxW = 561989
+        let tW = 0, minW = maxW, minI = -1, maxI1Row = 0
+        for (let i = 0, j = 0, len = listWidth.length; j < len; i++) {
+            const widthJ = listWidth[++j]
+            if (j >= len) break
+            const widthI = listWidth[i]
+            if (widthI < minW) {
+                minW = widthI
+                minI = i
             }
-            maxI1Row = i + 1
-            tW = 0
-            minW = maxW
-            minI = -1
-        } else {
-            ListComputeWidth.push(widthI)
-        }
-        if (j == len - 1) {      // last item
-            ListComputeWidth.push(widthJ)
-            listLastIndexEachRow.push(j)
+            tW += widthI
+            const dW = viewWidth - tW
+            if (widthJ > dW) {
+                if (maxI1Row < i) maxI1Row = i + 1 - maxI1Row
+                if (ismoble) ListLastIndexEachRow.push(i)
+                ListComputeWidth.push(widthI)
+                const newMinW = ListComputeWidth[minI] + dW - maxI1Row * 6
+                ListComputeWidth[minI] = newMinW < 249 ? 249 : newMinW
+                if (newMinW < 249) {
+                    ListComputeWidth[minI] = 249
+                    let mMinW = maxW, mMinI = -1, ttW = 0
+                    for (let x = i - maxI1Row + 1; x <= i; x++) {
+                        if (mMinW > ListComputeWidth[x] && ListComputeWidth[x] > 249) {
+                            mMinW = ListComputeWidth[x]
+                            mMinI = x
+                        }
+                        ttW += ListComputeWidth[x]
+                    }
+                    const ddW = viewWidth - ttW - maxI1Row * 6 + 2
+                    if (ddW > 0) {
+                        ListComputeWidth[mMinI] -= ddW
+                    } else if (ddW < 0) {
+                        ListComputeWidth[mMinI] += ddW - 2
+                    }
+                } else {
+                    ListComputeWidth[minI] = newMinW
+                }
+                maxI1Row = i + 1
+                tW = 0
+                minW = maxW
+                minI = -1
+            } else {
+                ListComputeWidth.push(widthI)
+            }
+            if (j == len - 1) {      // last item
+                ListComputeWidth.push(widthJ)
+                if (ismoble) ListLastIndexEachRow.push(j)
+            }
         }
     }
-    //console.log(`listLastIndexEachRow`, listLastIndexEachRow)
+    // if(listWidth.length == ListLastIndexEachRow.length) {
+    //     ListLastIndexEachRow.splice(0)
+    // }
+}
+export function isMobile(viewWidth) {
+    const w = viewWidth || this.innerWidth
+    return w < 906
 }

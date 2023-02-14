@@ -5,7 +5,10 @@ import React, {
 import { DataListProvider } from './DataList'
 import { DataContentView } from './DataContent'
 import { Provider, useSelector, connect } from 'react-redux'
-import { BlogPageArticle, setListContext, setWidthDataLst } from './GlobalState'
+import {
+    BlogPageArticle, isMobile,
+    computeListWidth, setListContext,
+} from './BlogState'
 import { getBlogArticle } from '../../service/base'
 import './style.scss'
 
@@ -15,43 +18,40 @@ export class BlogProvider extends Component {
         mainNav.style.display = ''
     }
     render() {
+        const ismble = isMobile.call(window)
         return (
             <Provider store={BlogPageArticle}>
-                <BlogContainer />
+                <BlogContainer _is_mobile={ismble} />
             </Provider>
         )
     }
 }
-function BlogContainer() {
+function BlogContainer({ _is_mobile }) {
     const { Index } = useSelector((state) => state.blog)
-    const { Width } = useSelector((state) => state.data)
     useEffect(() => {
         //  window.scrollTo(0, 0)
         const dList = document.querySelector(`.dnb-blog-datalist`)
-        if (dList) {
-            const dContext = dList.querySelector(`.dnb-blog-datacontext`)
-            if (dContext) {
-                if (-1 < Index) {
-                    if (Width + 24 < 906) {
-                        dList.scrollTo({
-                            top: dContext.offsetTop - 12
-                        })
-                        dContext.style.maxHeight = 'initial'
-                    } else {
-                        dContext.style.maxHeight = ''
-                        dContext.scrollTo({
-                            top: 0, behavior: 'smooth'
-                        })
-                    }
+        const dContext = document.querySelector(`.dnb-blog-datacontext`)
+        if (dList && dContext) {
+            if (-1 < Index) {
+                if (_is_mobile) {
+                    dList.scrollTo({
+                        top: dContext.offsetTop - 12
+                    })
+                    dContext.style.maxHeight = 'initial'
+                } else {
+                    dContext.style.maxHeight = ''
+                    dContext.scrollTo({
+                        top: 0, behavior: 'smooth'
+                    })
                 }
-                //console.log(`Blog Main width`, dContext.offsetWidth)
             }
         }
     })
     return (
         <main className='dnb-blog-container'>
             {
-                Index > -1 && Width + 24 >= 906 ? <DataContentProvider /> : ''
+                Index > -1 && !_is_mobile ? <DataContentProvider /> : ''
             }
             <DataListProvider />
         </main>
@@ -79,7 +79,10 @@ class DataContentContainer extends Component {
             const dt = listdata[indexactive]
             getBlogArticle(dt.title).then(article => {  // {title, context}
                 const { context } = article ? article : { context: '' }
-                this.props.setListContext({ index: indexactive, content: context })
+                this.props.setListContext({
+                    index: indexactive,
+                    content: context
+                })
                 if (context != content) this.setState({ content: context })
             })
         }
@@ -89,12 +92,18 @@ class DataContentContainer extends Component {
     }
     componentDidMount = () => {
         this.getContent()
-        const dataList = document.querySelector(`.dnb-blog-datalist`)
-        const wDataList = dataList ? dataList.offsetWidth : 0
-        this.props.setWidthDataLst(wDataList)
+        const ismoble = isMobile.call(window)
+        if (ismoble) {
+            this.props.computeListWidth(window.innerWidth)
+        } else {
+            const dLst = document.querySelector(`.dnb-blog-datalist`)
+            const wDLst = dLst ? dLst.offsetWidth : window.innerWidth
+            this.props.computeListWidth(wDLst)
+        }
+        console.log(`DataContentContainer`)
     }
     componentWillUnmount = () => {
-        this.props.setWidthDataLst(window.innerWidth)
+        this.props.computeListWidth(window.innerWidth)
     }
     render() {
         const { content } = this.state
@@ -113,7 +122,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = {
     setListContext,
-    setWidthDataLst,
+    computeListWidth,
 }
 export const DataContentProvider = connect(
     mapStateToProps,
